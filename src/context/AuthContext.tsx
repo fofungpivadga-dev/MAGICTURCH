@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode, useRef } from 'react';
-import { onAuthStateChanged, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
+import { onAuthStateChanged, signInWithRedirect, getRedirectResult, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db, googleProvider } from '../lib/firebase';
 import type { AppUser, Coupon } from '../types';
@@ -40,39 +40,50 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return unsubscribe;
   }, []);
 
-  const signInWithGoogle = async (): Promise<AppUser> => {
-    const result = await signInWithPopup(auth, googleProvider);
-    const fbUser = result.user;
-    const userDocRef = doc(db, 'users', fbUser.uid);
-    const userDoc = await getDoc(userDocRef);
-    const now = Date.now();
+  useEffect(() => {
+    getRedirectResult(auth).then(async (result) => {
+      if (!result) return;
+      const fbUser = result.user;
+      const userDocRef = doc(db, 'users', fbUser.uid);
+      const userDoc = await getDoc(userDocRef);
+      const now = Date.now();
 
-    if (fbUser.email === import.meta.env.VITE_ADMIN_EMAIL) {
-      if (!userDoc.exists()) {
-        await setDoc(userDocRef, {
-          uid: fbUser.uid, email: fbUser.email, displayName: fbUser.displayName, photoURL: fbUser.photoURL,
-          role: 'admin' as const, accountStatus: 'active' as const, createdAt: now,
-          profile: {
-            name: fbUser.displayName || '', businessName: '', bio: '', yearsOfExperience: 0,
-            photoUrl: fbUser.photoURL || '', coverImageUrl: '', whatsappNumber: '', phoneNumber: '',
-            email: fbUser.email || '', serviceAreas: [], regions: [], cities: [], specialties: [],
-            availability: true, workingHours: '',
-          },
-        });
+      if (fbUser.email === import.meta.env.VITE_ADMIN_EMAIL) {
+        if (!userDoc.exists()) {
+          await setDoc(userDocRef, {
+            uid: fbUser.uid, email: fbUser.email, displayName: fbUser.displayName, photoURL: fbUser.photoURL,
+            role: 'admin' as const, accountStatus: 'active' as const, createdAt: now,
+            profile: {
+              name: fbUser.displayName || '', businessName: '', bio: '', yearsOfExperience: 0,
+              photoUrl: fbUser.photoURL || '', coverImageUrl: '', whatsappNumber: '', phoneNumber: '',
+              email: fbUser.email || '', serviceAreas: [], regions: [], cities: [], specialties: [],
+              availability: true, workingHours: '',
+            },
+          });
+        }
+        const adminUser = (await getDoc(userDocRef)).data() as AppUser;
+        setUser(adminUser);
+        window.location.href = '/dashboard';
+        return;
       }
-      const adminUser = (await getDoc(userDocRef)).data() as AppUser;
-      setUser(adminUser);
-      return adminUser;
-    }
 
-    if (userDoc.exists()) {
-      const userData = userDoc.data() as AppUser;
-      setUser(userData);
-      return userData;
-    }
+      if (userDoc.exists()) {
+        const userData = userDoc.data() as AppUser;
+        setUser(userData);
+        window.location.href = '/dashboard';
+        return;
+      }
 
-    pendingFbUser.current = fbUser;
-    throw new Error('COUPON_REQUIRED');
+      localStorage.setItem('pendingCouponUid', fbUser.uid);
+      if (fbUser.displayName) localStorage.setItem('pendingCouponName', fbUser.displayName);
+      if (fbUser.photoURL) localStorage.setItem('pendingCouponPhoto', fbUser.photoURL);
+      window.location.href = '/join?coupon_required=true';
+    }).catch(() => {});
+  }, []);
+
+  const signInWithGoogle = async (): Promise<AppUser> => {
+    await signInWithRedirect(auth, googleProvider);
+    return new Promise<AppUser>(() => {});
   };
 
   const signInWithEmail = async (email: string, password: string): Promise<AppUser> => {
@@ -151,7 +162,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const registerWithCoupon = async (couponCode: string): Promise<AppUser> => {
-    const fbUser = pendingFbUser.current;
+    const pendingUid = localStorage.getItem('pendingCouponUid');
+    const fbUser = pendingFbUser.current || (pendingUid ? auth.currentUser : null);
     if (!fbUser) throw new Error('No pending registration. Sign in first.');
 
     const now = Date.now();
@@ -195,6 +207,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(newUser);
     pendingFbUser.current = null;
     pendingDisplayName.current = '';
+    localStorage.removeItem('pendingCouponUid');
+    localStorage.removeItem('pendingCouponName');
+    localStorage.removeItem('pendingCouponPhoto');
     return newUser;
   };
 

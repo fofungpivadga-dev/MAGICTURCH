@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
@@ -11,8 +11,20 @@ export default function Join() {
   const [searchParams] = useSearchParams();
   const [mode, setMode] = useState<'signup' | 'signin'>(searchParams.get('mode') === 'signin' ? 'signin' : 'signup');
   const [couponCode, setCouponCode] = useState('');
-  const [step, setStep] = useState<'choose' | 'coupon' | 'processing'>('choose');
+  const [step, setStep] = useState<'choose' | 'coupon' | 'processing'>(
+    searchParams.get('coupon_required') === 'true' ? 'coupon' : 'choose'
+  );
+
   const [emailForm, setEmailForm] = useState({ displayName: '', email: '', password: '' });
+
+  useEffect(() => {
+    if (searchParams.get('coupon_required') === 'true') {
+      const name = localStorage.getItem('pendingCouponName');
+      if (name) {
+        setEmailForm(f => ({ ...f, displayName: name }));
+      }
+    }
+  }, []);
   const [signInForm, setSignInForm] = useState({ email: '', password: '' });
   const [validating, setValidating] = useState(false);
   const [creating, setCreating] = useState(false);
