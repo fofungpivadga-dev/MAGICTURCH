@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode, useRef } from 'react';
-import { onAuthStateChanged, signInWithRedirect, getRedirectResult, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
+import { onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db, googleProvider } from '../lib/firebase';
 import type { AppUser, Coupon } from '../types';
@@ -40,50 +40,75 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return unsubscribe;
   }, []);
 
+  async function processGoogleUser(fbUser: User): Promise<AppUser> {
+    const userDocRef = doc(db, 'users', fbUser.uid);
+    const userDoc = await getDoc(userDocRef);
+    const now = Date.now();
+
+    if (fbUser.email === import.meta.env.VITE_ADMIN_EMAIL) {
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, {
+          uid: fbUser.uid, email: fbUser.email, displayName: fbUser.displayName, photoURL: fbUser.photoURL,
+          role: 'admin' as const, accountStatus: 'active' as const, createdAt: now,
+          profile: {
+            name: fbUser.displayName || '', businessName: '', bio: '', yearsOfExperience: 0,
+            photoUrl: fbUser.photoURL || '', coverImageUrl: '', whatsappNumber: '', phoneNumber: '',
+            email: fbUser.email || '', serviceAreas: [], regions: [], cities: [], specialties: [],
+            availability: true, workingHours: '',
+          },
+        });
+      }
+      const adminUser = (await getDoc(userDocRef)).data() as AppUser;
+      setUser(adminUser);
+      return adminUser;
+    }
+
+    if (userDoc.exists()) {
+      const userData = userDoc.data() as AppUser;
+      setUser(userData);
+      return userData;
+    }
+
+    pendingFbUser.current = fbUser;
+    if (fbUser.displayName) pendingDisplayName.current = fbUser.displayName;
+    throw new Error('COUPON_REQUIRED');
+  }
+
   useEffect(() => {
     getRedirectResult(auth).then(async (result) => {
       if (!result) return;
       const fbUser = result.user;
-      const userDocRef = doc(db, 'users', fbUser.uid);
-      const userDoc = await getDoc(userDocRef);
-      const now = Date.now();
-
-      if (fbUser.email === import.meta.env.VITE_ADMIN_EMAIL) {
-        if (!userDoc.exists()) {
-          await setDoc(userDocRef, {
-            uid: fbUser.uid, email: fbUser.email, displayName: fbUser.displayName, photoURL: fbUser.photoURL,
-            role: 'admin' as const, accountStatus: 'active' as const, createdAt: now,
-            profile: {
-              name: fbUser.displayName || '', businessName: '', bio: '', yearsOfExperience: 0,
-              photoUrl: fbUser.photoURL || '', coverImageUrl: '', whatsappNumber: '', phoneNumber: '',
-              email: fbUser.email || '', serviceAreas: [], regions: [], cities: [], specialties: [],
-              availability: true, workingHours: '',
-            },
-          });
-        }
-        const adminUser = (await getDoc(userDocRef)).data() as AppUser;
-        setUser(adminUser);
-        window.location.href = '/dashboard';
-        return;
-      }
-
-      if (userDoc.exists()) {
-        const userData = userDoc.data() as AppUser;
-        setUser(userData);
-        window.location.href = '/dashboard';
-        return;
-      }
-
-      localStorage.setItem('pendingCouponUid', fbUser.uid);
-      if (fbUser.displayName) localStorage.setItem('pendingCouponName', fbUser.displayName);
-      if (fbUser.photoURL) localStorage.setItem('pendingCouponPhoto', fbUser.photoURL);
-      window.location.href = '/join?coupon_required=true';
-    }).catch(() => {});
+      await handleRedirectUser(fbUser);
+    }).catch((err) => {
+      console.error('Redirect sign-in error:', err);
+    });
   }, []);
 
+  async function handleRedirectUser(fbUser: User) {
+    try {
+      await processGoogleUser(fbUser);
+      window.location.href = '/dashboard';
+    } catch (err: any) {
+      if (err.message === 'COUPON_REQUIRED') {
+        localStorage.setItem('pendingCouponUid', fbUser.uid);
+        if (fbUser.displayName) localStorage.setItem('pendingCouponName', fbUser.displayName);
+        if (fbUser.photoURL) localStorage.setItem('pendingCouponPhoto', fbUser.photoURL);
+        window.location.href = '/join?coupon_required=true';
+      }
+    }
+  }
+
   const signInWithGoogle = async (): Promise<AppUser> => {
-    await signInWithRedirect(auth, googleProvider);
-    return new Promise<AppUser>(() => {});
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      return await processGoogleUser(result.user);
+    } catch (err: any) {
+      if (err.code === 'auth/popup-blocked' || err.code === 'auth/popup-closed-by-user') {
+        await signInWithRedirect(auth, googleProvider);
+        return new Promise<AppUser>(() => {});
+      }
+      throw err;
+    }
   };
 
   const signInWithEmail = async (email: string, password: string): Promise<AppUser> => {
