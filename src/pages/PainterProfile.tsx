@@ -42,8 +42,14 @@ export default function PainterProfile() {
       });
       toast.success(t('review.submitted'));
       setReviewForm({ reviewerName: '', rating: 5, text: '' });
-      const reviewQuery = query(collection(db, 'reviews'), where('painterId', '==', id), orderBy('createdAt', 'desc'));
-      const reviewSnap = await getDocs(reviewQuery);
+      let reviewSnap;
+      try {
+        const reviewQuery = query(collection(db, 'reviews'), where('painterId', '==', id), orderBy('createdAt', 'desc'));
+        reviewSnap = await getDocs(reviewQuery);
+      } catch {
+        const reviewQuery = query(collection(db, 'reviews'), where('painterId', '==', id));
+        reviewSnap = await getDocs(reviewQuery);
+      }
       setReviews(reviewSnap.docs.map(d => ({ id: d.id, ...d.data() } as Review)));
     } catch {
       toast.error(t('review.error'));
@@ -78,17 +84,26 @@ export default function PainterProfile() {
           setAlbums(albumSnap.docs.map(d => ({ id: d.id, ...d.data() } as PortfolioAlbum)));
         }
 
-        const reviewQuery = query(
-          collection(db, 'reviews'),
-          where('painterId', '==', id),
-          orderBy('createdAt', 'desc')
-        );
-        const reviewSnap = await getDocs(reviewQuery);
+        let reviewSnap;
+        try {
+          const reviewQuery = query(
+            collection(db, 'reviews'),
+            where('painterId', '==', id),
+            orderBy('createdAt', 'desc')
+          );
+          reviewSnap = await getDocs(reviewQuery);
+        } catch {
+          const reviewQuery = query(
+            collection(db, 'reviews'),
+            where('painterId', '==', id)
+          );
+          reviewSnap = await getDocs(reviewQuery);
+        }
         if (!reviewSnap.empty) {
           setReviews(reviewSnap.docs.map(d => ({ id: d.id, ...d.data() } as Review)));
         }
       } catch (err) {
-        console.log('Firebase error', err);
+        console.error('Firebase error', err);
       }
       setLoading(false);
     };
