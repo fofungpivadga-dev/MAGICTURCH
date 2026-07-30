@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { collection, query, getDocs, orderBy, limit, doc, getDoc } from 'firebase/firestore';
+import { collection, query, getDocs, orderBy, doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import type { HomepageGalleryItem, HomepageContent } from '../types';
 import { FaArrowRight, FaCheckCircle, FaPaintRoller, FaUserFriends, FaShieldAlt, FaWhatsapp, FaSearch, FaThumbtack } from 'react-icons/fa';

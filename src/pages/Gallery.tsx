@@ -4,7 +4,7 @@ import { db } from '../lib/firebase';
 import type { HomepageGalleryItem } from '../types';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaArrowLeft, FaSearch, FaThumbtack, FaTimes } from 'react-icons/fa';
+import { FaArrowLeft, FaSearch, FaThumbtack } from 'react-icons/fa';
 import { useTranslation } from '../lib/translations';
 import ImageLightbox from '../components/ImageLightbox';
 
