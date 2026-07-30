@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #E4572E;
+  --color-secondary: #0F6B5C;
+  --color-accent: #D9A441;
+  --color-dark: #121212;
+  --color-surface: #1E1E1E;
+  --color-surface-light: #2A2A2A;
+  --color-text: #FFFFFF;
+  --color-text-muted: #D4D0C8;
+  --color-whatsapp: #25D366;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #121212;
+  color: var(--color-text);
+  margin: 0;
+  overflow-x: hidden;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg transform='rotate(135 24 24)'%3E%3Crect x='16' y='1' width='10' height='20' rx='2' fill='%23A0724A' stroke='%238B5E3C' stroke-width='0.5'/%3E%3Crect x='15' y='21' width='12' height='6' rx='1' fill='%23C0C0C0' stroke='%23999' stroke-width='0.5'/%3E%3Crect x='13' y='27' width='16' height='14' rx='2' fill='%23E4572E'/%3E%3Crect x='13' y='39' width='16' height='5' rx='1' fill='%23D9A441'/%3E%3C/g%3E%3C/svg%3E") 8 10, auto;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: -100%;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 25% 25%, rgba(200, 55, 55, 1) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 75% 75%, rgba(15, 107, 92, 1) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 30% 75%, rgba(25, 40, 80, 1) 0%, transparent 40%),
+    radial-gradient(ellipse 30% 40% at 70% 30%, rgba(15, 107, 92, 1) 0%, transparent 40%);
+  transform: translate(var(--bg-offset-x, 0%), var(--bg-offset-y, 0%));
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+  pointer-events: none;
+  animation: bgBreathe 20s ease-in-out infinite;
+}
+
+@keyframes bgBreathe {
+  0%, 100% { filter: brightness(1) saturate(1); }
+  25% { filter: brightness(1.1) saturate(1.15); }
+  50% { filter: brightness(0.95) saturate(0.9); }
+  75% { filter: brightness(1.05) saturate(1.1); }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #E4572E, #D9A441);
+  color: #121212;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(228, 87, 46, 0.4);
+}
+
+.btn-whatsapp {
+  background: #25D366;
+  color: white;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-outline:hover {
+  border-color: var(--color-primary);
+  background: rgba(228, 87, 46, 0.1);
+}
+
+.input-field {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: var(--color-text);
+  width: 100%;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Inputs with icons — higher specificity to override base padding */
+.input-field.has-icon {
+  padding-left: 40px;
+}
+
+.input-field.has-icon-sm {
+  padding-left: 32px;
+}
+
+.input-field:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(217, 164, 65, 0.2);
+}
+
+.input-field::placeholder {
+  color: var(--color-text-muted);
+}
+
+select.input-field {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23D4D0C8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+select.input-field option {
+  background: #1E1E1E;
+  color: #FFFFFF;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1E1E1E;
+}
+::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Focus Ring Utility */
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid #D9A441;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Toast Custom Styles */
+.toast-custom {
+  background: #1E1E1E !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(12px) !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Skeleton Animation */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #2A2A2A 25%, #3a3a3a 50%, #2A2A2A 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 12px;
+}
+
+/* Styled File Upload */
+.file-upload-zone {
+  background: rgba(255,255,255,0.03);
+  border: 2px dashed rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.file-upload-zone:hover {
+  border-color: #D9A441;
+  background: rgba(217,164,65,0.05);
+}
+
+/* Table Alternating Rows */
+.table-row-alt:nth-child(even) {
+  background: rgba(255,255,255,0.02);
+}
+.table-row-alt:hover {
+  background: rgba(255,255,255,0.06) !important;
+}
