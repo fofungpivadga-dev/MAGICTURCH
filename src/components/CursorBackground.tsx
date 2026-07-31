@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-const AMPLITUDE = 30;
+const AMPLITUDE = 34;
+const PARALLAX_AMPLITUDE = 20;
 const AUTO_SPEED = 0.015;
 
 export default function CursorBackground() {
@@ -16,13 +17,21 @@ export default function CursorBackground() {
 
     userInteracted.current = false;
 
-    const handleMove = (cx: number, cy: number) => {
+    const applyOffsets = (cx: number, cy: number) => {
       if (!el) return;
-      userInteracted.current = true;
       const x = (cx / window.innerWidth - 0.5) * AMPLITUDE;
       const y = (cy / window.innerHeight - 0.5) * AMPLITUDE;
+      const px = (cx / window.innerWidth - 0.5) * PARALLAX_AMPLITUDE;
+      const py = (cy / window.innerHeight - 0.5) * PARALLAX_AMPLITUDE;
       el.style.setProperty('--bg-offset-x', `${x}%`);
       el.style.setProperty('--bg-offset-y', `${y}%`);
+      el.style.setProperty('--bg-parallax-x', `${px}%`);
+      el.style.setProperty('--bg-parallax-y', `${py}%`);
+    };
+
+    const handleMove = (cx: number, cy: number) => {
+      userInteracted.current = true;
+      applyOffsets(cx, cy);
     };
 
     const onMouse = (e: MouseEvent) => handleMove(e.clientX, e.clientY);
@@ -35,12 +44,9 @@ export default function CursorBackground() {
     const autoAnimate = () => {
       if (!userInteracted.current) {
         timeRef.current += AUTO_SPEED;
-        const cx = window.innerWidth / 2 + Math.sin(timeRef.current) * window.innerWidth * 0.3;
-        const cy = window.innerHeight / 2 + Math.cos(timeRef.current * 0.7) * window.innerHeight * 0.3;
-        const x = (cx / window.innerWidth - 0.5) * AMPLITUDE;
-        const y = (cy / window.innerHeight - 0.5) * AMPLITUDE;
-        el?.style.setProperty('--bg-offset-x', `${x}%`);
-        el?.style.setProperty('--bg-offset-y', `${y}%`);
+        const cx = window.innerWidth / 2 + Math.sin(timeRef.current) * window.innerWidth * 0.35;
+        const cy = window.innerHeight / 2 + Math.cos(timeRef.current * 0.7) * window.innerHeight * 0.35;
+        applyOffsets(cx, cy);
       }
       autoRef.current = requestAnimationFrame(autoAnimate);
     };
