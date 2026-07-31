@@ -25,9 +25,9 @@
 body {
   font-family: 'Inter', sans-serif;
   background:
-    radial-gradient(ellipse 140% 90% at 50% -30%, rgba(30, 60, 130, 0.35) 0%, transparent 65%),
-    radial-gradient(ellipse 120% 90% at 50% 130%, rgba(10, 30, 80, 0.4) 0%, transparent 60%),
-    #0B1B3B;
+    radial-gradient(ellipse 140% 90% at 50% -30%, rgba(38, 32, 30, 0.9) 0%, transparent 65%),
+    radial-gradient(ellipse 120% 90% at 50% 130%, rgba(10, 30, 26, 0.8) 0%, transparent 60%),
+    #0A0A0C;
   color: var(--color-text);
   margin: 0;
   overflow-x: hidden;
