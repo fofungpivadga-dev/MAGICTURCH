@@ -67,13 +67,13 @@ export default function App() {
           toastOptions={{
             className: 'toast-custom',
             style: {
-              background: '#0000cc',
-              color: '#FFFFFF',
+              background: '#1E1E1E',
+              color: '#F5F0E8',
               border: '1px solid rgba(255,255,255,0.1)',
               borderRadius: '12px',
             },
-            success: { iconTheme: { primary: '#25D366', secondary: '#0000cc' } },
-            error: { iconTheme: { primary: '#ff3333', secondary: '#0000cc' } },
+            success: { iconTheme: { primary: '#25D366', secondary: '#1E1E1E' } },
+            error: { iconTheme: { primary: '#E4572E', secondary: '#1E1E1E' } },
           }}
         />
         <AnimatedRoutes />

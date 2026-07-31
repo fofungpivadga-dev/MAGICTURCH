@@ -383,7 +383,7 @@ export default function Admin() {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 focus-ring ${
               activeTab === tab.id
-                ? 'bg-primary text-white'
+                ? 'bg-primary text-dark'
                 : 'glass text-text-muted hover:text-text'
             }`}
           >

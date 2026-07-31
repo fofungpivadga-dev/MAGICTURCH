@@ -57,7 +57,7 @@ export default function PortfolioGallery({ items, albums }: PortfolioGalleryProp
               </div>
             </div>
             {item.isBeforeAfter && (
-              <span className="absolute top-2 left-2 px-2 py-1 rounded bg-accent/90 text-xs font-semibold text-white">
+              <span className="absolute top-2 left-2 px-2 py-1 rounded bg-accent/90 text-xs font-semibold text-dark">
                 {t('project.beforeAfter')}
               </span>
             )}

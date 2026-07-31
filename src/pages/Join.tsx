@@ -143,13 +143,13 @@ export default function Join() {
           <div className="flex rounded-xl bg-white/5 p-1 mb-6">
             <button
               onClick={() => { setMode('signup'); setStep('choose'); }}
-              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors focus-ring ${mode === 'signup' ? 'bg-accent text-white' : 'text-text-muted hover:text-text'}`}
+              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors focus-ring ${mode === 'signup' ? 'bg-accent text-dark' : 'text-text-muted hover:text-text'}`}
             >
               {t('join.tab')}
             </button>
             <button
               onClick={() => { setMode('signin'); }}
-              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors focus-ring ${mode === 'signin' ? 'bg-accent text-white' : 'text-text-muted hover:text-text'}`}
+              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors focus-ring ${mode === 'signin' ? 'bg-accent text-dark' : 'text-text-muted hover:text-text'}`}
             >
               {t('signin.tab')}
             </button>
