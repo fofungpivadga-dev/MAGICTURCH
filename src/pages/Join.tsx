@@ -143,13 +143,13 @@ export default function Join() {
           <div className="flex rounded-xl bg-[#F1EAD9] p-1 mb-6">
             <button
               onClick={() => { setMode('signup'); setStep('choose'); }}
-              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors focus-ring ${mode === 'signup' ? 'bg-accent text-dark' : 'text-text-muted hover:text-text'}`}
+              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors focus-ring ${mode === 'signup' ? 'bg-accent text-white' : 'text-text-muted hover:text-text'}`}
             >
               {t('join.tab')}
             </button>
             <button
               onClick={() => { setMode('signin'); }}
-              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors focus-ring ${mode === 'signin' ? 'bg-accent text-dark' : 'text-text-muted hover:text-text'}`}
+              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors focus-ring ${mode === 'signin' ? 'bg-accent text-white' : 'text-text-muted hover:text-text'}`}
             >
               {t('signin.tab')}
             </button>
@@ -308,7 +308,7 @@ export default function Join() {
         </div>
 
         {mode === 'signup' && step === 'choose' && (
-          <div className="mt-6 p-4 rounded-xl bg-surface-light border border-[#E9E0CC] text-center">
+          <div className="mt-6 p-4 rounded-xl bg-surface-light border border-[#EDE3C8] text-center">
             <p className="text-text-muted text-sm font-medium mb-1">{t('join.noCouponDesc')}</p>
             <p className="text-text-muted text-xs mb-3">{t('join.noCoupon')}</p>
             <div className="flex items-center justify-center gap-3">

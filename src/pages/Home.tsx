@@ -60,7 +60,7 @@ export default function Home() {
     photo: i.painterPhotoUrl || '',
     initial: (i.painterName || 'M').trim().charAt(0).toUpperCase(),
   }));
-  const avatarColors = ['bg-[#C9A24B]', 'bg-[#8A7A66]', 'bg-[#B0854A]', 'bg-[#6B7280]'];
+  const avatarColors = ['bg-[#1C1917]', 'bg-[#6F4A00]', 'bg-[#8A5A00]', 'bg-[#6B6256]'];
 
   return (
     <div>
@@ -79,7 +79,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-semibold mb-6"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1C1917] border border-[#1C1917] text-[#EAB308] text-xs font-semibold mb-6"
               >
                 <FaPaintRoller size={12} /> {t('hero.badge')}
               </motion.div>
@@ -187,7 +187,7 @@ export default function Home() {
                         muted
                         loop
                         playsInline
-                        className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg border border-[#E7E5E4]"
+                        className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg border border-[#EDE3C8]"
                         onError={e => {
                           (e.target as HTMLElement).style.display = 'none';
                           const placeholder = (e.target as HTMLElement).nextElementSibling;
@@ -196,7 +196,7 @@ export default function Home() {
                       >
                         <source src={src} />
                       </video>
-                      <div className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-[#D6D3D1] items-center justify-center bg-[#F5F5F4] hidden">
+                      <div className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-[#D8CBB0] items-center justify-center bg-[#FBF3DF] hidden">
                         <p className="text-text-muted text-xs">Ad Space</p>
                       </div>
                       {heroLinks[i]?.linkUrl && (
@@ -271,7 +271,7 @@ export default function Home() {
 
       {/* Featured Craft — Pinned Portfolio Images */}
       {pinnedItems.length > 0 && (
-        <section className="py-16 px-4 bg-surface/50">
+        <section className="py-16 px-4 bg-white/60">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-10">
               <motion.div

@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #C9A24B;
-  --color-secondary: #78716C;
-  --color-accent: #C9A24B;
+  --color-primary: #8A5A00;
+  --color-secondary: #6B6256;
+  --color-accent: #8A5A00;
   --color-dark: #1C1917;
   --color-surface: #FFFFFF;
-  --color-surface-light: #F5F5F4;
+  --color-surface-light: #FBF3DF;
   --color-text: #292524;
-  --color-text-muted: #78716C;
+  --color-text-muted: #6F675C;
   --color-whatsapp: #25D366;
 }
 
@@ -33,26 +33,26 @@ h1, h2, h3, h4, h5, h6 {
 
 .glass {
   background: #FFFFFF;
-  border: 1px solid #E7E5E4;
+  border: 1px solid #EDE3C8;
   border-radius: 16px;
 }
 
 .glass-card {
   background: #FFFFFF;
-  border: 1px solid #E7E5E4;
+  border: 1px solid #EDE3C8;
   border-radius: 16px;
   transition: all 0.3s ease;
 }
 
 .glass-card:hover {
-  border-color: #C9A24B;
+  border-color: #8A5A00;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(28, 25, 23, 0.06);
+  box-shadow: 0 8px 24px rgba(28, 25, 23, 0.08);
 }
 
 .btn-primary {
-  background: #C9A24B;
-  color: #1C1917;
+  background: #8A5A00;
+  color: #FFFFFF;
   font-weight: 600;
   padding: 10px 24px;
   border-radius: 10px;
@@ -63,9 +63,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary:hover {
-  background: #B8942F;
+  background: #6F4A00;
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(201, 162, 75, 0.35);
+  box-shadow: 0 4px 16px rgba(138, 90, 0, 0.35);
 }
 
 .btn-whatsapp {
@@ -91,7 +91,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-outline {
   background: transparent;
   color: #292524;
-  border: 1px solid #D6D3D1;
+  border: 1px solid #292524;
   padding: 10px 24px;
   border-radius: 10px;
   cursor: pointer;
@@ -100,13 +100,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-outline:hover {
-  border-color: #C9A24B;
-  background: rgba(201, 162, 75, 0.08);
+  background: rgba(28, 25, 23, 0.06);
+  transform: translateY(-1px);
 }
 
 .input-field {
   background: #FFFFFF;
-  border: 1px solid #D6D3D1;
+  border: 1px solid #D8CBB0;
   border-radius: 10px;
   padding: 12px 16px;
   color: #292524;
@@ -126,17 +126,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .input-field:focus {
-  border-color: #C9A24B;
-  box-shadow: 0 0 0 2px rgba(201, 162, 75, 0.2);
+  border-color: #8A5A00;
+  box-shadow: 0 0 0 2px rgba(138, 90, 0, 0.2);
 }
 
 .input-field::placeholder {
-  color: #A8A29E;
+  color: #A89777;
 }
 
 select.input-field {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2378716C' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236F675C' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding-right: 32px;
@@ -153,14 +153,14 @@ select.input-field option {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F5F5F4;
+  background: #FFF3C4;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D6D3D1;
+  background: #D8CBB0;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C9A24B;
+  background: #8A5A00;
 }
 
 /* Focus Ring Utility */
@@ -168,7 +168,7 @@ select.input-field option {
   outline: none;
 }
 .focus-ring:focus-visible {
-  outline: 2px solid #C9A24B;
+  outline: 2px solid #8A5A00;
   outline-offset: 2px;
   border-radius: 8px;
 }
@@ -177,9 +177,9 @@ select.input-field option {
 .toast-custom {
   background: #FFFFFF !important;
   color: #292524 !important;
-  border: 1px solid #E7E5E4 !important;
+  border: 1px solid #EDE3C8 !important;
   border-radius: 12px !important;
-  box-shadow: 0 8px 24px rgba(28, 25, 23, 0.1) !important;
+  box-shadow: 0 8px 24px rgba(28, 25, 23, 0.12) !important;
   font-family: 'Inter', sans-serif !important;
 }
 
@@ -189,7 +189,7 @@ select.input-field option {
   50% { opacity: 0.7; }
 }
 .skeleton {
-  background: linear-gradient(90deg, #E7E5E4 25%, #F5F5F4 50%, #E7E5E4 75%);
+  background: linear-gradient(90deg, #EDE3C8 25%, #FBF3DF 50%, #EDE3C8 75%);
   background-size: 200% 100%;
   animation: skeleton-pulse 1.5s ease-in-out infinite;
   border-radius: 12px;
@@ -197,8 +197,8 @@ select.input-field option {
 
 /* Styled File Upload */
 .file-upload-zone {
-  background: #FAFAF8;
-  border: 2px dashed #D6D3D1;
+  background: #FBF3DF;
+  border: 2px dashed #D8CBB0;
   border-radius: 12px;
   padding: 24px;
   text-align: center;
@@ -206,14 +206,14 @@ select.input-field option {
   transition: all 0.3s ease;
 }
 .file-upload-zone:hover {
-  border-color: #C9A24B;
-  background: rgba(201, 162, 75, 0.05);
+  border-color: #8A5A00;
+  background: rgba(138, 90, 0, 0.06);
 }
 
 /* Table Alternating Rows */
 .table-row-alt:nth-child(even) {
-  background: rgba(201, 162, 75, 0.05);
+  background: rgba(138, 90, 0, 0.05);
 }
 .table-row-alt:hover {
-  background: rgba(201, 162, 75, 0.08) !important;
+  background: rgba(138, 90, 0, 0.08) !important;
 }

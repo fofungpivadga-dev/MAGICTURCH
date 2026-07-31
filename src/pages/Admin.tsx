@@ -383,7 +383,7 @@ export default function Admin() {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 focus-ring ${
               activeTab === tab.id
-                ? 'bg-primary text-dark'
+                ? 'bg-primary text-white'
                 : 'glass text-text-muted hover:text-text'
             }`}
           >
@@ -427,7 +427,7 @@ export default function Admin() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-[#E9E0CC]">
+                      <tr className="border-b border-[#EDE3C8]">
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.code')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.status')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.price')}</th>
@@ -475,7 +475,7 @@ export default function Admin() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-[#E9E0CC]">
+                      <tr className="border-b border-[#EDE3C8]">
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.name')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.status')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.expires')}</th>

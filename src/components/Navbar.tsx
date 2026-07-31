@@ -37,7 +37,7 @@ export default function Navbar() {
   const linkClass = 'text-text-muted hover:text-text transition-colors text-sm focus-ring hover:underline underline-offset-4 decoration-2 decoration-accent';
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#E7E5E4]">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#EDE3C8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link to="/" className="transition-opacity hover:opacity-80">
           <img src="/logo.png" alt="Magic Touch" className="h-9 w-auto" />
@@ -66,7 +66,7 @@ export default function Navbar() {
               <FaGlobe /> {lang.toUpperCase()}
             </motion.button>
             {langOpen && (
-              <div className="absolute right-0 top-full mt-1 bg-white border border-[#E7E5E4] p-1 rounded-xl min-w-[80px] shadow-xl">
+              <div className="absolute right-0 top-full mt-1 bg-white border border-[#EDE3C8] p-1 rounded-xl min-w-[80px] shadow-xl">
                 <button
                   onClick={() => switchLang('en')}
                   className={`w-full text-left px-3 py-1.5 text-sm rounded-lg focus-ring ${lang === 'en' ? 'text-accent bg-accent/15' : 'text-text-muted hover:text-text'}`}
@@ -139,7 +139,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-white/95 border-t border-[#E7E5E4]"
+            className="md:hidden overflow-hidden bg-white/95 border-t border-[#EDE3C8]"
           >
             <div className="px-4 py-4 flex flex-col gap-3">
               <Link to="/painters" className={linkClass} onClick={() => setMobileOpen(false)}>

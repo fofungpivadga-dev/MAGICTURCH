@@ -39,7 +39,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-[#E9E0CC] text-center text-text-muted text-xs">
+      <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-[#EDE3C8] text-center text-text-muted text-xs">
         &copy; {new Date().getFullYear()} Magic Touch Painting Services. {t('footer.copyright')}
       </div>
     </footer>

@@ -57,7 +57,7 @@ export default function PromoPopup() {
             {ad.imageUrl && (
               <img src={ad.imageUrl} alt="" className="w-full h-40 object-cover" />
             )}
-            <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-accent/90 text-dark text-[10px] font-semibold flex items-center gap-1">
+            <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-accent text-white text-[10px] font-semibold flex items-center gap-1">
               <FaBullhorn size={10} /> Promo
             </div>
             <button
