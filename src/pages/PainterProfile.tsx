@@ -293,7 +293,7 @@ export default function PainterProfile() {
                 <h4 className="font-semibold mb-3 text-text-muted" style={{ fontFamily: 'Inter' }}>{t('review.count')} ({reviews.length})</h4>
                 <div className="space-y-4">
                   {reviews.map((r) => (
-                    <div key={r.id} className="border-b border-[#EDE3C8] pb-4 last:border-0">
+                    <div key={r.id} className="border-b border-white/10 pb-4 last:border-0">
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-medium">{r.reviewerName}</span>
                         <div className="flex items-center gap-1 text-accent">
@@ -309,7 +309,7 @@ export default function PainterProfile() {
               </>
             )}
             {reviews.length === 0 && (
-              <div className="text-center py-8 border-t border-[#EDE3C8] pt-6">
+              <div className="text-center py-8 border-t border-white/10 pt-6">
                 <FaStar className="text-3xl mx-auto mb-2 text-text-muted/30" />
                 <p className="text-text-muted text-sm">{t('review.empty')}</p>
               </div>

@@ -57,7 +57,7 @@ export default function PromoPopup() {
             {ad.imageUrl && (
               <img src={ad.imageUrl} alt="" className="w-full h-40 object-cover" />
             )}
-            <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-accent text-white text-[10px] font-semibold flex items-center gap-1">
+            <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-accent text-dark text-[10px] font-semibold flex items-center gap-1">
               <FaBullhorn size={10} /> Promo
             </div>
             <button
@@ -82,7 +82,7 @@ export default function PromoPopup() {
               <button
                 key={i}
                 onClick={() => setAdIndex(i)}
-                className={`w-2 h-2 rounded-full transition-colors ${i === adIndex % ads.length ? 'bg-[#FDFAD0]' : 'bg-[#D8CBB0]'}`}
+                className={`w-2 h-2 rounded-full transition-colors ${i === adIndex % ads.length ? 'bg-accent' : 'bg-white/20'}`}
               />
             ))}
           </div>

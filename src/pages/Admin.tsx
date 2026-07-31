@@ -383,7 +383,7 @@ export default function Admin() {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 focus-ring ${
               activeTab === tab.id
-                ? 'bg-primary text-white'
+                ? 'bg-primary text-dark'
                 : 'glass text-text-muted hover:text-text'
             }`}
           >
@@ -427,7 +427,7 @@ export default function Admin() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-[#EDE3C8]">
+                      <tr className="border-b border-white/10">
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.code')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.status')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.price')}</th>
@@ -438,7 +438,7 @@ export default function Admin() {
                     </thead>
                     <tbody>
                       {coupons.map(c => (
-                        <tr key={c.id} className="border-b border-[#F1EAD9] table-row-alt">
+                        <tr key={c.id} className="border-b border-white/5 table-row-alt">
                           <td className="py-3 px-2 font-mono text-xs">{c.code}</td>
                           <td className="py-3 px-2">
                             <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -475,7 +475,7 @@ export default function Admin() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-[#EDE3C8]">
+                      <tr className="border-b border-white/10">
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.name')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.status')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.expires')}</th>
@@ -488,7 +488,7 @@ export default function Admin() {
                         const listing = listings.find(l => l.painterId === p.uid);
                         const daysLeft = p.expiresAt ? Math.max(0, Math.floor((p.expiresAt - Date.now()) / (1000 * 60 * 60 * 24))) : 0;
                         return (
-                          <tr key={p.uid} className="border-b border-[#F1EAD9] table-row-alt">
+                          <tr key={p.uid} className="border-b border-white/5 table-row-alt">
                             <td className="py-3 px-2">{p.displayName || p.profile?.name || t('painter.unknown')}</td>
                             <td className="py-3 px-2">
                               <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${

@@ -409,7 +409,7 @@ export default function Dashboard() {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 focus-ring ${
               activeTab === tab.id
-                ? 'bg-primary text-white'
+                ? 'bg-primary text-dark'
                 : 'glass text-text-muted hover:text-text'
             }`}
           >
@@ -508,7 +508,7 @@ export default function Dashboard() {
                 <div>
                   <label className="block text-sm text-text-muted mb-1">{t('profile.regions')}</label>
                   {availableRegions.length > 0 ? (
-                    <div className="flex flex-wrap gap-2 p-3 rounded-xl bg-surface-light/70 border border-[#EDE3C8]">
+                    <div className="flex flex-wrap gap-2 p-3 rounded-xl bg-surface-light/70 border border-white/10">
                       {availableRegions.map(r => {
                         const selected = profile.regions.includes(r);
                         return (
@@ -522,7 +522,7 @@ export default function Dashboard() {
                             }))}
                             className={`px-3 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 ${
                               selected
-                                ? 'bg-accent text-white font-medium'
+                                ? 'bg-accent text-dark font-medium'
                                 : 'bg-accent/10 text-text-muted hover:bg-accent/20'
                             }`}
                           >
@@ -543,7 +543,7 @@ export default function Dashboard() {
                 <div>
                   <label className="block text-sm text-text-muted mb-1">{t('profile.specialtiesSelect')}</label>
                   {availableSpecialties.length > 0 ? (
-                    <div className="flex flex-wrap gap-2 p-3 rounded-xl bg-surface-light/70 border border-[#EDE3C8]">
+                    <div className="flex flex-wrap gap-2 p-3 rounded-xl bg-surface-light/70 border border-white/10">
                       {availableSpecialties.map(s => {
                         const selected = profile.specialties.includes(s);
                         return (
@@ -557,7 +557,7 @@ export default function Dashboard() {
                             }))}
                             className={`px-3 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 ${
                               selected
-                                ? 'bg-primary text-white font-medium'
+                                ? 'bg-primary text-dark font-medium'
                                 : 'bg-accent/10 text-text-muted hover:bg-accent/20'
                             }`}
                           >
@@ -589,7 +589,7 @@ export default function Dashboard() {
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm text-text-muted mb-2">{t('profile.photo')}</label>
-                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[#8A5A00]/50 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
+                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[#D9A441]/40 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
                     {profile.photoUrl ? (
                       <img src={profile.photoUrl} alt="" className="w-full h-full object-cover rounded-xl" />
                     ) : (
@@ -603,7 +603,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <label className="block text-sm text-text-muted mb-2">{t('profile.cover')}</label>
-                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[#8A5A00]/50 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
+                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[#D9A441]/40 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
                     {profile.coverImageUrl ? (
                       <img src={profile.coverImageUrl} alt="" className="w-full h-full object-cover rounded-xl" />
                     ) : (
@@ -646,12 +646,12 @@ export default function Dashboard() {
               </div>
 
               {/* Album filter bar */}
-              <div className="flex flex-wrap items-center gap-2 mb-4 pb-4 border-b border-[#EDE3C8]">
+              <div className="flex flex-wrap items-center gap-2 mb-4 pb-4 border-b border-white/10">
                 <button
                   onClick={() => setSelectedAlbumId(null)}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                     selectedAlbumId === null
-                      ? 'bg-accent text-white'
+                      ? 'bg-accent text-dark'
                       : 'bg-accent/10 text-text-muted hover:bg-accent/20'
                   }`}
                 >
@@ -666,7 +666,7 @@ export default function Dashboard() {
                           value={renameValue}
                           onChange={e => setRenameValue(e.target.value)}
                           onKeyDown={e => { if (e.key === 'Enter') renameAlbum(album.id); if (e.key === 'Escape') setRenamingAlbumId(null); }}
-                          className="w-28 px-2 py-1 rounded-lg bg-white border border-[#D8CBB0] text-xs text-text outline-none"
+                          className="w-28 px-2 py-1 rounded-lg bg-white/10 border border-white/20 text-xs text-text outline-none"
                           autoFocus
                           onBlur={() => { if (renameValue.trim()) renameAlbum(album.id); else setRenamingAlbumId(null); }}
                         />
@@ -681,7 +681,7 @@ export default function Dashboard() {
                           onDoubleClick={() => { setRenamingAlbumId(album.id); setRenameValue(album.name); }}
                           className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                             selectedAlbumId === album.id
-                              ? 'bg-accent text-white'
+                              ? 'bg-accent text-dark'
                               : 'bg-accent/10 text-text-muted hover:bg-accent/20'
                           }`}
                         >
@@ -705,7 +705,7 @@ export default function Dashboard() {
                       value={newAlbumName}
                       onChange={e => setNewAlbumName(e.target.value)}
                       onKeyDown={e => { if (e.key === 'Enter') createAlbum(); if (e.key === 'Escape') { setShowNewAlbumInput(false); setNewAlbumName(''); } }}
-                      className="w-28 px-2 py-1.5 rounded-lg bg-white border border-[#D8CBB0] text-xs text-text outline-none"
+                      className="w-28 px-2 py-1.5 rounded-lg bg-white/10 border border-white/20 text-xs text-text outline-none"
                       placeholder={t('portfolio.albumName') || 'Album name'}
                       autoFocus
                       onBlur={() => { if (newAlbumName.trim()) createAlbum(); else { setShowNewAlbumInput(false); setNewAlbumName(''); } }}
@@ -755,7 +755,7 @@ export default function Dashboard() {
                             <FaArrowDown size={14} />
                           </button>
                         )}
-                        <button onClick={() => toggleHomepagePin(item.id, item.showOnHomepage)} className={`p-2 rounded-full transition-colors ${item.showOnHomepage ? 'bg-accent text-white' : 'bg-white/20 hover:bg-white/40'}`} title={item.showOnHomepage ? 'Remove from homepage' : 'Show on homepage'}>
+                        <button onClick={() => toggleHomepagePin(item.id, item.showOnHomepage)} className={`p-2 rounded-full transition-colors ${item.showOnHomepage ? 'bg-accent text-dark' : 'bg-white/20 hover:bg-white/40'}`} title={item.showOnHomepage ? 'Remove from homepage' : 'Show on homepage'}>
                           <FaThumbtack size={14} />
                         </button>
                         <button onClick={() => deletePortfolioItem(item.id)} className="p-2 rounded-full bg-red-500/60 hover:bg-red-500 transition-colors">

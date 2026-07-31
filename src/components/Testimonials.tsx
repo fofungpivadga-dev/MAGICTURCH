@@ -3,9 +3,9 @@ import { FaStar } from 'react-icons/fa';
 import { useTranslation } from '../lib/translations';
 
 const AVATAR_COLORS = [
-  'bg-[#1C1917]',
-  'bg-[#6F4A00]',
-  'bg-[#6B6256]',
+  'bg-[#D9A441]',
+  'bg-[#0F6B5C]',
+  'bg-[#E4572E]',
 ];
 
 export default function Testimonials() {

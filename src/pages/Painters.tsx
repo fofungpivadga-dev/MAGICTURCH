@@ -115,11 +115,11 @@ export default function Painters() {
               value={selectedRegion}
               onChange={e => setSelectedRegion(e.target.value)}
               className="input-field"
-              style={{ color: selectedRegion ? '#292524' : '#A89F8C' }}
+              style={{ color: selectedRegion ? '#FFFFFF' : '#D4D0C8' }}
             >
-              <option value="" style={{ color: '#9A9084', background: '#FFFFFF' }}>{t('search.allRegions')}</option>
+              <option value="" style={{ color: '#D4D0C8', background: '#1E1E1E' }}>{t('search.allRegions')}</option>
               {allRegions.map(r => (
-                <option key={r} value={r} style={{ color: '#1C1917', background: '#FFFFFF' }}>{r}</option>
+                <option key={r} value={r} style={{ color: '#FFFFFF', background: '#1E1E1E' }}>{r}</option>
               ))}
             </select>
           </div>
@@ -129,11 +129,11 @@ export default function Painters() {
               value={selectedCity}
               onChange={e => setSelectedCity(e.target.value)}
               className="input-field"
-              style={{ color: selectedCity ? '#292524' : '#A89F8C' }}
+              style={{ color: selectedCity ? '#FFFFFF' : '#D4D0C8' }}
             >
-              <option value="" style={{ color: '#9A9084', background: '#FFFFFF' }}>All Cities</option>
+              <option value="" style={{ color: '#D4D0C8', background: '#1E1E1E' }}>All Cities</option>
               {ALL_CITIES.sort().map(c => (
-                <option key={c} value={c} style={{ color: '#1C1917', background: '#FFFFFF' }}>{c}</option>
+                <option key={c} value={c} style={{ color: '#FFFFFF', background: '#1E1E1E' }}>{c}</option>
               ))}
             </select>
           </div>
@@ -143,11 +143,11 @@ export default function Painters() {
               value={selectedSpecialty}
               onChange={e => setSelectedSpecialty(e.target.value)}
               className="input-field"
-              style={{ color: selectedSpecialty ? '#292524' : '#A89F8C' }}
+              style={{ color: selectedSpecialty ? '#FFFFFF' : '#D4D0C8' }}
             >
-              <option value="" style={{ color: '#9A9084', background: '#FFFFFF' }}>{t('search.allSpecialties')}</option>
+              <option value="" style={{ color: '#D4D0C8', background: '#1E1E1E' }}>{t('search.allSpecialties')}</option>
               {allSpecialties.map(s => (
-                <option key={s} value={s} style={{ color: '#1C1917', background: '#FFFFFF' }}>{s}</option>
+                <option key={s} value={s} style={{ color: '#FFFFFF', background: '#1E1E1E' }}>{s}</option>
               ))}
             </select>
           </div>

@@ -34,10 +34,10 @@ export default function Navbar() {
     window.location.reload();
   };
 
-  const linkClass = 'text-white/80 hover:text-white transition-colors text-sm focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#FDFAD0]';
+  const linkClass = 'text-white/80 hover:text-white transition-colors text-sm focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]';
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1F4D3B]/90 backdrop-blur-md border-b border-white/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link to="/" className="transition-opacity hover:opacity-80">
           <img src="/logo.png" alt="Magic Touch" className="h-9 w-auto" />
@@ -48,10 +48,10 @@ export default function Navbar() {
           <Link to="/painters" className={linkClass}>
             {t('nav.painters')}
           </Link>
-          <a href="/#try-paint" className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#FDFAD0]">
+          <a href="/#try-paint" className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]">
             <FaPaintRoller /> {t('nav.tryPaint')}
           </a>
-          <a href="https://wa.me/237691316704?text=Hi%2C%20I%20need%20help%20with%20Magic%20Touch%20Painting%20Services." target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-white/80 hover:text-[#25D366] transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#FDFAD0]">
+          <a href="https://wa.me/237691316704?text=Hi%2C%20I%20need%20help%20with%20Magic%20Touch%20Painting%20Services." target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-white/80 hover:text-[#25D366] transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]">
             <FaHeadset /> {t('nav.contact')}
           </a>
 
@@ -61,21 +61,21 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setLangOpen(!langOpen)}
-              className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#FDFAD0]"
+              className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]"
             >
               <FaGlobe /> {lang.toUpperCase()}
             </motion.button>
             {langOpen && (
-              <div className="absolute right-0 top-full mt-1 bg-[#1F4D3B] border border-white/15 p-1 rounded-xl min-w-[80px] shadow-xl">
+              <div className="absolute right-0 top-full mt-1 bg-black border border-white/15 p-1 rounded-xl min-w-[80px] shadow-xl">
                 <button
                   onClick={() => switchLang('en')}
-                  className={`w-full text-left px-3 py-1.5 text-sm rounded-lg focus-ring ${lang === 'en' ? 'text-[#FDFAD0] bg-white/10' : 'text-white/80 hover:text-white'}`}
+                  className={`w-full text-left px-3 py-1.5 text-sm rounded-lg focus-ring ${lang === 'en' ? 'text-accent bg-white/10' : 'text-white/80 hover:text-white'}`}
                 >
                   EN
                 </button>
                 <button
                   onClick={() => switchLang('fr')}
-                  className={`w-full text-left px-3 py-1.5 text-sm rounded-lg focus-ring ${lang === 'fr' ? 'text-[#FDFAD0] bg-white/10' : 'text-white/80 hover:text-white'}`}
+                  className={`w-full text-left px-3 py-1.5 text-sm rounded-lg focus-ring ${lang === 'fr' ? 'text-accent bg-white/10' : 'text-white/80 hover:text-white'}`}
                 >
                   FR
                 </button>
@@ -87,14 +87,14 @@ export default function Navbar() {
             <>
               <Link
                 to="/dashboard"
-                  className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#FDFAD0]"
+                  className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]"
               >
                 <FaUser /> {t('nav.dashboard')}
               </Link>
               {isAdmin && (
                 <Link
                   to="/admin"
-                className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#FDFAD0]"
+                className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]"
                 >
                   <FaTachometerAlt /> {t('nav.admin')}
                 </Link>
@@ -103,7 +103,7 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleLogout}
-                className="flex items-center gap-1 text-sm text-white/80 hover:text-[#FDFAD0] transition-colors focus-ring"
+                className="flex items-center gap-1 text-sm text-white/80 hover:text-accent transition-colors focus-ring"
               >
                 <FaSignOutAlt />
                 {t('nav.logout')}
@@ -125,7 +125,7 @@ export default function Navbar() {
         {/* Mobile Hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-white hover:text-[#FDFAD0] transition-colors p-2 focus-ring"
+          className="md:hidden text-white hover:text-accent transition-colors p-2 focus-ring"
           aria-label="Toggle menu"
         >
           {mobileOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
@@ -139,7 +139,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-[#1F4D3B]/95 border-t border-white/10"
+            className="md:hidden overflow-hidden bg-black/95 border-t border-white/10"
           >
             <div className="px-4 py-4 flex flex-col gap-3">
               <Link to="/painters" className={linkClass} onClick={() => setMobileOpen(false)}>
@@ -155,13 +155,13 @@ export default function Navbar() {
                 <FaGlobe className="text-white/60" size={14} />
                 <button
                   onClick={() => switchLang('en')}
-                  className={`text-sm focus-ring px-2 py-1 rounded ${lang === 'en' ? 'text-[#FDFAD0] bg-white/10' : 'text-white/80 hover:text-white'}`}
+                  className={`text-sm focus-ring px-2 py-1 rounded ${lang === 'en' ? 'text-accent bg-white/10' : 'text-white/80 hover:text-white'}`}
                 >
                   EN
                 </button>
                 <button
                   onClick={() => switchLang('fr')}
-                  className={`text-sm focus-ring px-2 py-1 rounded ${lang === 'fr' ? 'text-[#FDFAD0] bg-white/10' : 'text-white/80 hover:text-white'}`}
+                  className={`text-sm focus-ring px-2 py-1 rounded ${lang === 'fr' ? 'text-accent bg-white/10' : 'text-white/80 hover:text-white'}`}
                 >
                   FR
                 </button>
@@ -186,7 +186,7 @@ export default function Navbar() {
                   )}
                   <button
                     onClick={() => { handleLogout(); setMobileOpen(false); }}
-                    className="flex items-center gap-2 text-sm text-white/80 hover:text-[#FDFAD0] transition-colors text-left focus-ring"
+                    className="flex items-center gap-2 text-sm text-white/80 hover:text-accent transition-colors text-left focus-ring"
                   >
                     <FaSignOutAlt /> {t('nav.logout')}
                   </button>

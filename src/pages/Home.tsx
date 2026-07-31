@@ -60,7 +60,7 @@ export default function Home() {
     photo: i.painterPhotoUrl || '',
     initial: (i.painterName || 'M').trim().charAt(0).toUpperCase(),
   }));
-  const avatarColors = ['bg-[#1C1917]', 'bg-[#6F4A00]', 'bg-[#8A5A00]', 'bg-[#6B6256]'];
+  const avatarColors = ['bg-[#D9A441]', 'bg-[#0F6B5C]', 'bg-[#E4572E]', 'bg-[#7858A8]'];
 
   return (
     <div>
@@ -79,7 +79,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FDFAD0] border border-[#FDFAD0] text-[#1F4D3B] text-xs font-semibold mb-6"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent text-dark text-xs font-semibold mb-6"
               >
                 <FaPaintRoller size={12} /> {t('hero.badge')}
               </motion.div>
@@ -87,7 +87,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#FDFAD0] mb-5"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-5"
               >
                 {heroContent.headline}
               </motion.h1>
@@ -162,7 +162,7 @@ export default function Home() {
                   )}
                 </div>
                 <div>
-                  <div className="flex gap-0.5 text-[#FDFAD0]">
+                  <div className="flex gap-0.5 text-accent">
                     {[1, 2, 3, 4, 5].map(s => (
                       <FaStar key={s} size={12} />
                     ))}
@@ -196,7 +196,7 @@ export default function Home() {
                       >
                         <source src={src} />
                       </video>
-                      <div className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-[#D8CBB0] items-center justify-center bg-[#FBF3DF] hidden">
+                      <div className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-white/15 items-center justify-center bg-white/5 hidden">
                         <p className="text-text-muted text-xs">Ad Space</p>
                       </div>
                       {heroLinks[i]?.linkUrl && (
@@ -226,7 +226,7 @@ export default function Home() {
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
-              className="w-1.5 h-1.5 bg-[#FDFAD0] rounded-full mt-2"
+              className="w-1.5 h-1.5 bg-accent rounded-full mt-2"
             />
           </div>
         </motion.div>
@@ -283,7 +283,7 @@ export default function Home() {
                 </h2>
                 <p className="text-white/70 text-sm mt-2">{t('featured.subtitle')}</p>
               </motion.div>
-              <Link to="/gallery" className="text-[#FDFAD0] hover:text-white transition-colors text-sm flex items-center gap-1 whitespace-nowrap">
+              <Link to="/gallery" className="text-accent hover:text-white transition-colors text-sm flex items-center gap-1 whitespace-nowrap">
                 {t('featured.viewAll')} <FaArrowRight />
               </Link>
             </div>
