@@ -30,7 +30,7 @@ export default function PainterCard({ painter, index = 0 }: PainterCardProps) {
               )}
             </div>
             <div className="min-w-0">
-              <h3 className="font-semibold text-base truncate" style={{ fontFamily: 'Poppins' }}>
+              <h3 className="font-semibold text-base truncate" style={{ fontFamily: 'Playfair Display' }}>
                 {painter.businessName || painter.name}
               </h3>
               <p className="text-text-muted text-sm truncate">{painter.name}</p>

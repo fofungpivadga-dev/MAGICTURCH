@@ -48,7 +48,7 @@ export default function Seed() {
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
             <FaTicketAlt className="text-accent text-2xl" />
           </div>
-          <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Poppins' }}>
+          <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Playfair Display' }}>
             Test Coupon Generator
           </h1>
           <p className="text-text-muted text-sm mb-6">
@@ -77,7 +77,7 @@ export default function Seed() {
 
               <div className="flex items-center justify-between p-4 rounded-xl bg-surface-light">
                 <code className="text-lg font-mono tracking-wider text-accent">{TEST_CODE}</code>
-                <button onClick={copyCode} className="p-2 rounded-lg hover:bg-white/10 transition-colors text-accent">
+                <button onClick={copyCode} className="p-2 rounded-lg hover:bg-accent/10 transition-colors text-accent">
                   <FaCopy />
                 </button>
               </div>

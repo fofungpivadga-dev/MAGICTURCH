@@ -132,7 +132,7 @@ export default function Join() {
             <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
               <FaPaintRoller className="text-primary text-xl" />
             </div>
-            <h1 className="text-xl font-bold" style={{ fontFamily: 'Poppins' }}>
+            <h1 className="text-xl font-bold" style={{ fontFamily: 'Playfair Display' }}>
               {mode === 'signup' ? t('join.title') : t('signin.title')}
             </h1>
             <p className="text-text-muted text-sm mt-2">
@@ -140,7 +140,7 @@ export default function Join() {
             </p>
           </div>
 
-          <div className="flex rounded-xl bg-white/5 p-1 mb-6">
+          <div className="flex rounded-xl bg-[#F1EAD9] p-1 mb-6">
             <button
               onClick={() => { setMode('signup'); setStep('choose'); }}
               className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors focus-ring ${mode === 'signup' ? 'bg-accent text-dark' : 'text-text-muted hover:text-text'}`}
@@ -168,9 +168,9 @@ export default function Join() {
                   </motion.button>
 
                   <div className="flex items-center gap-3">
-                    <div className="flex-1 h-px bg-white/10" />
+                    <div className="flex-1 h-px bg-[#E3D9C2]" />
                     <span className="text-text-muted text-xs">{t('join.or')}</span>
-                    <div className="flex-1 h-px bg-white/10" />
+                    <div className="flex-1 h-px bg-[#E3D9C2]" />
                   </div>
 
                   <div className="space-y-3">
@@ -271,9 +271,9 @@ export default function Join() {
               </motion.button>
 
               <div className="flex items-center gap-3">
-                <div className="flex-1 h-px bg-white/10" />
+                <div className="flex-1 h-px bg-[#E3D9C2]" />
                 <span className="text-text-muted text-xs">{t('join.or')}</span>
-                <div className="flex-1 h-px bg-white/10" />
+                <div className="flex-1 h-px bg-[#E3D9C2]" />
               </div>
 
               <div className="space-y-3">
@@ -308,7 +308,7 @@ export default function Join() {
         </div>
 
         {mode === 'signup' && step === 'choose' && (
-          <div className="mt-6 p-4 rounded-xl bg-surface-light border border-white/10 text-center">
+          <div className="mt-6 p-4 rounded-xl bg-surface-light border border-[#E9E0CC] text-center">
             <p className="text-text-muted text-sm font-medium mb-1">{t('join.noCouponDesc')}</p>
             <p className="text-text-muted text-xs mb-3">{t('join.noCoupon')}</p>
             <div className="flex items-center justify-center gap-3">

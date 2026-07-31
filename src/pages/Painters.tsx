@@ -92,7 +92,7 @@ export default function Painters() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-3xl font-bold mb-6"
-        style={{ fontFamily: 'Poppins' }}
+        style={{ fontFamily: 'Playfair Display' }}
       >
         {t('directory.title')}
       </motion.h1>
@@ -117,9 +117,9 @@ export default function Painters() {
               className="input-field"
               style={{ color: selectedRegion ? '#FFFFFF' : '#D4D0C8' }}
             >
-              <option value="" style={{ color: '#D4D0C8', background: '#1E1E1E' }}>{t('search.allRegions')}</option>
+              <option value="" style={{ color: '#9A9084', background: '#FFFFFF' }}>{t('search.allRegions')}</option>
               {allRegions.map(r => (
-                <option key={r} value={r} style={{ color: '#FFFFFF', background: '#1E1E1E' }}>{r}</option>
+                <option key={r} value={r} style={{ color: '#1C1917', background: '#FFFFFF' }}>{r}</option>
               ))}
             </select>
           </div>
@@ -131,9 +131,9 @@ export default function Painters() {
               className="input-field"
               style={{ color: selectedCity ? '#FFFFFF' : '#D4D0C8' }}
             >
-              <option value="" style={{ color: '#D4D0C8', background: '#1E1E1E' }}>All Cities</option>
+              <option value="" style={{ color: '#9A9084', background: '#FFFFFF' }}>All Cities</option>
               {ALL_CITIES.sort().map(c => (
-                <option key={c} value={c} style={{ color: '#FFFFFF', background: '#1E1E1E' }}>{c}</option>
+                <option key={c} value={c} style={{ color: '#1C1917', background: '#FFFFFF' }}>{c}</option>
               ))}
             </select>
           </div>
@@ -145,9 +145,9 @@ export default function Painters() {
               className="input-field"
               style={{ color: selectedSpecialty ? '#FFFFFF' : '#D4D0C8' }}
             >
-              <option value="" style={{ color: '#D4D0C8', background: '#1E1E1E' }}>{t('search.allSpecialties')}</option>
+              <option value="" style={{ color: '#9A9084', background: '#FFFFFF' }}>{t('search.allSpecialties')}</option>
               {allSpecialties.map(s => (
-                <option key={s} value={s} style={{ color: '#FFFFFF', background: '#1E1E1E' }}>{s}</option>
+                <option key={s} value={s} style={{ color: '#1C1917', background: '#FFFFFF' }}>{s}</option>
               ))}
             </select>
           </div>
@@ -161,7 +161,7 @@ export default function Painters() {
       ) : filtered.length === 0 ? (
         <div className="glass-card p-10 text-center">
           <FaFilter className="text-4xl mx-auto mb-4 text-text-muted/30" />
-          <p className="text-lg font-semibold mb-2 text-text" style={{ fontFamily: 'Poppins' }}>{t('search.noResults')}</p>
+          <p className="text-lg font-semibold mb-2 text-text" style={{ fontFamily: 'Playfair Display' }}>{t('search.noResults')}</p>
           <p className="text-text-muted/70">{t('search.noResults.desc')}</p>
         </div>
       ) : (

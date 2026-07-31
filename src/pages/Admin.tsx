@@ -355,11 +355,11 @@ export default function Admin() {
         <div className="flex items-center gap-4">
           <Link
             to="/dashboard"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium glass text-text-muted hover:text-text hover:bg-white/10 transition-all focus-ring"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium glass text-text-muted hover:text-text hover:bg-accent/10 transition-all focus-ring"
           >
             <FaArrowLeft size={14} /> {t('admin.backToDashboard')}
           </Link>
-          <h1 className="text-2xl font-bold" style={{ fontFamily: 'Poppins' }}>{t('admin.title')}</h1>
+          <h1 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display' }}>{t('admin.title')}</h1>
         </div>
         <div className="glass px-4 py-2 rounded-xl text-sm flex items-center gap-3">
           {user?.photoURL ? (
@@ -396,7 +396,7 @@ export default function Admin() {
         {activeTab === 'coupons' && (
           <motion.div key="coupons" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('coupon.generate')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('coupon.generate')}</h2>
               <div className="flex flex-wrap gap-4 items-end">
                 <div>
                   <button onClick={generateSingleCoupon} className="btn-primary flex items-center gap-2">
@@ -420,14 +420,14 @@ export default function Admin() {
             </div>
 
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('admin.allCoupons')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('admin.allCoupons')}</h2>
               {coupons.length === 0 ? (
                 <p className="text-text-muted">{t('coupon.none')}</p>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-white/10">
+                      <tr className="border-b border-[#E9E0CC]">
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.code')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.status')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.price')}</th>
@@ -438,7 +438,7 @@ export default function Admin() {
                     </thead>
                     <tbody>
                       {coupons.map(c => (
-                        <tr key={c.id} className="border-b border-white/5 table-row-alt">
+                        <tr key={c.id} className="border-b border-[#F1EAD9] table-row-alt">
                           <td className="py-3 px-2 font-mono text-xs">{c.code}</td>
                           <td className="py-3 px-2">
                             <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -468,14 +468,14 @@ export default function Admin() {
         {activeTab === 'painters' && (
           <motion.div key="painters" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('admin.allPainters')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('admin.allPainters')}</h2>
               {painters.length === 0 ? (
                 <p className="text-text-muted">{t('painter.none')}</p>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-white/10">
+                      <tr className="border-b border-[#E9E0CC]">
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.name')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.status')}</th>
                         <th className="text-left py-3 px-2 text-text-muted">{t('admin.expires')}</th>
@@ -488,7 +488,7 @@ export default function Admin() {
                         const listing = listings.find(l => l.painterId === p.uid);
                         const daysLeft = p.expiresAt ? Math.max(0, Math.floor((p.expiresAt - Date.now()) / (1000 * 60 * 60 * 24))) : 0;
                         return (
-                          <tr key={p.uid} className="border-b border-white/5 table-row-alt">
+                          <tr key={p.uid} className="border-b border-[#F1EAD9] table-row-alt">
                             <td className="py-3 px-2">{p.displayName || p.profile?.name || t('painter.unknown')}</td>
                             <td className="py-3 px-2">
                               <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -500,7 +500,7 @@ export default function Admin() {
                               {listing && (
                                 <button
                                   onClick={() => toggleFeatured(p.uid, !listing.featured)}
-                                  className={`text-xs px-2 py-1 rounded ${listing.featured ? 'bg-accent/20 text-accent' : 'bg-white/10 text-text-muted'}`}
+                                  className={`text-xs px-2 py-1 rounded ${listing.featured ? 'bg-accent/20 text-accent' : 'bg-accent/10 text-text-muted'}`}
                                 >
                                   {listing.featured ? t('admin.featured') : t('admin.pin')}
                                 </button>
@@ -532,9 +532,9 @@ export default function Admin() {
         {activeTab === 'promo-queue' && (
           <motion.div key="promo-queue" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('promo.title')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('promo.title')}</h2>
 
-              <h3 className="font-medium mb-3 text-accent" style={{ fontFamily: 'Poppins' }}>{t('admin.pending')}</h3>
+              <h3 className="font-medium mb-3 text-accent" style={{ fontFamily: 'Playfair Display' }}>{t('admin.pending')}</h3>
               {promoAds.filter(a => a.status === 'pending').length === 0 ? (
                 <p className="text-text-muted text-sm mb-6">{t('admin.noPending')}</p>
               ) : (
@@ -559,7 +559,7 @@ export default function Admin() {
                 </div>
               )}
 
-              <h3 className="font-medium mb-3" style={{ fontFamily: 'Poppins' }}>{t('admin.allPromos')}</h3>
+              <h3 className="font-medium mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('admin.allPromos')}</h3>
               <div className="flex items-center gap-3 mb-4">
                 <button onClick={deactivateAllPromos} className="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 text-sm flex items-center gap-1 transition-colors">
                   <FaTimes size={12} /> {t('admin.deactivateAll')}
@@ -609,7 +609,7 @@ export default function Admin() {
           <motion.div key="homepage" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-semibold" style={{ fontFamily: 'Poppins' }}>{t('admin.homepage.title')}</h2>
+                <h2 className="text-lg font-semibold" style={{ fontFamily: 'Playfair Display' }}>{t('admin.homepage.title')}</h2>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
@@ -621,7 +621,7 @@ export default function Admin() {
               </div>
               <p className="text-text-muted text-sm mb-6">{t('admin.homepage.desc')}</p>
               <div className="mb-8 space-y-4">
-                <h3 className="font-semibold text-sm text-accent" style={{ fontFamily: 'Poppins' }}>{t('admin.homepage.heroText')}</h3>
+                <h3 className="font-semibold text-sm text-accent" style={{ fontFamily: 'Playfair Display' }}>{t('admin.homepage.heroText')}</h3>
                 <div>
                   <label className="block text-xs text-text-muted mb-1">{t('admin.homepage.headline')}</label>
                   <input
@@ -655,7 +655,7 @@ export default function Admin() {
               </div>
               {adminPins.length > 0 && (
                 <div className="mb-8 space-y-4">
-                  <h3 className="font-semibold text-sm text-accent" style={{ fontFamily: 'Poppins' }}>{t('admin.homepage.priorityPins')}</h3>
+                  <h3 className="font-semibold text-sm text-accent" style={{ fontFamily: 'Playfair Display' }}>{t('admin.homepage.priorityPins')}</h3>
                   <p className="text-text-muted text-xs">{t('admin.homepage.priorityDesc')}</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {adminPins.map(pin => (
@@ -684,7 +684,7 @@ export default function Admin() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {heroLinks.map((link, i) => (
                   <div key={i} className="p-4 rounded-xl bg-surface-light space-y-3">
-                    <h3 className="font-semibold text-sm" style={{ fontFamily: 'Poppins' }}>{i === 0 ? t('admin.homepage.video1') : t('admin.homepage.video2')}</h3>
+                    <h3 className="font-semibold text-sm" style={{ fontFamily: 'Playfair Display' }}>{i === 0 ? t('admin.homepage.video1') : t('admin.homepage.video2')}</h3>
                     <div>
                       <label className="block text-xs text-text-muted mb-1">{t('admin.homepage.videoLinkUrl')}</label>
                       <input
@@ -715,32 +715,32 @@ export default function Admin() {
         {activeTab === 'analytics' && (
           <motion.div key="analytics" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('analytics.title')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('analytics.title')}</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 <div className="p-4 rounded-xl bg-surface-light">
                   <p className="text-text-muted text-sm">{t('analytics.totalPainters')}</p>
-                  <p className="text-3xl font-bold" style={{ fontFamily: 'Poppins' }}>{painters.length}</p>
+                  <p className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display' }}>{painters.length}</p>
                 </div>
                 <div className="p-4 rounded-xl bg-surface-light">
                   <p className="text-text-muted text-sm">{t('analytics.activePainters')}</p>
-                  <p className="text-3xl font-bold" style={{ fontFamily: 'Poppins' }}>{painters.filter(p => p.accountStatus === 'active').length}</p>
+                  <p className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display' }}>{painters.filter(p => p.accountStatus === 'active').length}</p>
                 </div>
                 <div className="p-4 rounded-xl bg-surface-light">
                   <p className="text-text-muted text-sm">{t('analytics.redeemed')}</p>
-                  <p className="text-3xl font-bold" style={{ fontFamily: 'Poppins' }}>{coupons.filter(c => c.status === 'redeemed').length}</p>
+                  <p className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display' }}>{coupons.filter(c => c.status === 'redeemed').length}</p>
                 </div>
                 <div className="p-4 rounded-xl bg-surface-light">
                   <p className="text-text-muted text-sm">{t('analytics.couponRevenue')}</p>
-                  <p className="text-3xl font-bold text-accent" style={{ fontFamily: 'Poppins' }}>{totalRevenue.toLocaleString()} XAF</p>
+                  <p className="text-3xl font-bold text-accent" style={{ fontFamily: 'Playfair Display' }}>{totalRevenue.toLocaleString()} XAF</p>
                 </div>
                 <div className="p-4 rounded-xl bg-surface-light">
                   <p className="text-text-muted text-sm">{t('analytics.promoRevenue')}</p>
-                  <p className="text-3xl font-bold text-accent" style={{ fontFamily: 'Poppins' }}>{promoRevenue.toLocaleString()} XAF</p>
+                  <p className="text-3xl font-bold text-accent" style={{ fontFamily: 'Playfair Display' }}>{promoRevenue.toLocaleString()} XAF</p>
                 </div>
                 <div className="p-4 rounded-xl bg-surface-light">
                   <p className="text-text-muted text-sm">{t('analytics.activePromos')}</p>
-                  <p className="text-3xl font-bold" style={{ fontFamily: 'Poppins' }}>{promoAds.filter(a => a.status === 'approved').length}</p>
+                  <p className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display' }}>{promoAds.filter(a => a.status === 'approved').length}</p>
                 </div>
               </div>
             </div>
@@ -751,7 +751,7 @@ export default function Admin() {
           <motion.div key="regions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-semibold" style={{ fontFamily: 'Poppins' }}>{t('admin.regionsTab')}</h2>
+                <h2 className="text-lg font-semibold" style={{ fontFamily: 'Playfair Display' }}>{t('admin.regionsTab')}</h2>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
@@ -764,7 +764,7 @@ export default function Admin() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('admin.regions')}</h3>
+                  <h3 className="font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('admin.regions')}</h3>
                   <div className="flex gap-2 mb-4">
                     <input
                       type="text"
@@ -783,7 +783,7 @@ export default function Admin() {
                   ) : (
                     <div className="flex flex-wrap gap-2">
                       {regions.map(r => (
-                        <span key={r} className="px-3 py-1.5 rounded-full bg-white/10 text-sm flex items-center gap-2">
+                        <span key={r} className="px-3 py-1.5 rounded-full bg-accent/10 text-sm flex items-center gap-2">
                           {r}
                           <button onClick={() => removeRegion(r)} className="text-red-400 hover:text-red-300 transition-colors">
                             <FaTimes size={12} />
@@ -795,7 +795,7 @@ export default function Admin() {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('admin.specialties')}</h3>
+                  <h3 className="font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('admin.specialties')}</h3>
                   <div className="flex gap-2 mb-4">
                     <input
                       type="text"

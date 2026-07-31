@@ -59,12 +59,12 @@ export default function Home() {
       <PromoPopup />
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark to-primary/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FDFAF3] via-[#F6EFE1] to-accent/30" />
         <div className="absolute inset-0 opacity-10">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#C9A24B" strokeWidth="0.5" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
@@ -89,7 +89,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="text-4xl md:text-6xl font-extrabold mb-6"
-                style={{ fontFamily: 'Poppins' }}
+                style={{ fontFamily: 'Playfair Display' }}
               >
                 {heroContent.headline}
               </motion.h1>
@@ -98,7 +98,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
                 className="text-lg md:text-xl text-accent font-semibold mb-4"
-                style={{ fontFamily: 'Poppins' }}
+                style={{ fontFamily: 'Playfair Display' }}
               >
                 {heroContent.subtitle}
               </motion.p>
@@ -143,7 +143,7 @@ export default function Home() {
                         muted
                         loop
                         playsInline
-                        className="w-full aspect-[3/4] object-cover rounded-2xl shadow-2xl border border-white/10"
+                        className="w-full aspect-[3/4] object-cover rounded-2xl shadow-2xl border border-[#E9E0CC]"
                         onError={e => {
                           (e.target as HTMLElement).style.display = 'none';
                           const placeholder = (e.target as HTMLElement).nextElementSibling;
@@ -152,7 +152,7 @@ export default function Home() {
                       >
                         <source src={src} />
                       </video>
-                      <div className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-white/20 items-center justify-center bg-white/5 hidden">
+                      <div className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-[#E3D9C2] items-center justify-center bg-surface-light/60 hidden">
                         <p className="text-text-muted text-xs">Ad Space</p>
                       </div>
                       {heroLinks[i]?.linkUrl && (
@@ -196,7 +196,7 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-2xl md:text-3xl font-bold text-center mb-12"
-            style={{ fontFamily: 'Poppins' }}
+            style={{ fontFamily: 'Playfair Display' }}
           >
             {t('how.title')}
           </motion.h2>
@@ -217,7 +217,7 @@ export default function Home() {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center text-accent">
                   {step.icon}
                 </div>
-                <h3 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{step.title}</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{step.title}</h3>
                 <p className="text-text-muted text-sm">{step.desc}</p>
               </motion.div>
             ))}
@@ -235,7 +235,7 @@ export default function Home() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Poppins' }}>
+                <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Playfair Display' }}>
                   {t('featured.title')}
                 </h2>
                 <p className="text-text-muted text-sm mt-2">{t('featured.subtitle')}</p>
@@ -272,7 +272,7 @@ export default function Home() {
                         />
                       )}
                       <div className="min-w-0">
-                        <p className="text-white font-semibold text-sm truncate" style={{ fontFamily: 'Poppins' }}>
+                        <p className="text-white font-semibold text-sm truncate" style={{ fontFamily: 'Playfair Display' }}>
                           {item.painterBusinessName || item.painterName}
                         </p>
                         <p className="text-white/60 text-xs flex items-center gap-1">
@@ -306,7 +306,7 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-2xl md:text-3xl font-bold text-center mb-12"
-            style={{ fontFamily: 'Poppins' }}
+            style={{ fontFamily: 'Playfair Display' }}
           >
             {t('why.title')}
           </motion.h2>
@@ -327,7 +327,7 @@ export default function Home() {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center text-secondary text-xl">
                   {item.icon}
                 </div>
-                <h3 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{item.title}</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{item.title}</h3>
                 <p className="text-text-muted text-sm">{item.desc}</p>
               </motion.div>
             ))}
@@ -345,7 +345,7 @@ export default function Home() {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto text-center glass-card p-10"
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-6" style={{ fontFamily: 'Poppins' }}>
+          <h2 className="text-2xl md:text-3xl font-bold mb-6" style={{ fontFamily: 'Playfair Display' }}>
             {t('cta.title')}
           </h2>
           <p className="text-text-muted text-base mb-8">

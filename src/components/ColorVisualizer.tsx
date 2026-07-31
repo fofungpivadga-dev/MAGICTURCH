@@ -27,7 +27,7 @@ export default function ColorVisualizer() {
         transition={{ duration: 0.5 }}
         className="text-center mb-10"
       >
-        <h2 className="text-3xl font-bold mb-2" style={{ fontFamily: 'Poppins' }}>
+        <h2 className="text-3xl font-bold mb-2" style={{ fontFamily: 'Playfair Display' }}>
           {t('visualizer.title')}
         </h2>
         <p className="text-text-muted max-w-xl mx-auto text-sm">
@@ -66,8 +66,8 @@ export default function ColorVisualizer() {
               onMouseEnter={() => setHoveredIndex(i)}
               className={`w-full text-left p-3 rounded-xl transition-all ${
                 selected === i
-                  ? 'bg-white/10 border-2 border-accent/60 shadow-lg shadow-accent/5'
-                  : 'bg-white/5 border border-white/10 hover:bg-white/[0.07]'
+                  ? 'bg-accent/20 border-2 border-accent/60 shadow-lg shadow-accent/10'
+                  : 'bg-surface-light border border-[#E3D9C2] hover:bg-white'
               }`}
             >
               <div className="flex items-center gap-3">
@@ -75,7 +75,7 @@ export default function ColorVisualizer() {
                   {[p.wall, p.roof, p.trim, p.door, p.accent].map((color, ci) => (
                     <div
                       key={ci}
-                      className="w-5 h-5 rounded border border-white/15"
+                      className="w-5 h-5 rounded border border-[#D8CBB0]"
                       style={{ backgroundColor: color }}
                     />
                   ))}

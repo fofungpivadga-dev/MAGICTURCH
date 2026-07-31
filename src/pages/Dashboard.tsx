@@ -367,7 +367,7 @@ export default function Dashboard() {
         animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between mb-6"
       >
-        <h1 className="text-2xl font-bold" style={{ fontFamily: 'Poppins' }}>{t('dashboard.title')}</h1>
+        <h1 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display' }}>{t('dashboard.title')}</h1>
         <div className="glass px-4 py-2 rounded-xl text-sm flex items-center gap-3">
           {profile.photoUrl ? (
             <img src={profile.photoUrl} alt="" className="w-8 h-8 rounded-full object-cover" />
@@ -474,7 +474,7 @@ export default function Dashboard() {
         {activeTab === 'profile' && (
           <motion.div key="profile" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('profile.title')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('profile.title')}</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -508,7 +508,7 @@ export default function Dashboard() {
                 <div>
                   <label className="block text-sm text-text-muted mb-1">{t('profile.regions')}</label>
                   {availableRegions.length > 0 ? (
-                    <div className="flex flex-wrap gap-2 p-3 rounded-xl bg-surface-light/50 border border-white/10">
+                    <div className="flex flex-wrap gap-2 p-3 rounded-xl bg-surface-light/70 border border-[#E9E0CC]">
                       {availableRegions.map(r => {
                         const selected = profile.regions.includes(r);
                         return (
@@ -523,7 +523,7 @@ export default function Dashboard() {
                             className={`px-3 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 ${
                               selected
                                 ? 'bg-accent text-dark font-medium'
-                                : 'bg-white/10 text-text-muted hover:bg-white/20'
+                                : 'bg-accent/10 text-text-muted hover:bg-accent/20'
                             }`}
                           >
                             {selected ? <FaCheckSquare size={12} /> : <FaSquare size={12} />}
@@ -543,7 +543,7 @@ export default function Dashboard() {
                 <div>
                   <label className="block text-sm text-text-muted mb-1">{t('profile.specialtiesSelect')}</label>
                   {availableSpecialties.length > 0 ? (
-                    <div className="flex flex-wrap gap-2 p-3 rounded-xl bg-surface-light/50 border border-white/10">
+                    <div className="flex flex-wrap gap-2 p-3 rounded-xl bg-surface-light/70 border border-[#E9E0CC]">
                       {availableSpecialties.map(s => {
                         const selected = profile.specialties.includes(s);
                         return (
@@ -558,7 +558,7 @@ export default function Dashboard() {
                             className={`px-3 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 ${
                               selected
                                 ? 'bg-primary text-dark font-medium'
-                                : 'bg-white/10 text-text-muted hover:bg-white/20'
+                                : 'bg-accent/10 text-text-muted hover:bg-accent/20'
                             }`}
                           >
                             {selected ? <FaCheckSquare size={12} /> : <FaSquare size={12} />}
@@ -589,7 +589,7 @@ export default function Dashboard() {
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm text-text-muted mb-2">{t('profile.photo')}</label>
-                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-white/20 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
+                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[#C9A24B]/50 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
                     {profile.photoUrl ? (
                       <img src={profile.photoUrl} alt="" className="w-full h-full object-cover rounded-xl" />
                     ) : (
@@ -603,7 +603,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <label className="block text-sm text-text-muted mb-2">{t('profile.cover')}</label>
-                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-white/20 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
+                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[#C9A24B]/50 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
                     {profile.coverImageUrl ? (
                       <img src={profile.coverImageUrl} alt="" className="w-full h-full object-cover rounded-xl" />
                     ) : (
@@ -636,7 +636,7 @@ export default function Dashboard() {
           <motion.div key="portfolio" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold" style={{ fontFamily: 'Poppins' }}>{t('portfolio.title')}</h2>
+                <h2 className="text-lg font-semibold" style={{ fontFamily: 'Playfair Display' }}>{t('portfolio.title')}</h2>
                 <div className="flex items-center gap-2">
                   <label className="btn-outline inline-flex items-center gap-2 cursor-pointer text-sm">
                     {uploading ? <><span className="w-4 h-4 border-2 border-text-muted border-t-transparent rounded-full animate-spin" /> {uploadProgress}</> : <><FaPlus /> {t('portfolio.add')}</>}
@@ -646,13 +646,13 @@ export default function Dashboard() {
               </div>
 
               {/* Album filter bar */}
-              <div className="flex flex-wrap items-center gap-2 mb-4 pb-4 border-b border-white/10">
+              <div className="flex flex-wrap items-center gap-2 mb-4 pb-4 border-b border-[#E9E0CC]">
                 <button
                   onClick={() => setSelectedAlbumId(null)}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                     selectedAlbumId === null
                       ? 'bg-accent text-dark'
-                      : 'bg-white/10 text-text-muted hover:bg-white/20'
+                      : 'bg-accent/10 text-text-muted hover:bg-accent/20'
                   }`}
                 >
                   {t('portfolio.allAlbums')}
@@ -666,7 +666,7 @@ export default function Dashboard() {
                           value={renameValue}
                           onChange={e => setRenameValue(e.target.value)}
                           onKeyDown={e => { if (e.key === 'Enter') renameAlbum(album.id); if (e.key === 'Escape') setRenamingAlbumId(null); }}
-                          className="w-28 px-2 py-1 rounded-lg bg-white/10 border border-white/20 text-xs text-text outline-none"
+                          className="w-28 px-2 py-1 rounded-lg bg-white border border-[#D8CBB0] text-xs text-text outline-none"
                           autoFocus
                           onBlur={() => { if (renameValue.trim()) renameAlbum(album.id); else setRenamingAlbumId(null); }}
                         />
@@ -682,7 +682,7 @@ export default function Dashboard() {
                           className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                             selectedAlbumId === album.id
                               ? 'bg-accent text-dark'
-                              : 'bg-white/10 text-text-muted hover:bg-white/20'
+                              : 'bg-accent/10 text-text-muted hover:bg-accent/20'
                           }`}
                         >
                           {album.name}
@@ -705,7 +705,7 @@ export default function Dashboard() {
                       value={newAlbumName}
                       onChange={e => setNewAlbumName(e.target.value)}
                       onKeyDown={e => { if (e.key === 'Enter') createAlbum(); if (e.key === 'Escape') { setShowNewAlbumInput(false); setNewAlbumName(''); } }}
-                      className="w-28 px-2 py-1.5 rounded-lg bg-white/10 border border-white/20 text-xs text-text outline-none"
+                      className="w-28 px-2 py-1.5 rounded-lg bg-white border border-[#D8CBB0] text-xs text-text outline-none"
                       placeholder={t('portfolio.albumName') || 'Album name'}
                       autoFocus
                       onBlur={() => { if (newAlbumName.trim()) createAlbum(); else { setShowNewAlbumInput(false); setNewAlbumName(''); } }}
@@ -773,7 +773,7 @@ export default function Dashboard() {
         {activeTab === 'promo' && (
           <motion.div key="promo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('promo.title')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('promo.title')}</h2>
 
               <form onSubmit={handlePromoSubmit} className="mb-8">
                 <label className="block text-sm text-text-muted mb-2">{t('promo.uploadLabel')}</label>
@@ -787,7 +787,7 @@ export default function Dashboard() {
                 </motion.button>
               </form>
 
-              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('promo.yourAds')}</h3>
+              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('promo.yourAds')}</h3>
               {promoAds.length === 0 ? (
                 <div className="text-center py-8">
                   <FaBullhorn className="text-4xl mx-auto mb-3 text-text-muted/30" />
@@ -819,7 +819,7 @@ export default function Dashboard() {
         {activeTab === 'status' && (
           <motion.div key="status" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('status.title')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('status.title')}</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-xl bg-surface-light">
@@ -831,7 +831,7 @@ export default function Dashboard() {
                 </div>
                 <div className="p-4 rounded-xl bg-surface-light">
                   <p className="text-text-muted text-sm mb-1">{t('status.daysRemaining')}</p>
-                  <p className="font-semibold text-2xl" style={{ fontFamily: 'Poppins' }}>{remainingDays} <span className="text-sm text-text-muted">{t('status.days')}</span></p>
+                  <p className="font-semibold text-2xl" style={{ fontFamily: 'Playfair Display' }}>{remainingDays} <span className="text-sm text-text-muted">{t('status.days')}</span></p>
                 </div>
               </div>
 
@@ -849,7 +849,7 @@ export default function Dashboard() {
         {activeTab === 'listings' && (
           <motion.div key="listings" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Poppins' }}>{t('listings.title')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('listings.title')}</h2>
               <p className="text-text-muted text-sm">
                 {t('listings.desc')}
               </p>

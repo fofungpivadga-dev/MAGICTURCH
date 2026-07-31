@@ -68,7 +68,7 @@ export default function PromoPopup() {
             </button>
           </div>
           <div className="p-4">
-            <p className="text-sm font-semibold truncate" style={{ fontFamily: 'Poppins' }}>
+            <p className="text-sm font-semibold truncate" style={{ fontFamily: 'Playfair Display' }}>
               {ad.painterName}
             </p>
             <p className="text-xs text-text-muted mt-1">
@@ -82,7 +82,7 @@ export default function PromoPopup() {
               <button
                 key={i}
                 onClick={() => setAdIndex(i)}
-                className={`w-2 h-2 rounded-full transition-colors ${i === adIndex % ads.length ? 'bg-accent' : 'bg-white/20'}`}
+                className={`w-2 h-2 rounded-full transition-colors ${i === adIndex % ads.length ? 'bg-accent' : 'bg-[#D8CBB0]'}`}
               />
             ))}
           </div>
