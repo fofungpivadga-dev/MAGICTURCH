@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { FaUser, FaImages, FaBullhorn, FaClock, FaSave, FaPlus, FaTrash, FaArrowUp, FaArrowDown, FaExternalLinkAlt, FaExclamationTriangle, FaTachometerAlt, FaThumbtack, FaCheckSquare, FaSquare, FaTimes } from 'react-icons/fa';
 import { useTranslation } from '../lib/translations';
 import BackButton from '../components/BackButton';
+import HeroBackdrop from '../components/HeroBackdrop';
 
 type Tab = 'profile' | 'portfolio' | 'listings' | 'promo' | 'status';
 
@@ -360,7 +361,9 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="relative min-h-screen overflow-hidden">
+      <HeroBackdrop />
+      <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
       <BackButton to="/" label={t('backToHome')} className="mb-4" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -871,6 +874,7 @@ export default function Dashboard() {
         )}
 
       </AnimatePresence>
+      </div>
     </div>
   );
 }
