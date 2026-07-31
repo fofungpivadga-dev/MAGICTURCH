@@ -199,9 +199,13 @@ export default function Home() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex items-center justify-center"
+              className="relative flex items-center justify-center"
             >
-              <div className="grid grid-cols-2 gap-6 max-w-[420px] w-full">
+              <div className="absolute w-[540px] h-[540px] -z-0 pointer-events-none">
+                <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,#D9A441,#E4572E,#7858A8,#0F6B5C,#D9A441)] blur-[70px] opacity-60 animate-[spin_18s_linear_infinite]" />
+                <div className="absolute inset-8 rounded-full bg-[conic-gradient(from_180deg,#D9A441,#E4572E,#7858A8,#0F6B5C,#D9A441)] blur-[40px] opacity-40 animate-[spin_28s_linear_infinite_reverse]" />
+              </div>
+              <div className="relative grid grid-cols-2 gap-6 max-w-[420px] w-full">
                 {staticVideoUrls.map((src, i) => (
                   <div key={i} className="flex flex-col items-center gap-2">
                     <div className="w-full rounded-3xl p-2.5 bg-white/[0.06] backdrop-blur-xl border border-white/15 shadow-[0_24px_60px_rgba(0,0,0,0.55)] hover:border-accent/50 hover:shadow-[0_24px_70px_rgba(217,164,65,0.15)] transition-all duration-300">
