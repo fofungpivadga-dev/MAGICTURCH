@@ -54,7 +54,7 @@ export default function Gallery() {
         >
           <FaArrowLeft size={14} /> {t('gallery.back')}
         </Link>
-        <h1 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Inter' }}>
+        <h1 className="text-2xl md:text-3xl font-bold text-white" style={{ fontFamily: 'Inter' }}>
           {t('gallery.title')}
         </h1>
       </motion.div>

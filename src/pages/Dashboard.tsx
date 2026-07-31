@@ -367,7 +367,7 @@ export default function Dashboard() {
         animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between mb-6"
       >
-        <h1 className="text-2xl font-bold" style={{ fontFamily: 'Inter' }}>{t('dashboard.title')}</h1>
+        <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Inter' }}>{t('dashboard.title')}</h1>
         <div className="glass px-4 py-2 rounded-xl text-sm flex items-center gap-3">
           {profile.photoUrl ? (
             <img src={profile.photoUrl} alt="" className="w-8 h-8 rounded-full object-cover" />

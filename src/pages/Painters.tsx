@@ -91,7 +91,7 @@ export default function Painters() {
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl font-bold mb-6"
+        className="text-3xl font-bold mb-6 text-white"
         style={{ fontFamily: 'Inter' }}
       >
         {t('directory.title')}
@@ -115,7 +115,7 @@ export default function Painters() {
               value={selectedRegion}
               onChange={e => setSelectedRegion(e.target.value)}
               className="input-field"
-              style={{ color: selectedRegion ? '#FFFFFF' : '#D4D0C8' }}
+              style={{ color: selectedRegion ? '#292524' : '#A89F8C' }}
             >
               <option value="" style={{ color: '#9A9084', background: '#FFFFFF' }}>{t('search.allRegions')}</option>
               {allRegions.map(r => (
@@ -129,7 +129,7 @@ export default function Painters() {
               value={selectedCity}
               onChange={e => setSelectedCity(e.target.value)}
               className="input-field"
-              style={{ color: selectedCity ? '#FFFFFF' : '#D4D0C8' }}
+              style={{ color: selectedCity ? '#292524' : '#A89F8C' }}
             >
               <option value="" style={{ color: '#9A9084', background: '#FFFFFF' }}>All Cities</option>
               {ALL_CITIES.sort().map(c => (
@@ -143,7 +143,7 @@ export default function Painters() {
               value={selectedSpecialty}
               onChange={e => setSelectedSpecialty(e.target.value)}
               className="input-field"
-              style={{ color: selectedSpecialty ? '#FFFFFF' : '#D4D0C8' }}
+              style={{ color: selectedSpecialty ? '#292524' : '#A89F8C' }}
             >
               <option value="" style={{ color: '#9A9084', background: '#FFFFFF' }}>{t('search.allSpecialties')}</option>
               {allSpecialties.map(s => (

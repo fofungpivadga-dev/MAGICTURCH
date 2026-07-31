@@ -1,0 +1,92 @@
+Redesign my entire website with a premium luxury architectural style inspired by high-end real estate brands.
+
+Use this exact color system:
+
+PRIMARY BRAND COLOR:
+- Deep Forest Green: #1F4D3B
+Use this as the main background color for the hero section, navigation bar, footer, and major dark sections.
+
+ACCENT COLOR:
+- Warm Cream: #FDFAD0
+Use this for primary call-to-action buttons, highlights, important text, badges, and premium elements.
+
+SECONDARY COLOR:
+- Warm Beige Gray: #7F7863
+Use this for cards, secondary sections, testimonials, property boxes, and supporting UI elements.
+
+WHITE:
+- Pure White: #FFFFFF
+Use for clean sections, backgrounds, and contrast areas.
+
+DESIGN STYLE:
+Create a luxury, modern, minimal, premium interface with:
+- Large bold typography
+- Elegant spacing
+- High-end real estate aesthetic
+- Clean architectural feeling
+- Strong contrast between dark green backgrounds and cream highlights
+- Smooth animations
+- Glassmorphism effects
+- Rounded premium cards
+- Soft shadows
+- Subtle borders
+- Modern professional layout
+
+NAVIGATION BAR:
+- Use a dark forest green background (#1F4D3B)
+- White navigation text
+- Active menu items highlighted with cream (#FDFAD0)
+- Add a premium glass effect with slight transparency and blur
+
+HERO SECTION:
+- Background: #1F4D3B
+- Large headline text: #FDFAD0
+- Supporting paragraph: #FFFFFF with slight opacity
+- Primary button: cream background (#FDFAD0) with dark green text (#1F4D3B)
+- Secondary button: transparent background with cream border and cream text
+- Add modern architectural imagery with luxury presentation
+- Use floating cards and elegant UI blocks similar to premium property websites
+
+BUTTON STYLE:
+Primary button:
+- Background: #FDFAD0
+- Text: #1F4D3B
+- Rounded corners
+- Premium hover animation
+
+Secondary button:
+- Transparent background
+- Border: #FDFAD0
+- Text: #FDFAD0
+
+CARDS AND COMPONENTS:
+- Use #7F7863 for highlighted cards
+- Add glass panels using:
+  rgba(255,255,255,0.08)
+- Add backdrop blur effects
+- Use subtle cream borders
+- Add soft luxury shadows
+
+TYPOGRAPHY:
+- Headings: bold, large, modern, premium
+- Body text: clean and readable
+- Use elegant spacing and hierarchy
+
+SECTION COLORS:
+Hero:
+#1F4D3B
+
+Light sections:
+#FFFFFF
+
+Premium highlight sections:
+#FDFAD0
+
+Cards:
+#7F7863
+
+Footer:
+#1F4D3B
+
+OVERALL FEEL:
+The final website should feel like a luxury real estate platform, premium SaaS product, or high-end architectural company website. Make it visually impressive, elegant, modern, and trustworthy while maintaining a clean professional user experience.

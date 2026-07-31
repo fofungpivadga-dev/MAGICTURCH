@@ -21,10 +21,10 @@ export default function FAQ() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-white">
             {t('faq.title')}
           </h2>
-          <p className="text-text-muted">
+          <p className="text-white/70">
             {t('faq.subtitle')}
           </p>
         </motion.div>

@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #8A5A00;
-  --color-secondary: #6B6256;
-  --color-accent: #8A5A00;
-  --color-dark: #1C1917;
+  --color-primary: #1F4D3B;
+  --color-secondary: #7F7863;
+  --color-accent: #1F4D3B;
+  --color-dark: #1F4D3B;
   --color-surface: #FFFFFF;
-  --color-surface-light: #FBF3DF;
+  --color-surface-light: #FAF8F0;
   --color-text: #292524;
-  --color-text-muted: #6F675C;
+  --color-text-muted: #7F7863;
   --color-whatsapp: #25D366;
 }
 
@@ -19,7 +19,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #EAB308;
+  background: #1F4D3B;
   color: var(--color-text);
   margin: 0;
   overflow-x: hidden;
@@ -33,26 +33,26 @@ h1, h2, h3, h4, h5, h6 {
 
 .glass {
   background: #FFFFFF;
-  border: 1px solid #EDE3C8;
+  border: 1px solid #E5E0D2;
   border-radius: 16px;
 }
 
 .glass-card {
   background: #FFFFFF;
-  border: 1px solid #EDE3C8;
+  border: 1px solid #E5E0D2;
   border-radius: 16px;
   transition: all 0.3s ease;
 }
 
 .glass-card:hover {
-  border-color: #8A5A00;
+  border-color: #1F4D3B;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(28, 25, 23, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary {
-  background: #8A5A00;
-  color: #FFFFFF;
+  background: #FDFAD0;
+  color: #1F4D3B;
   font-weight: 600;
   padding: 10px 24px;
   border-radius: 10px;
@@ -63,9 +63,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary:hover {
-  background: #6F4A00;
+  background: #F4EFB8;
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(138, 90, 0, 0.35);
+  box-shadow: 0 4px 16px rgba(253, 250, 208, 0.3);
 }
 
 .btn-whatsapp {
@@ -90,8 +90,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-outline {
   background: transparent;
-  color: #292524;
-  border: 1px solid #292524;
+  color: #FDFAD0;
+  border: 1px solid #FDFAD0;
   padding: 10px 24px;
   border-radius: 10px;
   cursor: pointer;
@@ -100,13 +100,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-outline:hover {
-  background: rgba(28, 25, 23, 0.06);
+  background: rgba(253, 250, 208, 0.1);
   transform: translateY(-1px);
 }
 
 .input-field {
   background: #FFFFFF;
-  border: 1px solid #D8CBB0;
+  border: 1px solid #DCD6C4;
   border-radius: 10px;
   padding: 12px 16px;
   color: #292524;
@@ -126,17 +126,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .input-field:focus {
-  border-color: #8A5A00;
-  box-shadow: 0 0 0 2px rgba(138, 90, 0, 0.2);
+  border-color: #1F4D3B;
+  box-shadow: 0 0 0 2px rgba(31, 77, 59, 0.2);
 }
 
 .input-field::placeholder {
-  color: #A89777;
+  color: #A89F8C;
 }
 
 select.input-field {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236F675C' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237F7863' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding-right: 32px;
@@ -153,14 +153,14 @@ select.input-field option {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FFF3C4;
+  background: #2A5341;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D8CBB0;
+  background: #7F7863;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #8A5A00;
+  background: #FDFAD0;
 }
 
 /* Focus Ring Utility */
@@ -168,7 +168,7 @@ select.input-field option {
   outline: none;
 }
 .focus-ring:focus-visible {
-  outline: 2px solid #8A5A00;
+  outline: 2px solid #FDFAD0;
   outline-offset: 2px;
   border-radius: 8px;
 }
@@ -177,9 +177,9 @@ select.input-field option {
 .toast-custom {
   background: #FFFFFF !important;
   color: #292524 !important;
-  border: 1px solid #EDE3C8 !important;
+  border: 1px solid #E5E0D2 !important;
   border-radius: 12px !important;
-  box-shadow: 0 8px 24px rgba(28, 25, 23, 0.12) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18) !important;
   font-family: 'Inter', sans-serif !important;
 }
 
@@ -189,7 +189,7 @@ select.input-field option {
   50% { opacity: 0.7; }
 }
 .skeleton {
-  background: linear-gradient(90deg, #EDE3C8 25%, #FBF3DF 50%, #EDE3C8 75%);
+  background: linear-gradient(90deg, #E7E1D3 25%, #F5F2E9 50%, #E7E1D3 75%);
   background-size: 200% 100%;
   animation: skeleton-pulse 1.5s ease-in-out infinite;
   border-radius: 12px;
@@ -197,8 +197,8 @@ select.input-field option {
 
 /* Styled File Upload */
 .file-upload-zone {
-  background: #FBF3DF;
-  border: 2px dashed #D8CBB0;
+  background: #FAF8F0;
+  border: 2px dashed #DCD6C4;
   border-radius: 12px;
   padding: 24px;
   text-align: center;
@@ -206,14 +206,14 @@ select.input-field option {
   transition: all 0.3s ease;
 }
 .file-upload-zone:hover {
-  border-color: #8A5A00;
-  background: rgba(138, 90, 0, 0.06);
+  border-color: #1F4D3B;
+  background: rgba(31, 77, 59, 0.05);
 }
 
 /* Table Alternating Rows */
 .table-row-alt:nth-child(even) {
-  background: rgba(138, 90, 0, 0.05);
+  background: rgba(31, 77, 59, 0.05);
 }
 .table-row-alt:hover {
-  background: rgba(138, 90, 0, 0.08) !important;
+  background: rgba(31, 77, 59, 0.08) !important;
 }

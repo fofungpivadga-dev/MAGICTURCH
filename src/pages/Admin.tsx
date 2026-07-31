@@ -359,7 +359,7 @@ export default function Admin() {
           >
             <FaArrowLeft size={14} /> {t('admin.backToDashboard')}
           </Link>
-          <h1 className="text-2xl font-bold" style={{ fontFamily: 'Inter' }}>{t('admin.title')}</h1>
+          <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Inter' }}>{t('admin.title')}</h1>
         </div>
         <div className="glass px-4 py-2 rounded-xl text-sm flex items-center gap-3">
           {user?.photoURL ? (

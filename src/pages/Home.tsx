@@ -79,7 +79,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1C1917] border border-[#1C1917] text-[#EAB308] text-xs font-semibold mb-6"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FDFAD0] border border-[#FDFAD0] text-[#1F4D3B] text-xs font-semibold mb-6"
               >
                 <FaPaintRoller size={12} /> {t('hero.badge')}
               </motion.div>
@@ -87,7 +87,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text mb-5"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#FDFAD0] mb-5"
               >
                 {heroContent.headline}
               </motion.h1>
@@ -95,7 +95,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-lg md:text-xl font-medium text-text-muted mb-3"
+                className="text-lg md:text-xl font-medium text-white/80 mb-3"
               >
                 {heroContent.subtitle}
               </motion.p>
@@ -103,7 +103,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="text-sm md:text-base text-text-muted max-w-xl mb-8"
+                className="text-sm md:text-base text-white/70 max-w-xl mb-8"
               >
                 {heroContent.description}
               </motion.p>
@@ -162,12 +162,12 @@ export default function Home() {
                   )}
                 </div>
                 <div>
-                  <div className="flex gap-0.5 text-accent">
+                  <div className="flex gap-0.5 text-[#FDFAD0]">
                     {[1, 2, 3, 4, 5].map(s => (
                       <FaStar key={s} size={12} />
                     ))}
                   </div>
-                  <p className="text-xs text-text-muted mt-1">{t('hero.rating')}</p>
+                  <p className="text-xs text-white/70 mt-1">{t('hero.rating')}</p>
                 </div>
               </motion.div>
             </motion.div>
@@ -187,7 +187,7 @@ export default function Home() {
                         muted
                         loop
                         playsInline
-                        className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg border border-[#EDE3C8]"
+                        className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg border border-white/15"
                         onError={e => {
                           (e.target as HTMLElement).style.display = 'none';
                           const placeholder = (e.target as HTMLElement).nextElementSibling;
@@ -222,11 +222,11 @@ export default function Home() {
           transition={{ delay: 2, duration: 1 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
         >
-          <div className="w-6 h-10 border-2 border-text-muted rounded-full flex justify-center">
+          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
-              className="w-1.5 h-1.5 bg-accent rounded-full mt-2"
+              className="w-1.5 h-1.5 bg-[#FDFAD0] rounded-full mt-2"
             />
           </div>
         </motion.div>
@@ -239,12 +239,11 @@ export default function Home() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-2xl md:text-3xl font-bold text-center mb-12"
+            className="text-2xl md:text-3xl font-bold text-center mb-12 text-white"
             style={{ fontFamily: 'Inter' }}
           >
             {t('how.title')}
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          </motion.h2>          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: <FaSearch className="text-2xl" />, title: t('how.step1.title'), desc: t('how.step1.desc') },
               { icon: <FaUserFriends className="text-2xl" />, title: t('how.step2.title'), desc: t('how.step2.desc') },
@@ -271,7 +270,7 @@ export default function Home() {
 
       {/* Featured Craft — Pinned Portfolio Images */}
       {pinnedItems.length > 0 && (
-        <section className="py-16 px-4 bg-white/60">
+        <section className="py-16 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-10">
               <motion.div
@@ -279,12 +278,12 @@ export default function Home() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Inter' }}>
+                <h2 className="text-2xl md:text-3xl font-bold text-white" style={{ fontFamily: 'Inter' }}>
                   {t('featured.title')}
                 </h2>
-                <p className="text-text-muted text-sm mt-2">{t('featured.subtitle')}</p>
+                <p className="text-white/70 text-sm mt-2">{t('featured.subtitle')}</p>
               </motion.div>
-              <Link to="/gallery" className="text-accent hover:text-primary transition-colors text-sm flex items-center gap-1 whitespace-nowrap">
+              <Link to="/gallery" className="text-[#FDFAD0] hover:text-white transition-colors text-sm flex items-center gap-1 whitespace-nowrap">
                 {t('featured.viewAll')} <FaArrowRight />
               </Link>
             </div>
@@ -349,7 +348,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-2xl md:text-3xl font-bold text-center mb-12"
+            className="text-2xl md:text-3xl font-bold text-center mb-12 text-white"
             style={{ fontFamily: 'Inter' }}
           >
             {t('why.title')}

@@ -82,7 +82,7 @@ export default function PromoPopup() {
               <button
                 key={i}
                 onClick={() => setAdIndex(i)}
-                className={`w-2 h-2 rounded-full transition-colors ${i === adIndex % ads.length ? 'bg-accent' : 'bg-[#D8CBB0]'}`}
+                className={`w-2 h-2 rounded-full transition-colors ${i === adIndex % ads.length ? 'bg-[#FDFAD0]' : 'bg-[#D8CBB0]'}`}
               />
             ))}
           </div>
