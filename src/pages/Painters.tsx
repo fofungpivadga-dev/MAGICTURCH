@@ -92,7 +92,7 @@ export default function Painters() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-3xl font-bold mb-6"
-        style={{ fontFamily: 'Playfair Display' }}
+        style={{ fontFamily: 'Inter' }}
       >
         {t('directory.title')}
       </motion.h1>
@@ -161,7 +161,7 @@ export default function Painters() {
       ) : filtered.length === 0 ? (
         <div className="glass-card p-10 text-center">
           <FaFilter className="text-4xl mx-auto mb-4 text-text-muted/30" />
-          <p className="text-lg font-semibold mb-2 text-text" style={{ fontFamily: 'Playfair Display' }}>{t('search.noResults')}</p>
+          <p className="text-lg font-semibold mb-2 text-text" style={{ fontFamily: 'Inter' }}>{t('search.noResults')}</p>
           <p className="text-text-muted/70">{t('search.noResults.desc')}</p>
         </div>
       ) : (

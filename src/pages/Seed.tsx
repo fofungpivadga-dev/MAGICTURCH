@@ -48,7 +48,7 @@ export default function Seed() {
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
             <FaTicketAlt className="text-accent text-2xl" />
           </div>
-          <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Playfair Display' }}>
+          <h1 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Inter' }}>
             Test Coupon Generator
           </h1>
           <p className="text-text-muted text-sm mb-6">

@@ -27,7 +27,7 @@ export default function ColorVisualizer() {
         transition={{ duration: 0.5 }}
         className="text-center mb-10"
       >
-        <h2 className="text-3xl font-bold mb-2" style={{ fontFamily: 'Playfair Display' }}>
+        <h2 className="text-3xl font-bold mb-2" style={{ fontFamily: 'Inter' }}>
           {t('visualizer.title')}
         </h2>
         <p className="text-text-muted max-w-xl mx-auto text-sm">

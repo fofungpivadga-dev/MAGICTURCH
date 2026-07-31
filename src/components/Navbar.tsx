@@ -34,13 +34,13 @@ export default function Navbar() {
     window.location.reload();
   };
 
-  const linkClass = 'text-text-muted hover:text-text transition-colors text-sm focus-ring';
+  const linkClass = 'text-text-muted hover:text-text transition-colors text-sm focus-ring hover:underline underline-offset-4 decoration-2 decoration-accent';
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md border-b border-[#E9E0CC]">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#E7E5E4]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link to="/" className="bg-surface-light border border-[#E9E0CC] px-3 py-1.5 rounded-xl hover:bg-white transition-colors">
-          <img src="/logo.png" alt="Magic Touch" className="h-9 w-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]" />
+        <Link to="/" className="transition-opacity hover:opacity-80">
+          <img src="/logo.png" alt="Magic Touch" className="h-9 w-auto" />
         </Link>
 
         {/* Desktop Nav */}
@@ -48,10 +48,10 @@ export default function Navbar() {
           <Link to="/painters" className={linkClass}>
             {t('nav.painters')}
           </Link>
-          <a href="/#try-paint" className="flex items-center gap-1 text-sm text-text-muted hover:text-text transition-colors focus-ring">
+          <a href="/#try-paint" className="flex items-center gap-1 text-sm text-text-muted hover:text-text transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-accent">
             <FaPaintRoller /> {t('nav.tryPaint')}
           </a>
-          <a href="https://wa.me/237691316704?text=Hi%2C%20I%20need%20help%20with%20Magic%20Touch%20Painting%20Services." target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-text-muted hover:text-whatsapp transition-colors focus-ring">
+          <a href="https://wa.me/237691316704?text=Hi%2C%20I%20need%20help%20with%20Magic%20Touch%20Painting%20Services." target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-text-muted hover:text-whatsapp transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-accent">
             <FaHeadset /> {t('nav.contact')}
           </a>
 
@@ -61,12 +61,12 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setLangOpen(!langOpen)}
-              className="flex items-center gap-1 text-sm text-text-muted hover:text-text transition-colors focus-ring"
+              className="flex items-center gap-1 text-sm text-text-muted hover:text-text transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-accent"
             >
               <FaGlobe /> {lang.toUpperCase()}
             </motion.button>
             {langOpen && (
-              <div className="absolute right-0 top-full mt-1 bg-white border border-[#E9E0CC] p-1 rounded-xl min-w-[80px] shadow-xl">
+              <div className="absolute right-0 top-full mt-1 bg-white border border-[#E7E5E4] p-1 rounded-xl min-w-[80px] shadow-xl">
                 <button
                   onClick={() => switchLang('en')}
                   className={`w-full text-left px-3 py-1.5 text-sm rounded-lg focus-ring ${lang === 'en' ? 'text-accent bg-accent/15' : 'text-text-muted hover:text-text'}`}
@@ -139,7 +139,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-white/95 border-t border-[#E9E0CC]"
+            className="md:hidden overflow-hidden bg-white/95 border-t border-[#E7E5E4]"
           >
             <div className="px-4 py-4 flex flex-col gap-3">
               <Link to="/painters" className={linkClass} onClick={() => setMobileOpen(false)}>

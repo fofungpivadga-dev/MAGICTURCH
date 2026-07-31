@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 import { collection, query, getDocs, orderBy, doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import type { HomepageGalleryItem, HomepageContent } from '../types';
-import { FaArrowRight, FaCheckCircle, FaPaintRoller, FaUserFriends, FaShieldAlt, FaWhatsapp, FaSearch, FaThumbtack } from 'react-icons/fa';
+import { FaArrowRight, FaCheckCircle, FaPaintRoller, FaUserFriends, FaShieldAlt, FaWhatsapp, FaSearch, FaThumbtack, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '../lib/translations';
 import ImageLightbox from '../components/ImageLightbox';
 import PromoPopup from '../components/PromoPopup';
 import ColorVisualizer from '../components/ColorVisualizer';
+import Testimonials from '../components/Testimonials';
+import FAQ from '../components/FAQ';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -54,23 +56,18 @@ export default function Home() {
     ? heroContent.videos
     : [{ linkUrl: '', linkLabel: '' }, { linkUrl: '', linkLabel: '' }];
 
+  const avatarItems = pinnedItems.slice(0, 4).map(i => ({
+    photo: i.painterPhotoUrl || '',
+    initial: (i.painterName || 'M').trim().charAt(0).toUpperCase(),
+  }));
+  const avatarColors = ['bg-[#C9A24B]', 'bg-[#8A7A66]', 'bg-[#B0854A]', 'bg-[#6B7280]'];
+
   return (
     <div>
       <PromoPopup />
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FDFAF3] via-[#F6EFE1] to-accent/30" />
-        <div className="absolute inset-0 opacity-10">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#C9A24B" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8 py-14">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -79,17 +76,18 @@ export default function Home() {
               className="text-left"
             >
               <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: '100%' }}
-                transition={{ duration: 1.5, ease: 'easeInOut' }}
-                className="h-1 bg-gradient-to-r from-primary via-accent to-secondary rounded-full mb-8 max-w-[120px]"
-              />
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-semibold mb-6"
+              >
+                <FaPaintRoller size={12} /> {t('hero.badge')}
+              </motion.div>
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-4xl md:text-6xl font-extrabold mb-6"
-                style={{ fontFamily: 'Playfair Display' }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text mb-5"
               >
                 {heroContent.headline}
               </motion.h1>
@@ -97,8 +95,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-lg md:text-xl text-accent font-semibold mb-4"
-                style={{ fontFamily: 'Playfair Display' }}
+                className="text-lg md:text-xl font-medium text-text-muted mb-3"
               >
                 {heroContent.subtitle}
               </motion.p>
@@ -106,7 +103,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="text-text-muted text-base max-w-xl mb-8"
+                className="text-sm md:text-base text-text-muted max-w-xl mb-8"
               >
                 {heroContent.description}
               </motion.p>
@@ -125,6 +122,53 @@ export default function Home() {
                     {t('hero.cta.find')} <FaArrowRight />
                   </motion.button>
                 </Link>
+                <a
+                  href="https://wa.me/237691316704?text=Hi%2C%20I%20need%20help%20with%20Magic%20Touch%20Painting%20Services."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="btn-outline text-base flex items-center gap-2"
+                  >
+                    <FaWhatsapp /> {t('hero.cta.contact')}
+                  </motion.button>
+                </a>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 1.1 }}
+                className="flex items-center gap-4 mt-8"
+              >
+                <div className="flex -space-x-2.5">
+                  {(avatarItems.length > 0 ? avatarItems : avatarColors.map(() => ({ photo: '', initial: 'M' }))).map((a, i) =>
+                    a.photo ? (
+                      <img
+                        key={i}
+                        src={a.photo}
+                        alt=""
+                        className="w-9 h-9 rounded-full border-2 border-white object-cover"
+                      />
+                    ) : (
+                      <div
+                        key={i}
+                        className={`w-9 h-9 rounded-full border-2 border-white ${avatarColors[i % 4]} flex items-center justify-center text-white text-xs font-semibold`}
+                      >
+                        {a.initial}
+                      </div>
+                    )
+                  )}
+                </div>
+                <div>
+                  <div className="flex gap-0.5 text-accent">
+                    {[1, 2, 3, 4, 5].map(s => (
+                      <FaStar key={s} size={12} />
+                    ))}
+                  </div>
+                  <p className="text-xs text-text-muted mt-1">{t('hero.rating')}</p>
+                </div>
               </motion.div>
             </motion.div>
 
@@ -143,7 +187,7 @@ export default function Home() {
                         muted
                         loop
                         playsInline
-                        className="w-full aspect-[3/4] object-cover rounded-2xl shadow-2xl border border-[#E9E0CC]"
+                        className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg border border-[#E7E5E4]"
                         onError={e => {
                           (e.target as HTMLElement).style.display = 'none';
                           const placeholder = (e.target as HTMLElement).nextElementSibling;
@@ -152,7 +196,7 @@ export default function Home() {
                       >
                         <source src={src} />
                       </video>
-                      <div className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-[#E3D9C2] items-center justify-center bg-surface-light/60 hidden">
+                      <div className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-[#D6D3D1] items-center justify-center bg-[#F5F5F4] hidden">
                         <p className="text-text-muted text-xs">Ad Space</p>
                       </div>
                       {heroLinks[i]?.linkUrl && (
@@ -176,7 +220,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
         >
           <div className="w-6 h-10 border-2 border-text-muted rounded-full flex justify-center">
             <motion.div
@@ -196,7 +240,7 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-2xl md:text-3xl font-bold text-center mb-12"
-            style={{ fontFamily: 'Playfair Display' }}
+            style={{ fontFamily: 'Inter' }}
           >
             {t('how.title')}
           </motion.h2>
@@ -217,7 +261,7 @@ export default function Home() {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center text-accent">
                   {step.icon}
                 </div>
-                <h3 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{step.title}</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{step.title}</h3>
                 <p className="text-text-muted text-sm">{step.desc}</p>
               </motion.div>
             ))}
@@ -235,7 +279,7 @@ export default function Home() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Playfair Display' }}>
+                <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Inter' }}>
                   {t('featured.title')}
                 </h2>
                 <p className="text-text-muted text-sm mt-2">{t('featured.subtitle')}</p>
@@ -272,7 +316,7 @@ export default function Home() {
                         />
                       )}
                       <div className="min-w-0">
-                        <p className="text-white font-semibold text-sm truncate" style={{ fontFamily: 'Playfair Display' }}>
+                        <p className="text-white font-semibold text-sm truncate" style={{ fontFamily: 'Inter' }}>
                           {item.painterBusinessName || item.painterName}
                         </p>
                         <p className="text-white/60 text-xs flex items-center gap-1">
@@ -306,7 +350,7 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-2xl md:text-3xl font-bold text-center mb-12"
-            style={{ fontFamily: 'Playfair Display' }}
+            style={{ fontFamily: 'Inter' }}
           >
             {t('why.title')}
           </motion.h2>
@@ -327,13 +371,17 @@ export default function Home() {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center text-secondary text-xl">
                   {item.icon}
                 </div>
-                <h3 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{item.title}</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{item.title}</h3>
                 <p className="text-text-muted text-sm">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      <Testimonials />
+
+      <FAQ />
 
       <ColorVisualizer />
 
@@ -345,7 +393,7 @@ export default function Home() {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto text-center glass-card p-10"
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-6" style={{ fontFamily: 'Playfair Display' }}>
+          <h2 className="text-2xl md:text-3xl font-bold mb-6" style={{ fontFamily: 'Inter' }}>
             {t('cta.title')}
           </h2>
           <p className="text-text-muted text-base mb-8">

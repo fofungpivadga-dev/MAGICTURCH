@@ -367,7 +367,7 @@ export default function Dashboard() {
         animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between mb-6"
       >
-        <h1 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display' }}>{t('dashboard.title')}</h1>
+        <h1 className="text-2xl font-bold" style={{ fontFamily: 'Inter' }}>{t('dashboard.title')}</h1>
         <div className="glass px-4 py-2 rounded-xl text-sm flex items-center gap-3">
           {profile.photoUrl ? (
             <img src={profile.photoUrl} alt="" className="w-8 h-8 rounded-full object-cover" />
@@ -474,7 +474,7 @@ export default function Dashboard() {
         {activeTab === 'profile' && (
           <motion.div key="profile" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('profile.title')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{t('profile.title')}</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -636,7 +636,7 @@ export default function Dashboard() {
           <motion.div key="portfolio" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold" style={{ fontFamily: 'Playfair Display' }}>{t('portfolio.title')}</h2>
+                <h2 className="text-lg font-semibold" style={{ fontFamily: 'Inter' }}>{t('portfolio.title')}</h2>
                 <div className="flex items-center gap-2">
                   <label className="btn-outline inline-flex items-center gap-2 cursor-pointer text-sm">
                     {uploading ? <><span className="w-4 h-4 border-2 border-text-muted border-t-transparent rounded-full animate-spin" /> {uploadProgress}</> : <><FaPlus /> {t('portfolio.add')}</>}
@@ -773,7 +773,7 @@ export default function Dashboard() {
         {activeTab === 'promo' && (
           <motion.div key="promo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('promo.title')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{t('promo.title')}</h2>
 
               <form onSubmit={handlePromoSubmit} className="mb-8">
                 <label className="block text-sm text-text-muted mb-2">{t('promo.uploadLabel')}</label>
@@ -787,7 +787,7 @@ export default function Dashboard() {
                 </motion.button>
               </form>
 
-              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('promo.yourAds')}</h3>
+              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{t('promo.yourAds')}</h3>
               {promoAds.length === 0 ? (
                 <div className="text-center py-8">
                   <FaBullhorn className="text-4xl mx-auto mb-3 text-text-muted/30" />
@@ -819,7 +819,7 @@ export default function Dashboard() {
         {activeTab === 'status' && (
           <motion.div key="status" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('status.title')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{t('status.title')}</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-xl bg-surface-light">
@@ -831,7 +831,7 @@ export default function Dashboard() {
                 </div>
                 <div className="p-4 rounded-xl bg-surface-light">
                   <p className="text-text-muted text-sm mb-1">{t('status.daysRemaining')}</p>
-                  <p className="font-semibold text-2xl" style={{ fontFamily: 'Playfair Display' }}>{remainingDays} <span className="text-sm text-text-muted">{t('status.days')}</span></p>
+                  <p className="font-semibold text-2xl" style={{ fontFamily: 'Inter' }}>{remainingDays} <span className="text-sm text-text-muted">{t('status.days')}</span></p>
                 </div>
               </div>
 
@@ -849,7 +849,7 @@ export default function Dashboard() {
         {activeTab === 'listings' && (
           <motion.div key="listings" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="glass-card p-5">
-              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('listings.title')}</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{t('listings.title')}</h2>
               <p className="text-text-muted text-sm">
                 {t('listings.desc')}
               </p>

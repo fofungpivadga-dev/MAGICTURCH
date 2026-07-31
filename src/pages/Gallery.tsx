@@ -54,7 +54,7 @@ export default function Gallery() {
         >
           <FaArrowLeft size={14} /> {t('gallery.back')}
         </Link>
-        <h1 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Playfair Display' }}>
+        <h1 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Inter' }}>
           {t('gallery.title')}
         </h1>
       </motion.div>
@@ -81,7 +81,7 @@ export default function Gallery() {
       ) : filtered.length === 0 ? (
         <div className="glass-card p-10 text-center">
           <FaSearch className="text-4xl mx-auto mb-4 text-text-muted/30" />
-          <p className="text-lg font-semibold mb-2 text-text" style={{ fontFamily: 'Playfair Display' }}>
+          <p className="text-lg font-semibold mb-2 text-text" style={{ fontFamily: 'Inter' }}>
             {search ? t('gallery.noResults') : t('gallery.empty')}
           </p>
         </div>
@@ -120,7 +120,7 @@ export default function Gallery() {
                     />
                   )}
                   <div className="min-w-0">
-                    <p className="text-white font-semibold text-sm truncate" style={{ fontFamily: 'Playfair Display' }}>
+                    <p className="text-white font-semibold text-sm truncate" style={{ fontFamily: 'Inter' }}>
                       {item.painterBusinessName || item.painterName}
                     </p>
                     <p className="text-white/60 text-xs flex items-center gap-1">

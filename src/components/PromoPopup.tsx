@@ -68,7 +68,7 @@ export default function PromoPopup() {
             </button>
           </div>
           <div className="p-4">
-            <p className="text-sm font-semibold truncate" style={{ fontFamily: 'Playfair Display' }}>
+            <p className="text-sm font-semibold truncate" style={{ fontFamily: 'Inter' }}>
               {ad.painterName}
             </p>
             <p className="text-xs text-text-muted mt-1">

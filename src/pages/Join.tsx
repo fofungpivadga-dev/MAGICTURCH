@@ -132,7 +132,7 @@ export default function Join() {
             <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
               <FaPaintRoller className="text-primary text-xl" />
             </div>
-            <h1 className="text-xl font-bold" style={{ fontFamily: 'Playfair Display' }}>
+            <h1 className="text-xl font-bold" style={{ fontFamily: 'Inter' }}>
               {mode === 'signup' ? t('join.title') : t('signin.title')}
             </h1>
             <p className="text-text-muted text-sm mt-2">

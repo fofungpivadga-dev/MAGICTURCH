@@ -146,7 +146,7 @@ export default function PainterProfile() {
                 </div>
               )}
             </div>
-            <h1 className="text-xl font-bold" style={{ fontFamily: 'Playfair Display' }}>{painter.businessName || painter.name}</h1>
+            <h1 className="text-xl font-bold" style={{ fontFamily: 'Inter' }}>{painter.businessName || painter.name}</h1>
             {painter.yearsOfExperience && (
               <p className="text-text-muted text-sm mt-1">{painter.yearsOfExperience} years of experience</p>
             )}
@@ -158,7 +158,7 @@ export default function PainterProfile() {
 
           {painter.email || painter.phoneNumber ? (
             <div className="glass-card p-5">
-              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('contact.info')}</h3>
+              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{t('contact.info')}</h3>
               <div className="space-y-2 text-sm">
                 {painter.phoneNumber && (
                   <p className="flex items-center gap-2 text-text-muted">
@@ -186,7 +186,7 @@ export default function PainterProfile() {
               transition={{ delay: 0.1 }}
               className="glass-card p-5"
             >
-              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('serviceAreas')}</h3>
+              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{t('serviceAreas')}</h3>
               <div className="flex flex-wrap gap-2">
                 {painter.cities?.map((city, i) => (
                   <span key={i} className="text-xs px-3 py-1.5 rounded-full bg-accent/10 text-text-muted flex items-center gap-1">
@@ -207,7 +207,7 @@ export default function PainterProfile() {
               transition={{ delay: 0.2 }}
               className="glass-card p-5"
             >
-              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('about')}</h3>
+              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{t('about')}</h3>
               <p className="text-text-muted leading-relaxed">{painter.bio}</p>
             </motion.div>
           )}
@@ -219,7 +219,7 @@ export default function PainterProfile() {
               transition={{ delay: 0.3 }}
               className="glass-card p-5"
             >
-              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Playfair Display' }}>{t('specialties')}</h3>
+              <h3 className="font-semibold mb-3" style={{ fontFamily: 'Inter' }}>{t('specialties')}</h3>
               <div className="flex flex-wrap gap-2">
                 {painter.specialties.map((s, i) => (
                   <span key={i} className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm">
@@ -237,7 +237,7 @@ export default function PainterProfile() {
             transition={{ delay: 0.4 }}
             className="glass-card p-5"
           >
-            <h3 className="font-semibold mb-4" style={{ fontFamily: 'Playfair Display' }}>{t('portfolio.title')}</h3>
+            <h3 className="font-semibold mb-4" style={{ fontFamily: 'Inter' }}>{t('portfolio.title')}</h3>
             <PortfolioGallery items={portfolio} albums={Object.fromEntries(albums.map(a => [a.id, a.name]))} />
           </motion.div>
 
@@ -247,7 +247,7 @@ export default function PainterProfile() {
             transition={{ delay: 0.5 }}
             className="glass-card p-5"
           >
-            <h3 className="font-semibold mb-4" style={{ fontFamily: 'Playfair Display' }}>{t('review.title')}</h3>
+            <h3 className="font-semibold mb-4" style={{ fontFamily: 'Inter' }}>{t('review.title')}</h3>
             <form onSubmit={handleReviewSubmit} className="space-y-3 mb-6">
               <input
                 type="text"
@@ -290,7 +290,7 @@ export default function PainterProfile() {
 
             {reviews.length > 0 && (
               <>
-                <h4 className="font-semibold mb-3 text-text-muted" style={{ fontFamily: 'Playfair Display' }}>{t('review.count')} ({reviews.length})</h4>
+                <h4 className="font-semibold mb-3 text-text-muted" style={{ fontFamily: 'Inter' }}>{t('review.count')} ({reviews.length})</h4>
                 <div className="space-y-4">
                   {reviews.map((r) => (
                     <div key={r.id} className="border-b border-[#E9E0CC] pb-4 last:border-0">
