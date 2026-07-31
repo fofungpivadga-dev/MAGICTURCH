@@ -13,7 +13,7 @@ import BackButton from '../components/BackButton';
 type Tab = 'profile' | 'portfolio' | 'listings' | 'promo' | 'status';
 
 export default function Dashboard() {
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, reactivateAccount } = useAuth();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<Tab>('profile');
   const [profile, setProfile] = useState(user?.profile || {
@@ -28,6 +28,8 @@ export default function Dashboard() {
   const [availableSpecialties, setAvailableSpecialties] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [reactivationCode, setReactivationCode] = useState('');
+  const [reactivating, setReactivating] = useState(false);
   const [uploadProgress, setUploadProgress] = useState('');
   const [albums, setAlbums] = useState<PortfolioAlbum[]>([]);
   const [selectedAlbumId, setSelectedAlbumId] = useState<string | null>(null);
@@ -341,6 +343,22 @@ export default function Dashboard() {
     ? Math.max(0, Math.floor((user.expiresAt - Date.now()) / (1000 * 60 * 60 * 24)))
     : 0;
 
+  const handleReactivation = async () => {
+    if (!reactivationCode.trim()) {
+      toast.error(t('dashboard.expired.enterCode'));
+      return;
+    }
+    setReactivating(true);
+    try {
+      await reactivateAccount(reactivationCode.trim());
+      toast.success(t('dashboard.expired.reactivated'));
+      setReactivationCode('');
+    } catch (err: any) {
+      toast.error(err.message || t('dashboard.expired.invalid'));
+    }
+    setReactivating(false);
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <BackButton to="/" label={t('backToHome')} className="mb-4" />
@@ -404,12 +422,37 @@ export default function Dashboard() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3"
+          className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20"
         >
-          <FaExclamationTriangle className="text-red-400 flex-shrink-0" />
-          <div>
-            <p className="text-red-400 text-sm font-medium">{t('dashboard.expired.title')}</p>
-            <p className="text-text-muted text-xs">{t('dashboard.expired.desc')}</p>
+          <div className="flex items-center gap-3 mb-4">
+            <FaExclamationTriangle className="text-red-400 flex-shrink-0" />
+            <div>
+              <p className="text-red-400 text-sm font-medium">{t('dashboard.expired.title')}</p>
+              <p className="text-text-muted text-xs">{t('dashboard.expired.desc')}</p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder={t('dashboard.expired.code')}
+              value={reactivationCode}
+              onChange={e => setReactivationCode(e.target.value.toUpperCase())}
+              onKeyDown={e => e.key === 'Enter' && handleReactivation()}
+              className="input-field flex-1 text-center tracking-widest uppercase"
+            />
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleReactivation}
+              disabled={reactivating}
+              className="btn-primary whitespace-nowrap"
+            >
+              {reactivating ? (
+                <span className="w-4 h-4 border-2 border-dark border-t-transparent rounded-full animate-spin" />
+              ) : (
+                t('dashboard.expired.reactivate')
+              )}
+            </motion.button>
           </div>
         </motion.div>
       )}

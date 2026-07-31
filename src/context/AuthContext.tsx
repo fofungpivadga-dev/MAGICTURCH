@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode, useRef } from 'react';
 import { onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db, googleProvider } from '../lib/firebase';
 import type { AppUser, Coupon } from '../types';
 
@@ -12,6 +12,7 @@ interface AuthContextType {
   signInWithEmail: (email: string, password: string) => Promise<AppUser>;
   registerWithEmailPassword: (email: string, password: string, displayName: string) => Promise<AppUser>;
   registerWithCoupon: (couponCode: string) => Promise<AppUser>;
+  reactivateAccount: (couponCode: string) => Promise<AppUser>;
   logout: () => Promise<void>;
   isAdmin: boolean;
   isPainter: boolean;
@@ -238,6 +239,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return newUser;
   };
 
+  const reactivateAccount = async (couponCode: string): Promise<AppUser> => {
+    const fbUser = auth.currentUser;
+    if (!fbUser) throw new Error('Not authenticated');
+
+    const now = Date.now();
+    const userDocRef = doc(db, 'users', fbUser.uid);
+
+    const couponSnapshot = await getDoc(doc(db, 'coupons', couponCode));
+    if (!couponSnapshot.exists()) throw new Error('Invalid coupon code');
+    const couponData = couponSnapshot.data() as Coupon;
+    if (couponData.status !== 'unredeemed') throw new Error('Coupon already used');
+
+    const expiresAt = now + 30 * 24 * 60 * 60 * 1000;
+
+    await setDoc(doc(db, 'coupons', couponCode), {
+      ...couponData, status: 'redeemed', redeemedAt: now, redeemedBy: fbUser.uid, expiresAt,
+    }, { merge: true });
+
+    await updateDoc(userDocRef, {
+      accountStatus: 'active',
+      expiresAt,
+      couponId: couponCode,
+    });
+
+    const updatedDoc = await getDoc(userDocRef);
+    const updatedUser = updatedDoc.data() as AppUser;
+    setUser(updatedUser);
+    return updatedUser;
+  };
+
   const logout = async () => {
     await signOut(auth);
     setUser(null);
@@ -252,7 +283,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user, firebaseUser, loading,
         signInWithGoogle, signInWithEmail,
         registerWithEmailPassword, registerWithCoupon,
-        logout,
+        reactivateAccount, logout,
         isAdmin: user?.role === 'admin',
         isPainter: user?.role === 'painter',
       }}
