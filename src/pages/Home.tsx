@@ -68,7 +68,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-[#070709] to-[#E4572E]/15" />
-        <div className="absolute inset-0 opacity-[0.14]">
+        <div className="absolute inset-0 opacity-50">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="heroGrid" width="60" height="60" patternUnits="userSpaceOnUse">
