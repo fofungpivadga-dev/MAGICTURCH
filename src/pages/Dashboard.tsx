@@ -362,7 +362,7 @@ export default function Dashboard() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <HeroBackdrop />
+      <HeroBackdrop linesOpacity={30} />
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
       <BackButton to="/" label={t('backToHome')} className="mb-4" />
       <motion.div

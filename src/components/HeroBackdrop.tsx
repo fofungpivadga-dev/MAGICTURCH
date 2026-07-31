@@ -1,9 +1,13 @@
-export default function HeroBackdrop() {
+interface HeroBackdropProps {
+  linesOpacity?: number;
+}
+
+export default function HeroBackdrop({ linesOpacity = 50 }: HeroBackdropProps) {
   return (
     <>
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[#070709] to-[#E4572E]/15" />
-      <div className="absolute inset-0 opacity-50">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <div className="absolute inset-0">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ opacity: linesOpacity / 100 }}>
           <defs>
             <pattern id="heroGrid" width="60" height="60" patternUnits="userSpaceOnUse">
               <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#D9A441" strokeWidth="0.7" />
