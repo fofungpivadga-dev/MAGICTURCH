@@ -409,7 +409,7 @@ export default function Dashboard() {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 focus-ring ${
               activeTab === tab.id
-                ? 'bg-primary text-dark'
+                ? 'bg-primary text-white'
                 : 'glass text-text-muted hover:text-text'
             }`}
           >
@@ -522,7 +522,7 @@ export default function Dashboard() {
                             }))}
                             className={`px-3 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 ${
                               selected
-                                ? 'bg-accent text-dark font-medium'
+                                ? 'bg-accent text-white font-medium'
                                 : 'bg-white/10 text-text-muted hover:bg-white/20'
                             }`}
                           >
@@ -557,7 +557,7 @@ export default function Dashboard() {
                             }))}
                             className={`px-3 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 ${
                               selected
-                                ? 'bg-primary text-dark font-medium'
+                                ? 'bg-primary text-white font-medium'
                                 : 'bg-white/10 text-text-muted hover:bg-white/20'
                             }`}
                           >
@@ -651,7 +651,7 @@ export default function Dashboard() {
                   onClick={() => setSelectedAlbumId(null)}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                     selectedAlbumId === null
-                      ? 'bg-accent text-dark'
+                      ? 'bg-accent text-white'
                       : 'bg-white/10 text-text-muted hover:bg-white/20'
                   }`}
                 >
@@ -681,7 +681,7 @@ export default function Dashboard() {
                           onDoubleClick={() => { setRenamingAlbumId(album.id); setRenameValue(album.name); }}
                           className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                             selectedAlbumId === album.id
-                              ? 'bg-accent text-dark'
+                              ? 'bg-accent text-white'
                               : 'bg-white/10 text-text-muted hover:bg-white/20'
                           }`}
                         >
@@ -755,7 +755,7 @@ export default function Dashboard() {
                             <FaArrowDown size={14} />
                           </button>
                         )}
-                        <button onClick={() => toggleHomepagePin(item.id, item.showOnHomepage)} className={`p-2 rounded-full transition-colors ${item.showOnHomepage ? 'bg-accent text-dark' : 'bg-white/20 hover:bg-white/40'}`} title={item.showOnHomepage ? 'Remove from homepage' : 'Show on homepage'}>
+                        <button onClick={() => toggleHomepagePin(item.id, item.showOnHomepage)} className={`p-2 rounded-full transition-colors ${item.showOnHomepage ? 'bg-accent text-white' : 'bg-white/20 hover:bg-white/40'}`} title={item.showOnHomepage ? 'Remove from homepage' : 'Show on homepage'}>
                           <FaThumbtack size={14} />
                         </button>
                         <button onClick={() => deletePortfolioItem(item.id)} className="p-2 rounded-full bg-red-500/60 hover:bg-red-500 transition-colors">
