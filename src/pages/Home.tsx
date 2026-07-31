@@ -67,6 +67,20 @@ export default function Home() {
       <PromoPopup />
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1B110C] via-[#121114] to-[#E4572E]/25" />
+        <div className="absolute inset-0 opacity-[0.07]">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="heroGrid" width="44" height="44" patternUnits="userSpaceOnUse">
+                <path d="M 44 0 L 0 0 0 44" fill="none" stroke="#D9A441" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#heroGrid)" />
+          </svg>
+        </div>
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[720px] h-[420px] rounded-full bg-[#D9A441]/20 blur-[130px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] rounded-full bg-[#E4572E]/15 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D9A441]/50 to-transparent" />
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8 py-14">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -178,16 +192,16 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="flex items-center justify-center"
             >
-              <div className="grid grid-cols-2 gap-4 max-w-[420px] w-full">
+              <div className="grid grid-cols-2 gap-6 max-w-[420px] w-full">
                 {staticVideoUrls.map((src, i) => (
                   <div key={i} className="flex flex-col items-center gap-2">
-                    <div className="w-full">
+                    <div className="w-full rounded-3xl p-2.5 bg-white/[0.06] backdrop-blur-xl border border-white/15 shadow-[0_24px_60px_rgba(0,0,0,0.55)] hover:border-accent/50 hover:shadow-[0_24px_70px_rgba(217,164,65,0.15)] transition-all duration-300">
                       <video
                         autoPlay
                         muted
                         loop
                         playsInline
-                        className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg border border-white/15"
+                        className="w-full aspect-[3/4] object-cover rounded-2xl"
                         onError={e => {
                           (e.target as HTMLElement).style.display = 'none';
                           const placeholder = (e.target as HTMLElement).nextElementSibling;
@@ -199,17 +213,17 @@ export default function Home() {
                       <div className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-white/15 items-center justify-center bg-white/5 hidden">
                         <p className="text-text-muted text-xs">Ad Space</p>
                       </div>
-                      {heroLinks[i]?.linkUrl && (
-                        <a
-                          href={heroLinks[i].linkUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block text-center text-accent hover:text-primary text-xs underline mt-2 transition-colors"
-                        >
-                          {heroLinks[i].linkLabel || 'Learn More'}
-                        </a>
-                      )}
                     </div>
+                    {heroLinks[i]?.linkUrl && (
+                      <a
+                        href={heroLinks[i].linkUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block text-center text-accent hover:text-primary text-xs underline mt-2 transition-colors"
+                      >
+                        {heroLinks[i].linkLabel || 'Learn More'}
+                      </a>
+                    )}
                   </div>
                 ))}
               </div>
