@@ -14,6 +14,15 @@ export default function InstallPrompt() {
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
   useEffect(() => {
+    const onShow = () => {
+      if (isStandalone) return;
+      setShow(true);
+    };
+    window.addEventListener('mtps:show-install', onShow);
+    return () => window.removeEventListener('mtps:show-install', onShow);
+  }, [isStandalone]);
+
+  useEffect(() => {
     if (isStandalone) return;
     if (localStorage.getItem(STORAGE_KEY)) return;
 

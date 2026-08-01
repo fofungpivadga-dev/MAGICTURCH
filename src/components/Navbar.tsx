@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { FaSignOutAlt, FaUser, FaTachometerAlt, FaGlobe, FaBars, FaTimes, FaHeadset, FaPaintRoller } from 'react-icons/fa';
+import { FaSignOutAlt, FaUser, FaTachometerAlt, FaGlobe, FaBars, FaTimes, FaHeadset, FaPaintRoller, FaDownload } from 'react-icons/fa';
 import { useTranslation, type Lang } from '../lib/translations';
 import { useState, useRef, useEffect } from 'react';
 
@@ -122,14 +122,23 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-white hover:text-accent transition-colors p-2 focus-ring"
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-        </button>
+        {/* Mobile Hamburger + Language */}
+        <div className="flex items-center gap-1 md:hidden">
+          <button
+            onClick={() => switchLang(lang === 'en' ? 'fr' : 'en')}
+            className="flex items-center gap-1.5 px-3 py-2.5 text-sm font-semibold text-white/80 hover:text-accent transition-colors focus-ring rounded-lg"
+            aria-label="Switch language"
+          >
+            <FaGlobe /> {lang === 'en' ? 'FR' : 'EN'}
+          </button>
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="text-white hover:text-accent transition-colors p-2 focus-ring"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -141,54 +150,52 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden overflow-hidden bg-black/95 border-t border-white/10"
           >
-            <div className="px-4 py-4 flex flex-col gap-3">
-              <Link to="/painters" className={linkClass} onClick={() => setMobileOpen(false)}>
+            <div className="px-4 py-4 flex flex-col gap-2">
+              <button
+                onClick={() => {
+                  window.dispatchEvent(new Event('mtps:show-install'));
+                  setMobileOpen(false);
+                }}
+                className="flex items-center gap-3 w-full py-3 px-3 rounded-xl text-base font-semibold text-accent bg-accent/15 hover:bg-accent/25 transition-colors focus-ring"
+              >
+                <FaDownload size={18} /> {t('nav.install')}
+              </button>
+              <Link
+                to="/painters"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-3 w-full py-3 px-3 rounded-xl text-base text-white/80 hover:text-white hover:bg-white/10 transition-colors focus-ring"
+              >
                 {t('nav.painters')}
               </Link>
-              <a href="/#try-paint" className="flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors focus-ring" onClick={() => setMobileOpen(false)}>
-                <FaPaintRoller /> {t('nav.tryPaint')}
+              <a href="/#try-paint" className="flex items-center gap-3 w-full py-3 px-3 rounded-xl text-base text-white/80 hover:text-white hover:bg-white/10 transition-colors focus-ring" onClick={() => setMobileOpen(false)}>
+                <FaPaintRoller size={18} /> {t('nav.tryPaint')}
               </a>
-              <a href="https://wa.me/237691316704?text=Hi%2C%20I%20need%20help%20with%20Magic%20Touch%20Painting%20Services." target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-white/80 hover:text-[#25D366] transition-colors focus-ring" onClick={() => setMobileOpen(false)}>
-                <FaHeadset /> {t('nav.contact')}
+              <a href="https://wa.me/237691316704?text=Hi%2C%20I%20need%20help%20with%20Magic%20Touch%20Painting%20Services." target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 w-full py-3 px-3 rounded-xl text-base text-white/80 hover:text-[#25D366] hover:bg-white/10 transition-colors focus-ring" onClick={() => setMobileOpen(false)}>
+                <FaHeadset size={18} /> {t('nav.contact')}
               </a>
-              <div className="flex items-center gap-2">
-                <FaGlobe className="text-white/60" size={14} />
-                <button
-                  onClick={() => switchLang('en')}
-                  className={`text-sm focus-ring px-2 py-1 rounded ${lang === 'en' ? 'text-accent bg-white/10' : 'text-white/80 hover:text-white'}`}
-                >
-                  EN
-                </button>
-                <button
-                  onClick={() => switchLang('fr')}
-                  className={`text-sm focus-ring px-2 py-1 rounded ${lang === 'fr' ? 'text-accent bg-white/10' : 'text-white/80 hover:text-white'}`}
-                >
-                  FR
-                </button>
-              </div>
               {user ? (
                 <>
                   <Link
                     to="/dashboard"
-                    className="flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors focus-ring"
+                    className="flex items-center gap-3 w-full py-3 px-3 rounded-xl text-base text-white/80 hover:text-white hover:bg-white/10 transition-colors focus-ring"
                     onClick={() => setMobileOpen(false)}
                   >
-                    <FaUser /> {t('nav.dashboard')}
+                    <FaUser size={18} /> {t('nav.dashboard')}
                   </Link>
                   {isAdmin && (
                     <Link
                       to="/admin"
-                      className="flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors focus-ring"
+                      className="flex items-center gap-3 w-full py-3 px-3 rounded-xl text-base text-white/80 hover:text-white hover:bg-white/10 transition-colors focus-ring"
                       onClick={() => setMobileOpen(false)}
                     >
-                      <FaTachometerAlt /> {t('nav.admin')}
+                      <FaTachometerAlt size={18} /> {t('nav.admin')}
                     </Link>
                   )}
                   <button
                     onClick={() => { handleLogout(); setMobileOpen(false); }}
-                    className="flex items-center gap-2 text-sm text-white/80 hover:text-accent transition-colors text-left focus-ring"
+                    className="flex items-center gap-3 w-full py-3 px-3 rounded-xl text-base text-white/80 hover:text-accent hover:bg-white/10 transition-colors text-left focus-ring"
                   >
-                    <FaSignOutAlt /> {t('nav.logout')}
+                    <FaSignOutAlt size={18} /> {t('nav.logout')}
                   </button>
                 </>
               ) : (
@@ -196,7 +203,7 @@ export default function Navbar() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="btn-primary text-sm w-full focus-ring"
+                    className="btn-primary text-base w-full py-3 focus-ring"
                   >
                     {t('nav.signin')}
                   </motion.button>
