@@ -17,19 +17,19 @@ export default function HeroBackdrop({ linesOpacity = 50, showColorCells = true 
           <rect width="100%" height="100%" fill="url(#heroGrid)" />
           {showColorCells && (
           <g>
-            <rect x="60" y="60" width="60" height="60" fill="#D9A441" />
-            <rect x="300" y="120" width="60" height="60" fill="#E4572E" />
-            <rect x="600" y="60" width="60" height="60" fill="#0F6B5C" />
-            <rect x="780" y="180" width="60" height="60" fill="#7858A8" />
-            <rect x="900" y="300" width="60" height="60" fill="#D9A441" />
-            <rect x="180" y="420" width="60" height="60" fill="#0F6B5C" />
-            <rect x="420" y="300" width="60" height="60" fill="#E4572E" />
-            <rect x="540" y="480" width="60" height="60" fill="#7858A8" />
-            <rect x="120" y="600" width="60" height="60" fill="#D9A441" />
-            <rect x="720" y="600" width="60" height="60" fill="#E4572E" />
-            <rect x="360" y="540" width="60" height="60" fill="#0F6B5C" />
-            <rect x="240" y="180" width="30" height="60" fill="#7858A8" />
-            <rect x="660" y="360" width="60" height="30" fill="#D9A441" />
+            <rect x="60" y="60" width="60" height="60" fill="#D9A441" fillOpacity="0.5" />
+            <rect x="300" y="120" width="60" height="60" fill="#E4572E" fillOpacity="0.5" />
+            <rect x="600" y="60" width="60" height="60" fill="#0F6B5C" fillOpacity="0.5" />
+            <rect x="780" y="180" width="60" height="60" fill="#7858A8" fillOpacity="0.5" />
+            <rect x="900" y="300" width="60" height="60" fill="#D9A441" fillOpacity="0.5" />
+            <rect x="180" y="420" width="60" height="60" fill="#0F6B5C" fillOpacity="0.5" />
+            <rect x="420" y="300" width="60" height="60" fill="#E4572E" fillOpacity="0.5" />
+            <rect x="540" y="480" width="60" height="60" fill="#7858A8" fillOpacity="0.5" />
+            <rect x="120" y="600" width="60" height="60" fill="#D9A441" fillOpacity="0.5" />
+            <rect x="720" y="600" width="60" height="60" fill="#E4572E" fillOpacity="0.5" />
+            <rect x="360" y="540" width="60" height="60" fill="#0F6B5C" fillOpacity="0.5" />
+            <rect x="240" y="180" width="30" height="60" fill="#7858A8" fillOpacity="0.5" />
+            <rect x="660" y="360" width="60" height="30" fill="#D9A441" fillOpacity="0.5" />
             <rect x="480" y="240" width="60" height="60" fill="none" stroke="#D9A441" strokeWidth="0.9" />
           </g>
           )}
