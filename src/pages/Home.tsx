@@ -6,6 +6,7 @@ import type { HomepageGalleryItem, HomepageContent } from '../types';
 import { FaArrowRight, FaCheckCircle, FaPaintRoller, FaUserFriends, FaShieldAlt, FaWhatsapp, FaSearch, FaThumbtack, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '../lib/translations';
+import { pickText } from '../lib/langText';
 import ImageLightbox from '../components/ImageLightbox';
 import PromoPopup from '../components/PromoPopup';
 import ColorVisualizer from '../components/ColorVisualizer';
@@ -14,7 +15,7 @@ import FAQ from '../components/FAQ';
 import HeroBackdrop from '../components/HeroBackdrop';
 
 export default function Home() {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const [pinnedItems, setPinnedItems] = useState<HomepageGalleryItem[]>([]);
   const [content, setContent] = useState<HomepageContent | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -51,6 +52,10 @@ export default function Home() {
     description: t('hero.desc'),
     videos: [],
   };
+
+  const heroHeadline = pickText(heroContent.headline, lang);
+  const heroSubtitle = pickText(heroContent.subtitle, lang);
+  const heroDescription = pickText(heroContent.description, lang);
 
   const staticVideoUrls = ['/video/hero1.mp4', '/video/hero2.mp4'];
   const heroLinks = heroContent.videos?.length
@@ -91,7 +96,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-5"
               >
-                {heroContent.headline}
+                {heroHeadline}
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -99,7 +104,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.5 }}
                 className="text-lg md:text-xl font-medium text-white/80 mb-3"
               >
-                {heroContent.subtitle}
+                {heroSubtitle}
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -107,7 +112,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.7 }}
                 className="text-sm md:text-base text-white/70 max-w-xl mb-8"
               >
-                {heroContent.description}
+                {heroDescription}
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

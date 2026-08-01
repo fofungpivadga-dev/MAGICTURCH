@@ -113,13 +113,15 @@ export interface HeroVideo {
   linkLabel: string;
 }
 
+export type LocalizedText = string | { en?: string; fr?: string };
+
 export interface HomepageContent {
   hero: {
-    headline: string;
-    subtitle: string;
-    description: string;
+    headline: LocalizedText;
+    subtitle: LocalizedText;
+    description: LocalizedText;
     heroImage: string;
-    ctaText: string;
+    ctaText: LocalizedText;
     ctaLink: string;
     videos: HeroVideo[];
   };

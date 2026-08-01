@@ -39,9 +39,9 @@ export default function Admin() {
     { linkUrl: '', linkLabel: '' },
   ]);
   const [adminPins, setAdminPins] = useState<HomepageGalleryItem[]>([]);
-  const [heroHeadline, setHeroHeadline] = useState('');
-  const [heroSubtitle, setHeroSubtitle] = useState('');
-  const [heroDescription, setHeroDescription] = useState('');
+  const [heroHeadline, setHeroHeadline] = useState<{ en: string; fr: string }>({ en: '', fr: '' });
+  const [heroSubtitle, setHeroSubtitle] = useState<{ en: string; fr: string }>({ en: '', fr: '' });
+  const [heroDescription, setHeroDescription] = useState<{ en: string; fr: string }>({ en: '', fr: '' });
 
   const tabs = [
     { id: 'coupons' as Tab, label: t('admin.coupons'), icon: <FaTicketAlt /> },
@@ -70,9 +70,10 @@ export default function Admin() {
         if (heroDoc.exists()) {
           const h = heroDoc.data() as any;
           if (h.hero) {
-            setHeroHeadline(h.hero.headline || '');
-            setHeroSubtitle(h.hero.subtitle || '');
-            setHeroDescription(h.hero.description || '');
+            const toDual = (v: unknown) => typeof v === 'string' ? { en: v, fr: '' } : { en: (v as any)?.en || '', fr: (v as any)?.fr || '' };
+            setHeroHeadline(toDual(h.hero.headline));
+            setHeroSubtitle(toDual(h.hero.subtitle));
+            setHeroDescription(toDual(h.hero.description));
             if (h.hero.videos?.length) {
               setHeroLinks(h.hero.videos.map((v: any) => ({ linkUrl: v.linkUrl || '', linkLabel: v.linkLabel || '' })));
             }
@@ -313,6 +314,69 @@ export default function Admin() {
     } catch {
       toast.success('Priority updated (demo mode)');
     }
+  };
+
+  const translateText = async (text: string, from: 'en' | 'fr', to: 'en' | 'fr') => {
+    try {
+      const res = await fetch(
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`
+      );
+      const data = await res.json();
+      const translated = data?.responseData?.translatedText || '';
+      const div = document.createElement('textarea');
+      div.innerHTML = translated;
+      return div.value || '';
+    } catch {
+      return '';
+    }
+  };
+
+  const autoTranslate = async (
+    field: 'heroHeadline' | 'heroSubtitle' | 'heroDescription',
+    from: 'en' | 'fr',
+    to: 'en' | 'fr'
+  ) => {
+    const setters = {
+      heroHeadline: setHeroHeadline,
+      heroSubtitle: setHeroSubtitle,
+      heroDescription: setHeroDescription,
+    };
+    const values = {
+      heroHeadline: heroHeadline,
+      heroSubtitle: heroSubtitle,
+      heroDescription: heroDescription,
+    };
+    const source = values[field][from];
+    if (!source.trim()) {
+      toast.error('Please fill the source language first');
+      return;
+    }
+    const translated = await translateText(source, from, to);
+    if (!translated) {
+      toast.error('Auto-translate failed. Please translate manually.');
+      return;
+    }
+    setters[field](prev => ({ ...prev, [to]: translated }));
+    toast.success(t('admin.autoTranslated'));
+  };
+
+  const autoFill = async (field: 'heroHeadline' | 'heroSubtitle' | 'heroDescription') => {
+    const values = {
+      heroHeadline: heroHeadline,
+      heroSubtitle: heroSubtitle,
+      heroDescription: heroDescription,
+    };
+    const v = values[field];
+    if (!v.en.trim() && !v.fr.trim()) {
+      toast.error('Please type a text first');
+      return;
+    }
+    if (v.en.trim() && v.fr.trim()) {
+      toast.error('Both languages are already filled');
+      return;
+    }
+    if (v.en.trim()) return autoTranslate(field, 'en', 'fr');
+    return autoTranslate(field, 'fr', 'en');
   };
 
   const saveHeroContent = async () => {
@@ -622,35 +686,99 @@ export default function Admin() {
               <p className="text-text-muted text-sm mb-6">{t('admin.homepage.desc')}</p>
               <div className="mb-8 space-y-4">
                 <h3 className="font-semibold text-sm text-accent" style={{ fontFamily: 'Inter' }}>{t('admin.homepage.heroText')}</h3>
+                <p className="text-xs text-text-muted">{t('admin.homepage.bilingualHint')}</p>
                 <div>
                   <label className="block text-xs text-text-muted mb-1">{t('admin.homepage.headline')}</label>
-                  <input
-                    type="text"
-                    value={heroHeadline}
-                    onChange={e => setHeroHeadline(e.target.value)}
-                    placeholder={t('hero.headline')}
-                    className="input-field w-full text-sm"
-                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="relative">
+                      <span className="absolute left-2.5 top-2 text-[10px] font-bold text-accent bg-accent/10 px-1.5 py-0.5 rounded">EN</span>
+                      <input
+                        type="text"
+                        value={heroHeadline.en}
+                        onChange={e => setHeroHeadline(prev => ({ ...prev, en: e.target.value }))}
+                        placeholder={t('hero.headline')}
+                        className="input-field w-full text-sm pl-12"
+                      />
+                    </div>
+                    <div className="relative">
+                      <span className="absolute left-2.5 top-2 text-[10px] font-bold text-accent bg-accent/10 px-1.5 py-0.5 rounded">FR</span>
+                      <input
+                        type="text"
+                        value={heroHeadline.fr}
+                        onChange={e => setHeroHeadline(prev => ({ ...prev, fr: e.target.value }))}
+                        placeholder={t('hero.headline')}
+                        className="input-field w-full text-sm pl-12"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => autoFill('heroHeadline')}
+                    className="mt-1.5 text-xs text-accent hover:text-primary transition-colors focus-ring"
+                  >
+                    {t('admin.autoTranslate')} EN ↔ FR
+                  </button>
                 </div>
                 <div>
                   <label className="block text-xs text-text-muted mb-1">{t('admin.homepage.subtitle')}</label>
-                  <input
-                    type="text"
-                    value={heroSubtitle}
-                    onChange={e => setHeroSubtitle(e.target.value)}
-                    placeholder={t('hero.subtitle')}
-                    className="input-field w-full text-sm"
-                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="relative">
+                      <span className="absolute left-2.5 top-2 text-[10px] font-bold text-accent bg-accent/10 px-1.5 py-0.5 rounded">EN</span>
+                      <input
+                        type="text"
+                        value={heroSubtitle.en}
+                        onChange={e => setHeroSubtitle(prev => ({ ...prev, en: e.target.value }))}
+                        placeholder={t('hero.subtitle')}
+                        className="input-field w-full text-sm pl-12"
+                      />
+                    </div>
+                    <div className="relative">
+                      <span className="absolute left-2.5 top-2 text-[10px] font-bold text-accent bg-accent/10 px-1.5 py-0.5 rounded">FR</span>
+                      <input
+                        type="text"
+                        value={heroSubtitle.fr}
+                        onChange={e => setHeroSubtitle(prev => ({ ...prev, fr: e.target.value }))}
+                        placeholder={t('hero.subtitle')}
+                        className="input-field w-full text-sm pl-12"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => autoFill('heroSubtitle')}
+                    className="mt-1.5 text-xs text-accent hover:text-primary transition-colors focus-ring"
+                  >
+                    {t('admin.autoTranslate')} EN ↔ FR
+                  </button>
                 </div>
                 <div>
                   <label className="block text-xs text-text-muted mb-1">{t('admin.homepage.description')}</label>
-                  <textarea
-                    value={heroDescription}
-                    onChange={e => setHeroDescription(e.target.value)}
-                    placeholder={t('hero.desc')}
-                    className="input-field w-full text-sm resize-none"
-                    rows={3}
-                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="relative">
+                      <span className="absolute left-2.5 top-2 text-[10px] font-bold text-accent bg-accent/10 px-1.5 py-0.5 rounded">EN</span>
+                      <textarea
+                        value={heroDescription.en}
+                        onChange={e => setHeroDescription(prev => ({ ...prev, en: e.target.value }))}
+                        placeholder={t('hero.desc')}
+                        className="input-field w-full text-sm resize-none pl-12"
+                        rows={3}
+                      />
+                    </div>
+                    <div className="relative">
+                      <span className="absolute left-2.5 top-2 text-[10px] font-bold text-accent bg-accent/10 px-1.5 py-0.5 rounded">FR</span>
+                      <textarea
+                        value={heroDescription.fr}
+                        onChange={e => setHeroDescription(prev => ({ ...prev, fr: e.target.value }))}
+                        placeholder={t('hero.desc')}
+                        className="input-field w-full text-sm resize-none pl-12"
+                        rows={3}
+                      />
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => autoFill('heroDescription')}
+                    className="mt-1.5 text-xs text-accent hover:text-primary transition-colors focus-ring"
+                  >
+                    {t('admin.autoTranslate')} EN ↔ FR
+                  </button>
                 </div>
               </div>
               {adminPins.length > 0 && (
