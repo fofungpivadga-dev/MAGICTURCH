@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs, getDoc, updateDoc, doc, query, orderBy, where, setDoc, deleteDoc } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { httpsCallable } from 'firebase/functions';
+import { db, functions } from '../lib/firebase';
 import { useAuth } from '../context/AuthContext';
 import type { Coupon, AppUser, PromoAd, PainterListing, SiteConfig, HomepageGalleryItem } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { FaUser, FaTicketAlt, FaUsers, FaBullhorn, FaHome, FaChartBar, FaPlus, FaCopy, FaCheck, FaTimes, FaArrowLeft, FaGlobe, FaSave } from 'react-icons/fa';
+import { FaUser, FaTicketAlt, FaUsers, FaBullhorn, FaHome, FaChartBar, FaPlus, FaCopy, FaCheck, FaTimes, FaArrowLeft, FaGlobe, FaSave, FaTrash } from 'react-icons/fa';
 import { useTranslation } from '../lib/translations';
 
 type Tab = 'coupons' | 'painters' | 'promo-queue' | 'homepage' | 'analytics' | 'regions';
@@ -42,6 +43,8 @@ export default function Admin() {
   const [heroHeadline, setHeroHeadline] = useState<{ en: string; fr: string }>({ en: '', fr: '' });
   const [heroSubtitle, setHeroSubtitle] = useState<{ en: string; fr: string }>({ en: '', fr: '' });
   const [heroDescription, setHeroDescription] = useState<{ en: string; fr: string }>({ en: '', fr: '' });
+  const [deleteConfirmUid, setDeleteConfirmUid] = useState<string | null>(null);
+  const [deletingUid, setDeletingUid] = useState<string | null>(null);
 
   const tabs = [
     { id: 'coupons' as Tab, label: t('admin.coupons'), icon: <FaTicketAlt /> },
@@ -247,6 +250,22 @@ export default function Admin() {
       setListings(prev => prev.map(l => l.painterId === painterUid ? { ...l, visible: newStatus === 'active' } as PainterListing : l));
       toast.success(t('painter.statusUpdatedDemo').replace('{status}', newStatus));
     }
+  };
+
+  const handleDeletePainter = async (painterUid: string) => {
+    setDeletingUid(painterUid);
+    try {
+      const deleteUserCallable = httpsCallable<{ uid: string }, { deleted: boolean }>(functions, 'deleteUser');
+      await deleteUserCallable({ uid: painterUid });
+      setPainters(prev => prev.filter(p => p.uid !== painterUid));
+      setListings(prev => prev.filter(l => l.painterId !== painterUid));
+      setPromoAds(prev => prev.filter(ad => ad.painterId !== painterUid));
+      toast.success(t('admin.painterDeleted'));
+    } catch (err: any) {
+      toast.error(err?.message || t('admin.painterDeleteError'));
+    }
+    setDeletingUid(null);
+    setDeleteConfirmUid(null);
   };
 
   const toggleFeatured = async (painterId: string, featured: boolean) => {
@@ -571,16 +590,49 @@ export default function Admin() {
                               )}
                             </td>
                             <td className="py-3 px-2">
-                              <button
-                                onClick={() => togglePainterStatus(p.uid, p.accountStatus === 'active' ? 'expired' : 'active')}
-                                className={`text-xs px-3 py-1 rounded ${
-                                  p.accountStatus === 'active'
-                                    ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
-                                    : 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
-                                }`}
-                              >
-                                {p.accountStatus === 'active' ? t('admin.suspend') : t('admin.activate')}
-                              </button>
+                              <div className="flex items-center gap-2">
+                                <button
+                                  onClick={() => togglePainterStatus(p.uid, p.accountStatus === 'active' ? 'expired' : 'active')}
+                                  className={`text-xs px-3 py-1 rounded ${
+                                    p.accountStatus === 'active'
+                                      ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
+                                      : 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
+                                  }`}
+                                >
+                                  {p.accountStatus === 'active' ? t('admin.suspend') : t('admin.activate')}
+                                </button>
+                                {p.uid !== user?.uid && (
+                                  deleteConfirmUid === p.uid ? (
+                                    <>
+                                      <button
+                                        onClick={() => handleDeletePainter(p.uid)}
+                                        disabled={deletingUid === p.uid}
+                                        className="text-xs px-2 py-1 rounded bg-red-500/80 text-white hover:bg-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                                      >
+                                        {deletingUid === p.uid ? (
+                                          <span className="inline-block w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin align-middle" />
+                                        ) : (
+                                          t('admin.deleteConfirm')
+                                        )}
+                                      </button>
+                                      <button
+                                        onClick={() => setDeleteConfirmUid(null)}
+                                        className="text-xs px-2 py-1 rounded glass text-text-muted hover:text-text"
+                                      >
+                                        {t('common.cancel')}
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <button
+                                      onClick={() => setDeleteConfirmUid(p.uid)}
+                                      title={t('admin.deletePainter')}
+                                      className="text-xs px-2 py-1 rounded bg-red-500/20 text-red-400 hover:bg-red-500/30"
+                                    >
+                                      <FaTrash size={11} />
+                                    </button>
+                                  )
+                                )}
+                              </div>
                             </td>
                           </tr>
                         );

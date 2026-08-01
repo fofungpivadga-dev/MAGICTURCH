@@ -3,7 +3,7 @@ import { doc, getDoc, setDoc, collection, query, where, getDocs, addDoc, updateD
 import type { PortfolioItem, PromoAd, SiteConfig, PortfolioAlbum } from '../types';
 import { db } from '../lib/firebase';
 import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { FaUser, FaImages, FaBullhorn, FaClock, FaSave, FaPlus, FaTrash, FaArrowUp, FaArrowDown, FaExternalLinkAlt, FaExclamationTriangle, FaTachometerAlt, FaThumbtack, FaCheckSquare, FaSquare, FaTimes } from 'react-icons/fa';
@@ -14,7 +14,8 @@ import HeroBackdrop from '../components/HeroBackdrop';
 type Tab = 'profile' | 'portfolio' | 'listings' | 'promo' | 'status';
 
 export default function Dashboard() {
-  const { user, isAdmin, reactivateAccount } = useAuth();
+  const { user, isAdmin, reactivateAccount, deleteAccount } = useAuth();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<Tab>('profile');
   const [profile, setProfile] = useState(user?.profile || {
@@ -38,6 +39,8 @@ export default function Dashboard() {
   const [newAlbumName, setNewAlbumName] = useState('');
   const [renamingAlbumId, setRenamingAlbumId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState('');
+  const [confirmDelete, setConfirmDelete] = useState('');
+  const [deleting, setDeleting] = useState(false);
 
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -358,6 +361,19 @@ export default function Dashboard() {
       toast.error(err.message || t('dashboard.expired.invalid'));
     }
     setReactivating(false);
+  };
+
+  const handleDeleteAccount = async () => {
+    if (confirmDelete !== 'DELETE') return;
+    setDeleting(true);
+    try {
+      await deleteAccount();
+      toast.success(t('account.delete.deleted'));
+      navigate('/');
+    } catch (err: any) {
+      toast.error(err?.message || t('account.delete.error'));
+    }
+    setDeleting(false);
   };
 
   return (
@@ -845,6 +861,55 @@ export default function Dashboard() {
                   </p>
                 </div>
               )}
+
+              <div className="mt-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+                <h3 className="text-red-400 font-semibold mb-1" style={{ fontFamily: 'Inter' }}>
+                  {t('account.delete.title')}
+                </h3>
+                <p className="text-text-muted text-sm mb-4">{t('account.delete.desc')}</p>
+                {deleting ? (
+                  <div className="flex items-center gap-2 text-sm text-text-muted">
+                    <span className="w-4 h-4 border-2 border-text-muted border-t-transparent rounded-full animate-spin" />
+                    {t('account.delete.deleting')}
+                  </div>
+                ) : confirmDelete === 'DELETE' ? (
+                  <div className="flex flex-wrap items-center gap-3">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={handleDeleteAccount}
+                      className="px-4 py-2 rounded-lg bg-red-500/80 text-white text-sm font-medium hover:bg-red-500"
+                    >
+                      {t('account.delete.confirmBtn')}
+                    </motion.button>
+                    <button
+                      onClick={() => setConfirmDelete('')}
+                      className="px-4 py-2 rounded-lg glass text-sm text-text-muted hover:text-text"
+                    >
+                      {t('common.cancel')}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap items-center gap-3">
+                    <input
+                      type="text"
+                      value={confirmDelete}
+                      onChange={e => setConfirmDelete(e.target.value.toUpperCase())}
+                      placeholder={t('account.delete.confirmPlaceholder')}
+                      className="input-field w-48 text-center tracking-widest uppercase"
+                    />
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      disabled={confirmDelete !== 'DELETE'}
+                      onClick={() => setConfirmDelete('DELETE')}
+                      className="px-4 py-2 rounded-lg bg-red-500/20 text-red-400 text-sm font-medium hover:bg-red-500/30 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      {t('account.delete.action')}
+                    </motion.button>
+                  </div>
+                )}
+              </div>
             </div>
           </motion.div>
         )}

@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState, type ReactNode, useRef } from 'react';
 import { onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { auth, db, googleProvider } from '../lib/firebase';
+import { httpsCallable } from 'firebase/functions';
+import { auth, db, functions, googleProvider } from '../lib/firebase';
 import type { AppUser, Coupon } from '../types';
 
 interface AuthContextType {
@@ -13,6 +14,7 @@ interface AuthContextType {
   registerWithEmailPassword: (email: string, password: string, displayName: string) => Promise<AppUser>;
   registerWithCoupon: (couponCode: string) => Promise<AppUser>;
   reactivateAccount: (couponCode: string) => Promise<AppUser>;
+  deleteAccount: () => Promise<void>;
   logout: () => Promise<void>;
   isAdmin: boolean;
   isPainter: boolean;
@@ -277,13 +279,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     pendingDisplayName.current = '';
   };
 
+  const deleteAccount = async () => {
+    const fbUser = auth.currentUser;
+    if (!fbUser) throw new Error('NOT_AUTHENTICATED');
+
+    const deleteUserCallable = httpsCallable<{ uid: string }, { deleted: boolean }>(functions, 'deleteUser');
+    await deleteUserCallable({ uid: fbUser.uid });
+
+    await logout();
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user, firebaseUser, loading,
         signInWithGoogle, signInWithEmail,
         registerWithEmailPassword, registerWithCoupon,
-        reactivateAccount, logout,
+        reactivateAccount, deleteAccount, logout,
         isAdmin: user?.role === 'admin',
         isPainter: user?.role === 'painter',
       }}
