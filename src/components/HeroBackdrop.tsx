@@ -1,8 +1,9 @@
 interface HeroBackdropProps {
   linesOpacity?: number;
+  showColorCells?: boolean;
 }
 
-export default function HeroBackdrop({ linesOpacity = 50 }: HeroBackdropProps) {
+export default function HeroBackdrop({ linesOpacity = 50, showColorCells = true }: HeroBackdropProps) {
   return (
     <>
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[#070709] to-[#E4572E]/15" />
@@ -14,6 +15,7 @@ export default function HeroBackdrop({ linesOpacity = 50 }: HeroBackdropProps) {
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#heroGrid)" />
+          {showColorCells && (
           <g>
             <rect x="60" y="60" width="60" height="60" fill="#D9A441" />
             <rect x="300" y="120" width="60" height="60" fill="#E4572E" />
@@ -30,6 +32,7 @@ export default function HeroBackdrop({ linesOpacity = 50 }: HeroBackdropProps) {
             <rect x="660" y="360" width="60" height="30" fill="#D9A441" />
             <rect x="480" y="240" width="60" height="60" fill="none" stroke="#D9A441" strokeWidth="0.9" />
           </g>
+          )}
           <g stroke="#D9A441" strokeWidth="1.2" fill="none">
             <circle cx="85%" cy="22%" r="160" />
             <circle cx="85%" cy="22%" r="90" strokeDasharray="4 8" />
