@@ -151,8 +151,8 @@ export default function PainterProfile() {
               <p className="text-text-muted text-sm mt-1">{painter.yearsOfExperience} years of experience</p>
             )}
             <div className="flex gap-2 mt-4">
+              <WhatsAppButton number={painter.phoneNumber || painter.whatsappNumber} painterName={painter.name} type="call" painterId={id} />
               <WhatsAppButton number={painter.whatsappNumber} painterName={painter.name} type="chat" painterId={id} />
-              <WhatsAppButton number={painter.whatsappNumber} painterName={painter.name} type="book" painterId={id} />
             </div>
           </div>
 

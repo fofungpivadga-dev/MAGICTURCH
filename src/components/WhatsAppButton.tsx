@@ -1,23 +1,21 @@
 import { motion } from 'framer-motion';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaPhone } from 'react-icons/fa';
 import { useTranslation } from '../lib/translations';
 
 interface WhatsAppButtonProps {
   number: string;
   painterName: string;
-  type: 'chat' | 'book';
+  type: 'chat' | 'call';
   painterId?: string;
 }
 
 export default function WhatsAppButton({ number, painterName, type, painterId }: WhatsAppButtonProps) {
   const { t } = useTranslation();
 
-  const messages = {
-    chat: `Hi ${painterName}, I found you on Magic Touch Painting Services and I have a question about your work.`,
-    book: `Hi ${painterName}, I'd like to book you for a painting job via Magic Touch Painting Services.`,
-  };
-
-  const href = `https://wa.me/${number.replace(/\D/g, '')}?text=${encodeURIComponent(messages[type])}`;
+  const isCall = type === 'call';
+  const href = isCall
+    ? `tel:${number.replace(/[^\d+]/g, '')}`
+    : `https://wa.me/${number.replace(/\D/g, '')}?text=${encodeURIComponent(`Hi ${painterName}, I found you on Magic Touch Painting Services and I have a question about your work.`)}`;
 
   const trackClick = () => {
     if (!painterId) return;
@@ -29,15 +27,15 @@ export default function WhatsAppButton({ number, painterName, type, painterId }:
   return (
     <motion.a
       href={href}
-      target="_blank"
+      target={isCall ? undefined : '_blank'}
       rel="noopener noreferrer"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={trackClick}
-      className="btn-whatsapp"
+      className={isCall ? 'btn-outline' : 'btn-whatsapp'}
     >
-      <FaWhatsapp className="text-lg" />
-      {type === 'chat' ? t('chat.whatsapp') : t('book.whatsapp')}
+      {isCall ? <FaPhone className="text-lg" /> : <FaWhatsapp className="text-lg" />}
+      {isCall ? t('call.now') : t('chat.whatsapp')}
     </motion.a>
   );
 }
