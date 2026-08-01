@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
+import InstallPrompt from './components/InstallPrompt';
 import Home from './pages/Home';
 import Painters from './pages/Painters';
 import PainterProfile from './pages/PainterProfile';
@@ -77,6 +78,7 @@ export default function App() {
           }}
         />
         <AnimatedRoutes />
+        <InstallPrompt />
       </AuthProvider>
     </BrowserRouter>
   );
