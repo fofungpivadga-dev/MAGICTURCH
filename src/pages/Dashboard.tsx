@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { FaUser, FaImages, FaBullhorn, FaClock, FaSave, FaPlus, FaTrash, FaArrowUp, FaArrowDown, FaExternalLinkAlt, FaExclamationTriangle, FaTachometerAlt, FaThumbtack, FaCheckSquare, FaSquare, FaTimes } from 'react-icons/fa';
 import { useTranslation } from '../lib/translations';
+import { compressImage } from '../lib/compressImage';
 import BackButton from '../components/BackButton';
 import HeroBackdrop from '../components/HeroBackdrop';
 
@@ -45,7 +46,13 @@ export default function Dashboard() {
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
+      reader.onload = async () => {
+        try {
+          resolve(await compressImage(reader.result as string));
+        } catch (err) {
+          reject(err);
+        }
+      };
       reader.onerror = reject;
       reader.readAsDataURL(file);
     });
