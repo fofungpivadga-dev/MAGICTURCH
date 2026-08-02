@@ -4,7 +4,16 @@ import './index.css'
 import App from './App'
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+  window.addEventListener('load', async () => {
+    if (!import.meta.env.PROD) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map(reg => reg.unregister()));
+      if ('caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map(key => caches.delete(key)));
+      }
+      return;
+    }
     navigator.serviceWorker.register('/sw.js').catch(() => {})
   })
 }

@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'jussybig@gmail.com' ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'
+      );
+    }
+
+    function ownsField(fieldName) {
+      return isSignedIn() && (
+        (request.resource != null && request.resource.data[fieldName] == request.auth.uid) ||
+        (resource != null && resource.data[fieldName] == request.auth.uid)
+      );
+    }
+
+    match /users/{uid} {
+      allow read: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow create: if isSignedIn() && request.auth.uid == uid;
+      allow update: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    match /listings/{listingId} {
+      allow read: if true;
+      allow create, update: if ownsField('painterId') || isAdmin();
+      allow delete: if ownsField('painterId') || isAdmin();
+    }
+
+    match /portfolios/{uid}/{docType}/{itemId} {
+      allow read: if true;
+      allow create, update, delete: if (isSignedIn() && request.auth.uid == uid) || isAdmin();
+    }
+
+    match /homepageGallery/{pinId} {
+      allow read: if true;
+      allow create, update: if ownsField('painterId') || isAdmin();
+      allow delete: if ownsField('painterId') || isAdmin();
+    }
+
+    match /promoAds/{adId} {
+      allow read: if true;
+      allow create, update: if ownsField('painterId') || isAdmin();
+      allow delete: if ownsField('painterId') || isAdmin();
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    match /coupons/{code} {
+      allow read: if isSignedIn();
+      allow create: if true;
+      allow update: if isSignedIn();
+      allow delete: if isAdmin();
+    }
+
+    match /content/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

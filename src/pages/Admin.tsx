@@ -84,7 +84,7 @@ export default function Admin() {
         }
 
         if (user) {
-          const pinSnap = await getDocs(query(collection(db, 'homepageGallery'), where('painterId', '==', user.uid)));
+          const pinSnap = await getDocs(query(collection(db, 'homepageGallery'), orderBy('createdAt', 'desc')));
           setAdminPins(pinSnap.docs.map(d => ({ id: d.id, ...d.data() } as HomepageGalleryItem)));
         }
       } catch (err) {
@@ -93,7 +93,7 @@ export default function Admin() {
     };
     fetchData();
     loadConfig();
-  }, []);
+  }, [user]);
 
   const loadConfig = async () => {
     try {

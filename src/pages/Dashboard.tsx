@@ -311,8 +311,9 @@ export default function Dashboard() {
         await deleteDoc(doc(db, 'homepageGallery', galleryDocId));
       }
       toast.success(newValue ? t('portfolio.pinned') : t('portfolio.unpinned'));
-    } catch {
+    } catch (err: any) {
       setPortfolio(prev => prev.map(p => p.id === itemId ? { ...p, showOnHomepage: currentValue } : p));
+      toast.error(err?.message || t('portfolio.pinError'));
     }
   };
 
