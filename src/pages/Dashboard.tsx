@@ -46,6 +46,26 @@ export default function Dashboard() {
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const [pinningId, setPinningId] = useState<string | null>(null);
 
+  const closeItemPopup = () => {
+    if (window.history.state?.mtModal) {
+      window.history.back();
+    } else {
+      setSelectedItem(null);
+      setDeleteTargetId(null);
+    }
+  };
+
+  useEffect(() => {
+    if (!selectedItem) return;
+    window.history.pushState({ mtModal: true }, '');
+    const onPop = () => {
+      setSelectedItem(null);
+      setDeleteTargetId(null);
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, [selectedItem]);
+
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -795,7 +815,7 @@ export default function Dashboard() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-[#0B0B0D]/80 backdrop-blur-sm"
-              onClick={() => { setSelectedItem(null); setDeleteTargetId(null); }}
+              onClick={closeItemPopup}
             >
               <motion.div
                 initial={{ scale: 0.92, opacity: 0, y: 24 }}
@@ -812,7 +832,7 @@ export default function Dashboard() {
                     className="w-full max-h-[55vh] object-contain"
                   />
                   <button
-                    onClick={() => { setSelectedItem(null); setDeleteTargetId(null); }}
+                    onClick={closeItemPopup}
                     className="absolute top-2 right-2 p-2 rounded-full bg-[#0B0B0D]/60 text-white hover:bg-[#0B0B0D]/90 transition-colors focus-ring"
                     title="Close"
                   >
@@ -851,8 +871,7 @@ export default function Dashboard() {
                           onClick={() => {
                             if (deleteTargetId === liveItem.id) {
                               deletePortfolioItem(liveItem.id);
-                              setSelectedItem(null);
-                              setDeleteTargetId(null);
+                              closeItemPopup();
                             } else {
                               setDeleteTargetId(liveItem.id);
                             }

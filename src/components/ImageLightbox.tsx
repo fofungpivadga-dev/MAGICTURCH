@@ -27,6 +27,16 @@ export default function ImageLightbox({ images, currentIndex, onClose, onPrev, o
     };
   }, [handleKeyDown]);
 
+  useEffect(() => {
+    window.history.pushState({ mtModal: true }, '');
+    const onPop = () => onClose();
+    window.addEventListener('popstate', onPop);
+    return () => {
+      window.removeEventListener('popstate', onPop);
+      if (window.history.state?.mtModal) window.history.back();
+    };
+  }, [onClose]);
+
   if (!images.length) return null;
 
   const current = images[currentIndex];
