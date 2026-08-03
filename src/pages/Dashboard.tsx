@@ -44,6 +44,7 @@ export default function Dashboard() {
   const [deleting, setDeleting] = useState(false);
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+  const [pinningId, setPinningId] = useState<string | null>(null);
 
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -277,16 +278,17 @@ export default function Dashboard() {
   };
 
   const toggleHomepagePin = async (itemId: string, currentValue: boolean) => {
+    setPinningId(itemId);
     const newValue = !currentValue;
-    if (newValue && !isAdmin) {
-      const pinSnap = await getDocs(query(collection(db, 'homepageGallery'), where('painterId', '==', user.uid)));
-      if (pinSnap.size >= 3) {
-        toast.error('Maximum 3 pins reached. Contact admin for more.');
-        return;
-      }
-    }
-    const galleryDocId = `${user.uid}_${itemId}`;
     try {
+      if (newValue && !isAdmin) {
+        const pinSnap = await getDocs(query(collection(db, 'homepageGallery'), where('painterId', '==', user.uid)));
+        if (pinSnap.size >= 3) {
+          toast.error('Maximum 3 pins reached. Contact admin for more.');
+          return;
+        }
+      }
+      const galleryDocId = `${user.uid}_${itemId}`;
       if (newValue) {
         const item = portfolio.find(p => p.id === itemId);
         if (!item) {
@@ -315,6 +317,8 @@ export default function Dashboard() {
       toast.success(newValue ? t('portfolio.pinned') : t('portfolio.unpinned'));
     } catch (err: any) {
       toast.error(err?.message || t('portfolio.pinError'));
+    } finally {
+      setPinningId(null);
     }
   };
 
@@ -818,28 +822,44 @@ export default function Dashboard() {
                   })()}
                 </div>
                 <div className="p-4 flex items-center gap-3">
-                  <button
-                    onClick={() => toggleHomepagePin(selectedItem.id, selectedItem.showOnHomepage)}
-                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors focus-ring ${selectedItem.showOnHomepage ? 'bg-accent text-dark' : 'bg-accent/10 text-accent hover:bg-accent/20'}`}
-                  >
-                    <FaThumbtack size={13} />
-                    {selectedItem.showOnHomepage ? 'Remove from homepage' : 'Pin to homepage'}
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (deleteTargetId === selectedItem.id) {
-                        deletePortfolioItem(selectedItem.id);
-                        setSelectedItem(null);
-                        setDeleteTargetId(null);
-                      } else {
-                        setDeleteTargetId(selectedItem.id);
-                      }
-                    }}
-                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors focus-ring ${deleteTargetId === selectedItem.id ? 'bg-red-500 text-white' : 'bg-red-500/10 text-red-400 hover:bg-red-500/20'}`}
-                  >
-                    <FaTrash size={13} />
-                    {deleteTargetId === selectedItem.id ? 'Confirm delete?' : 'Delete'}
-                  </button>
+                  {(() => {
+                    const liveItem = portfolio.find(p => p.id === selectedItem.id) || selectedItem;
+                    const isPinning = pinningId === liveItem.id;
+                    return (
+                      <>
+                        <button
+                          onClick={() => toggleHomepagePin(liveItem.id, liveItem.showOnHomepage)}
+                          disabled={isPinning}
+                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors focus-ring disabled:opacity-60 disabled:cursor-not-allowed ${liveItem.showOnHomepage ? 'bg-accent text-dark' : 'bg-accent/10 text-accent hover:bg-accent/20'}`}
+                        >
+                          {isPinning ? (
+                            <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                          ) : (
+                            <FaThumbtack size={13} />
+                          )}
+                          {isPinning
+                            ? (liveItem.showOnHomepage ? 'Removing...' : 'Pinning...')
+                            : (liveItem.showOnHomepage ? 'Remove from homepage' : 'Pin to homepage')}
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (deleteTargetId === liveItem.id) {
+                              deletePortfolioItem(liveItem.id);
+                              setSelectedItem(null);
+                              setDeleteTargetId(null);
+                            } else {
+                              setDeleteTargetId(liveItem.id);
+                            }
+                          }}
+                          disabled={isPinning}
+                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors focus-ring disabled:opacity-60 disabled:cursor-not-allowed ${deleteTargetId === liveItem.id ? 'bg-red-500 text-white' : 'bg-red-500/10 text-red-400 hover:bg-red-500/20'}`}
+                        >
+                          <FaTrash size={13} />
+                          {deleteTargetId === liveItem.id ? 'Confirm delete?' : 'Delete'}
+                        </button>
+                      </>
+                    );
+                  })()}
                 </div>
               </motion.div>
             </motion.div>
