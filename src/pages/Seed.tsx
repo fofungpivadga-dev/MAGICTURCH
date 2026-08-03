@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { motion } from 'framer-motion';
@@ -71,8 +71,8 @@ export default function Seed() {
             </motion.button>
           ) : (
             <div className="space-y-4">
-              <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
-                <p className="text-green-400 text-sm font-medium">Test coupon ready!</p>
+              <div className="p-4 rounded-xl bg-success/10 border border-success/20">
+                <p className="text-success text-sm font-medium">Test coupon ready!</p>
               </div>
 
               <div className="flex items-center justify-between p-4 rounded-xl bg-surface-light">

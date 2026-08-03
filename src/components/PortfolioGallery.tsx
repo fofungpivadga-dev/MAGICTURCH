@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { PortfolioItem } from '../types';
 import { useTranslation } from '../lib/translations';
@@ -42,11 +42,11 @@ export default function PortfolioGallery({ items, albums }: PortfolioGalleryProp
               className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
             />
             {item.albumId && albums?.[item.albumId] && (
-              <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/50 text-white text-[10px] font-medium backdrop-blur-sm">
+              <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-[#0B0B0D]/50 text-white text-[10px] font-medium backdrop-blur-sm">
                 {albums[item.albumId]}
               </span>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0D]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
               <div>
                 {item.title && (
                   <h4 className="font-semibold text-white text-sm">{item.title}</h4>

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaMapMarkerAlt, FaPaintRoller } from 'react-icons/fa';
 import type { PainterListing } from '../types';
@@ -58,7 +58,7 @@ export default function PainterCard({ painter, index = 0 }: PainterCardProps) {
 
           {painter.availability !== undefined && (
             <div className="mt-3 flex items-center gap-2">
-              <span className={`w-2 h-2 rounded-full ${painter.availability ? 'bg-green-500' : 'bg-red-500'}`} />
+              <span className={`w-2 h-2 rounded-full ${painter.availability ? 'bg-success' : 'bg-red-500'}`} />
               <span className="text-xs text-text-muted">
                 {painter.availability ? t('painter.accepting') : t('painter.notAvailable')}
               </span>

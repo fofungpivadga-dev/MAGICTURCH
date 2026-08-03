@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+﻿import { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -38,10 +38,10 @@ export default function ImageLightbox({ images, currentIndex, onClose, onPrev, o
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95"
+        className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0B0B0D]/95"
       >
         {/* Top bar with close button and counter */}
-        <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/60 to-transparent h-20 pointer-events-none">
+        <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-[#0B0B0D]/60 to-transparent h-20 pointer-events-none">
           <div className="flex items-center justify-between px-4 pt-4 pointer-events-auto">
             <button
               onClick={onClose}
@@ -51,7 +51,7 @@ export default function ImageLightbox({ images, currentIndex, onClose, onPrev, o
               <FaTimes size={18} />
             </button>
             {images.length > 1 && (
-              <span className="px-3 py-1.5 rounded-full bg-black/50 text-white text-sm font-medium backdrop-blur-sm">
+              <span className="px-3 py-1.5 rounded-full bg-[#0B0B0D]/50 text-white text-sm font-medium backdrop-blur-sm">
                 {currentIndex + 1} / {images.length}
               </span>
             )}
@@ -99,8 +99,8 @@ export default function ImageLightbox({ images, currentIndex, onClose, onPrev, o
 
         {/* Bottom caption */}
         {current.title && (
-          <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/60 to-transparent h-20 pointer-events-none">
-            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/90 text-sm font-medium px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-sm pointer-events-auto">
+          <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-[#0B0B0D]/60 to-transparent h-20 pointer-events-none">
+            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/90 text-sm font-medium px-4 py-1.5 rounded-full bg-[#0B0B0D]/40 backdrop-blur-sm pointer-events-auto">
               {current.title}
             </p>
           </div>

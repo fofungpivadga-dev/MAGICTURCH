@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import type { PromoAd } from '../types';
@@ -62,7 +62,7 @@ export default function PromoPopup() {
             </div>
             <button
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); setDismissed(true); }}
-              className="absolute top-2 right-2 p-1.5 rounded-full bg-black/40 text-white hover:bg-black/60 transition-colors"
+              className="absolute top-2 right-2 p-1.5 rounded-full bg-[#0B0B0D]/40 text-white hover:bg-[#0B0B0D]/60 transition-colors"
             >
               <FaTimes size={14} />
             </button>
@@ -72,7 +72,7 @@ export default function PromoPopup() {
               {ad.painterName}
             </p>
             <p className="text-xs text-text-muted mt-1">
-              Sponsored promotion — click to view their work
+              Sponsored promotion â€” click to view their work
             </p>
           </div>
         </Link>

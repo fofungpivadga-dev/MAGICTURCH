@@ -1,9 +1,9 @@
 const MAX_BASE64_CHARS = 700_000;
 const MAX_DIMENSION = 1280;
 
-export function compressImage(dataUrl: string): Promise<string> {
+export function compressImage(dataUrl: string, maxChars: number = MAX_BASE64_CHARS): Promise<string> {
   return new Promise((resolve, reject) => {
-    if (dataUrl.length <= MAX_BASE64_CHARS) {
+    if (dataUrl.length <= maxChars) {
       resolve(dataUrl);
       return;
     }
@@ -24,7 +24,7 @@ export function compressImage(dataUrl: string): Promise<string> {
       let quality = 0.72;
       let out = canvas.toDataURL('image/jpeg', quality);
       let best = out;
-      while (out.length > MAX_BASE64_CHARS && quality > 0.25) {
+      while (out.length > maxChars && quality > 0.25) {
         quality -= 0.1;
         out = canvas.toDataURL('image/jpeg', quality);
         if (out.length < best.length) best = out;

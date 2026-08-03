@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaDownload, FaShareAlt, FaMobileAlt, FaPlus } from 'react-icons/fa';
 
@@ -75,7 +75,7 @@ export default function InstallPrompt() {
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4"
         >
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={handleDismiss} />
+          <div className="absolute inset-0 bg-[#0B0B0D]/70 backdrop-blur-sm" onClick={handleDismiss} />
           <motion.div
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -90,7 +90,7 @@ export default function InstallPrompt() {
             >
               <FaTimes />
             </button>
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#E4572E] to-[#D9A441] flex items-center justify-center mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#D4AF37] to-[#2563EB] flex items-center justify-center mb-4">
               <FaMobileAlt className="text-dark text-2xl" />
             </div>
             <h2 className="text-lg font-bold mb-1" style={{ fontFamily: 'Inter' }}>

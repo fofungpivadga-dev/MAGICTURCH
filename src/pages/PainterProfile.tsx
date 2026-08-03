@@ -266,7 +266,7 @@ export default function PainterProfile() {
                       onClick={() => setReviewForm(f => ({ ...f, rating: n }))}
                       className="transition-transform hover:scale-110 active:scale-95 focus-ring"
                     >
-                      <FaStar size={20} className={`transition-colors ${n <= reviewForm.rating ? 'text-accent drop-shadow-[0_0_6px_rgba(217,164,65,0.6)]' : 'text-text-muted hover:text-accent/60'}`} />
+                      <FaStar size={20} className={`transition-colors ${n <= reviewForm.rating ? 'text-accent drop-shadow-[0_0_6px_rgba(212,175,55,0.6)]' : 'text-text-muted hover:text-accent/60'}`} />
                     </button>
                   ))}
                 </div>

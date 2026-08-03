@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { doc, getDoc, setDoc, collection, query, where, getDocs, addDoc, updateDoc, deleteDoc, orderBy } from 'firebase/firestore';
 import type { PortfolioItem, PromoAd, SiteConfig, PortfolioAlbum } from '../types';
 import { db } from '../lib/firebase';
@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
-import { FaUser, FaImages, FaBullhorn, FaClock, FaSave, FaPlus, FaTrash, FaArrowUp, FaArrowDown, FaExternalLinkAlt, FaExclamationTriangle, FaTachometerAlt, FaThumbtack, FaCheckSquare, FaSquare, FaTimes } from 'react-icons/fa';
+import { FaUser, FaImages, FaBullhorn, FaClock, FaSave, FaPlus, FaTrash, FaExternalLinkAlt, FaExclamationTriangle, FaTachometerAlt, FaThumbtack, FaCheckSquare, FaSquare, FaTimes } from 'react-icons/fa';
 import { useTranslation } from '../lib/translations';
 import { compressImage } from '../lib/compressImage';
 import BackButton from '../components/BackButton';
@@ -42,6 +42,8 @@ export default function Dashboard() {
   const [renameValue, setRenameValue] = useState('');
   const [confirmDelete, setConfirmDelete] = useState('');
   const [deleting, setDeleting] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
 
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -274,19 +276,6 @@ export default function Dashboard() {
     toast.success(t('portfolio.deleted'));
   };
 
-  const reorderPortfolio = async (index: number, direction: 'up' | 'down') => {
-    const newItems = [...portfolio];
-    const swapIndex = direction === 'up' ? index - 1 : index + 1;
-    if (swapIndex < 0 || swapIndex >= newItems.length) return;
-    [newItems[index], newItems[swapIndex]] = [newItems[swapIndex], newItems[index]];
-    setPortfolio(newItems);
-    try {
-      for (let i = 0; i < newItems.length; i++) {
-        await updateDoc(doc(db, 'portfolios', user.uid, 'items', newItems[i].id), { order: i });
-      }
-    } catch { /* demo mode OK */ }
-  };
-
   const toggleHomepagePin = async (itemId: string, currentValue: boolean) => {
     const newValue = !currentValue;
     if (newValue && !isAdmin) {
@@ -296,30 +285,35 @@ export default function Dashboard() {
         return;
       }
     }
-    setPortfolio(prev => prev.map(p => p.id === itemId ? { ...p, showOnHomepage: newValue } : p));
+    const galleryDocId = `${user.uid}_${itemId}`;
     try {
-      await updateDoc(doc(db, 'portfolios', user.uid, 'items', itemId), { showOnHomepage: newValue });
-      const galleryDocId = `${user.uid}_${itemId}`;
       if (newValue) {
         const item = portfolio.find(p => p.id === itemId);
-        if (item) {
-          await setDoc(doc(db, 'homepageGallery', galleryDocId), {
-            painterId: user.uid,
-            portfolioItemId: itemId,
-            imageUrl: item.imageUrl,
-            painterName: profile.name || user.displayName,
-            painterBusinessName: profile.businessName,
-            painterPhotoUrl: profile.photoUrl,
-            createdAt: Date.now(),
-            priority: 0,
-          });
+        if (!item) {
+          toast.error(t('portfolio.pinError'));
+          return;
         }
+        const [imageUrl, painterPhotoUrl] = await Promise.all([
+          compressImage(item.imageUrl, 450_000),
+          profile.photoUrl ? compressImage(profile.photoUrl, 120_000) : Promise.resolve(''),
+        ]);
+        await setDoc(doc(db, 'homepageGallery', galleryDocId), {
+          painterId: user.uid,
+          portfolioItemId: itemId,
+          imageUrl,
+          painterName: profile.name || user.displayName,
+          painterBusinessName: profile.businessName,
+          painterPhotoUrl,
+          createdAt: Date.now(),
+          priority: 0,
+        });
       } else {
         await deleteDoc(doc(db, 'homepageGallery', galleryDocId));
       }
+      await updateDoc(doc(db, 'portfolios', user.uid, 'items', itemId), { showOnHomepage: newValue });
+      setPortfolio(prev => prev.map(p => p.id === itemId ? { ...p, showOnHomepage: newValue } : p));
       toast.success(newValue ? t('portfolio.pinned') : t('portfolio.unpinned'));
     } catch (err: any) {
-      setPortfolio(prev => prev.map(p => p.id === itemId ? { ...p, showOnHomepage: currentValue } : p));
       toast.error(err?.message || t('portfolio.pinError'));
     }
   };
@@ -386,7 +380,7 @@ export default function Dashboard() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <HeroBackdrop linesOpacity={30} showColorCells={false} />
+      <HeroBackdrop linesOpacity={30} />
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
       <BackButton to="/" label={t('backToHome')} className="mb-4" />
       <motion.div
@@ -606,7 +600,7 @@ export default function Dashboard() {
                   <label className="text-sm text-text-muted">{t('profile.accepting')}</label>
                   <button
                     onClick={() => setProfile(p => ({ ...p, availability: !p.availability }))}
-                    className={`w-12 h-6 rounded-full transition-colors ${profile.availability ? 'bg-green-500' : 'bg-gray-600'}`}
+                    className={`w-12 h-6 rounded-full transition-colors ${profile.availability ? 'bg-success' : 'bg-gray-600'}`}
                   >
                     <div className={`w-5 h-5 rounded-full bg-white transition-transform ${profile.availability ? 'translate-x-6' : 'translate-x-0.5'}`} />
                   </button>
@@ -616,7 +610,7 @@ export default function Dashboard() {
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm text-text-muted mb-2">{t('profile.photo')}</label>
-                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[#D9A441]/40 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
+                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[#D4AF37]/40 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
                     {profile.photoUrl ? (
                       <img src={profile.photoUrl} alt="" className="w-full h-full object-cover rounded-xl" />
                     ) : (
@@ -630,7 +624,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <label className="block text-sm text-text-muted mb-2">{t('profile.cover')}</label>
-                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[#D9A441]/40 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
+                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-[#D4AF37]/40 cursor-pointer hover:border-accent transition-colors bg-surface-light/50">
                     {profile.coverImageUrl ? (
                       <img src={profile.coverImageUrl} alt="" className="w-full h-full object-cover rounded-xl" />
                     ) : (
@@ -761,34 +755,21 @@ export default function Dashboard() {
                   {portfolio
                     .filter(item => selectedAlbumId === null || item.albumId === selectedAlbumId)
                     .map(item => (
-                    <div key={item.id} className="relative group rounded-xl overflow-hidden bg-surface-light aspect-square">
-                      <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
+                    <div key={item.id} className="relative group rounded-xl overflow-hidden bg-surface-light aspect-square cursor-pointer" onClick={() => { setSelectedItem(item); setDeleteTargetId(null); }}>
+                      <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
                       {item.albumId && (() => {
                         const album = albums.find(a => a.id === item.albumId);
                         return album ? (
-                          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/50 text-white text-[10px] font-medium backdrop-blur-sm">
+                          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-[#0B0B0D]/50 text-white text-[10px] font-medium backdrop-blur-sm">
                             {album.name}
                           </span>
                         ) : null;
                       })()}
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                        {portfolio.filter(i => selectedAlbumId === null || i.albumId === selectedAlbumId).findIndex(i => i.id === item.id) > 0 && (
-                          <button onClick={() => reorderPortfolio(portfolio.findIndex(i => i.id === item.id), 'up')} className="p-2 rounded-full bg-white/20 hover:bg-white/40 transition-colors">
-                            <FaArrowUp size={14} />
-                          </button>
-                        )}
-                        {portfolio.filter(i => selectedAlbumId === null || i.albumId === selectedAlbumId).findIndex(i => i.id === item.id) < portfolio.filter(i => selectedAlbumId === null || i.albumId === selectedAlbumId).length - 1 && (
-                          <button onClick={() => reorderPortfolio(portfolio.findIndex(i => i.id === item.id), 'down')} className="p-2 rounded-full bg-white/20 hover:bg-white/40 transition-colors">
-                            <FaArrowDown size={14} />
-                          </button>
-                        )}
-                        <button onClick={() => toggleHomepagePin(item.id, item.showOnHomepage)} className={`p-2 rounded-full transition-colors ${item.showOnHomepage ? 'bg-accent text-dark' : 'bg-white/20 hover:bg-white/40'}`} title={item.showOnHomepage ? 'Remove from homepage' : 'Show on homepage'}>
-                          <FaThumbtack size={14} />
-                        </button>
-                        <button onClick={() => deletePortfolioItem(item.id)} className="p-2 rounded-full bg-red-500/60 hover:bg-red-500 transition-colors">
-                          <FaTrash size={14} />
-                        </button>
-                      </div>
+                      {item.showOnHomepage && (
+                        <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-accent text-dark text-[10px] font-semibold flex items-center gap-1">
+                          <FaThumbtack size={8} /> {t('featured.pinned') || 'Pinned'}
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -796,6 +777,74 @@ export default function Dashboard() {
             </div>
           </motion.div>
         )}
+
+        <AnimatePresence>
+          {selectedItem && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-[#0B0B0D]/80 backdrop-blur-sm"
+              onClick={() => { setSelectedItem(null); setDeleteTargetId(null); }}
+            >
+              <motion.div
+                initial={{ scale: 0.92, opacity: 0, y: 24 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.92, opacity: 0, y: 24 }}
+                transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+                className="glass-card w-full max-w-lg overflow-hidden"
+                onClick={e => e.stopPropagation()}
+              >
+                <div className="relative bg-[#0B0B0D]/50">
+                  <img
+                    src={selectedItem.imageUrl}
+                    alt={selectedItem.title}
+                    className="w-full max-h-[55vh] object-contain"
+                  />
+                  <button
+                    onClick={() => { setSelectedItem(null); setDeleteTargetId(null); }}
+                    className="absolute top-2 right-2 p-2 rounded-full bg-[#0B0B0D]/60 text-white hover:bg-[#0B0B0D]/90 transition-colors focus-ring"
+                    title="Close"
+                  >
+                    <FaTimes size={14} />
+                  </button>
+                  {selectedItem.albumId && (() => {
+                    const album = albums.find(a => a.id === selectedItem.albumId);
+                    return album ? (
+                      <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-[#0B0B0D]/60 text-white text-[10px] font-medium backdrop-blur-sm">
+                        {album.name}
+                      </span>
+                    ) : null;
+                  })()}
+                </div>
+                <div className="p-4 flex items-center gap-3">
+                  <button
+                    onClick={() => toggleHomepagePin(selectedItem.id, selectedItem.showOnHomepage)}
+                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors focus-ring ${selectedItem.showOnHomepage ? 'bg-accent text-dark' : 'bg-accent/10 text-accent hover:bg-accent/20'}`}
+                  >
+                    <FaThumbtack size={13} />
+                    {selectedItem.showOnHomepage ? 'Remove from homepage' : 'Pin to homepage'}
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (deleteTargetId === selectedItem.id) {
+                        deletePortfolioItem(selectedItem.id);
+                        setSelectedItem(null);
+                        setDeleteTargetId(null);
+                      } else {
+                        setDeleteTargetId(selectedItem.id);
+                      }
+                    }}
+                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors focus-ring ${deleteTargetId === selectedItem.id ? 'bg-red-500 text-white' : 'bg-red-500/10 text-red-400 hover:bg-red-500/20'}`}
+                  >
+                    <FaTrash size={13} />
+                    {deleteTargetId === selectedItem.id ? 'Confirm delete?' : 'Delete'}
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {activeTab === 'promo' && (
           <motion.div key="promo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -827,7 +876,7 @@ export default function Dashboard() {
                       <img src={ad.imageUrl} alt="" className="w-16 h-16 rounded-lg object-cover" />
                       <div>
                         <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                          ad.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+                          ad.status === 'approved' ? 'bg-success/20 text-success' :
                           ad.status === 'pending' ? 'bg-accent/20 text-accent' :
                           ad.status === 'rejected' ? 'bg-red-500/20 text-red-400' :
                           'bg-gray-500/20 text-gray-400'
@@ -852,7 +901,7 @@ export default function Dashboard() {
                 <div className="p-4 rounded-xl bg-surface-light">
                   <p className="text-text-muted text-sm mb-1">{t('status.label')}</p>
                   <div className="flex items-center gap-2">
-                    <span className={`w-3 h-3 rounded-full ${user.accountStatus === 'active' ? 'bg-green-500' : 'bg-red-500'}`} />
+                    <span className={`w-3 h-3 rounded-full ${user.accountStatus === 'active' ? 'bg-success' : 'bg-red-500'}`} />
                     <span className="font-semibold capitalize">{user.accountStatus === 'active' ? t('status.active') : t('status.expired')}</span>
                   </div>
                 </div>
@@ -931,7 +980,7 @@ export default function Dashboard() {
               </p>
               <div className="mt-4 p-4 rounded-xl bg-surface-light flex items-center justify-between">
                 <p className="text-sm text-text-muted">
-                  {t('listings.visibility')}: <span className={user.accountStatus === 'active' ? 'text-green-400' : 'text-red-400'}>{user.accountStatus === 'active' ? t('listings.active') : t('listings.hidden')}</span>
+                  {t('listings.visibility')}: <span className={user.accountStatus === 'active' ? 'text-success' : 'text-red-400'}>{user.accountStatus === 'active' ? t('listings.active') : t('listings.hidden')}</span>
                 </p>
                 <a
                   href={`/painters/${user.uid}`}

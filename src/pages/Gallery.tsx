@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import type { HomepageGalleryItem } from '../types';
@@ -109,7 +109,7 @@ export default function Gallery() {
               <Link
                 to={`/painters/${item.painterId}`}
                 state={{ scrollTo: 'portfolio' }}
-                className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+                className="absolute inset-0 bg-gradient-to-t from-[#0B0B0D]/80 via-[#0B0B0D]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
               >
                 <div className="flex items-center gap-3">
                   {item.painterPhotoUrl && (

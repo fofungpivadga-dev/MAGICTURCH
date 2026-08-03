@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { collection, getDocs, getDoc, updateDoc, doc, query, orderBy, where, setDoc, deleteDoc } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
 import { db, functions } from '../lib/firebase';
@@ -525,7 +525,7 @@ export default function Admin() {
                           <td className="py-3 px-2 font-mono text-xs">{c.code}</td>
                           <td className="py-3 px-2">
                             <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                              c.status === 'unredeemed' ? 'bg-green-500/20 text-green-400' :
+                              c.status === 'unredeemed' ? 'bg-success/20 text-success' :
                               c.status === 'redeemed' ? 'bg-blue-500/20 text-blue-400' :
                               'bg-gray-500/20 text-gray-400'
                             }`}>{c.status}</span>
@@ -575,7 +575,7 @@ export default function Admin() {
                             <td className="py-3 px-2">{p.displayName || p.profile?.name || t('painter.unknown')}</td>
                             <td className="py-3 px-2">
                               <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                                p.accountStatus === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                                p.accountStatus === 'active' ? 'bg-success/20 text-success' : 'bg-red-500/20 text-red-400'
                               }`}>{p.accountStatus}</span>
                             </td>
                             <td className="py-3 px-2 text-text-muted text-xs">{daysLeft}d</td>
@@ -596,7 +596,7 @@ export default function Admin() {
                                   className={`text-xs px-3 py-1 rounded ${
                                     p.accountStatus === 'active'
                                       ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
-                                      : 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
+                                      : 'bg-success/20 text-success hover:bg-success/30'
                                   }`}
                                 >
                                   {p.accountStatus === 'active' ? t('admin.suspend') : t('admin.activate')}
@@ -663,7 +663,7 @@ export default function Admin() {
                         <p className="text-xs text-text-muted">{t('admin.submitted')} {new Date(ad.createdAt).toLocaleDateString()}</p>
                       </div>
                       <div className="flex gap-2">
-                        <button onClick={() => handlePromoAction(ad.id, 'approved', 5000, 2)} className="px-3 py-1.5 rounded-lg bg-green-500/20 text-green-400 hover:bg-green-500/30 text-sm flex items-center gap-1">
+                        <button onClick={() => handlePromoAction(ad.id, 'approved', 5000, 2)} className="px-3 py-1.5 rounded-lg bg-success/20 text-success hover:bg-success/30 text-sm flex items-center gap-1">
                           <FaCheck size={12} /> {t('admin.approve')}
                         </button>
                         <button onClick={() => handlePromoAction(ad.id, 'rejected')} className="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 text-sm flex items-center gap-1">
@@ -692,7 +692,7 @@ export default function Admin() {
                       <div className="flex-1 min-w-0">
                         <p className="text-sm truncate">{ad.painterName || t('painter.unknown')}</p>
                         <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                          ad.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+                          ad.status === 'approved' ? 'bg-success/20 text-success' :
                           ad.status === 'pending' ? 'bg-accent/20 text-accent' :
                           ad.status === 'rejected' ? 'bg-red-500/20 text-red-400' :
                           'bg-gray-500/20 text-gray-400'
@@ -705,7 +705,7 @@ export default function Admin() {
                           </button>
                         )}
                         {ad.status === 'expired' && (
-                          <button onClick={() => renewPromo(ad.id)} className="px-2 py-1 rounded-lg bg-green-500/20 text-green-400 hover:bg-green-500/30 text-xs transition-colors">
+                          <button onClick={() => renewPromo(ad.id)} className="px-2 py-1 rounded-lg bg-success/20 text-success hover:bg-success/30 text-xs transition-colors">
                             {t('admin.renew')}
                           </button>
                         )}
@@ -767,7 +767,7 @@ export default function Admin() {
                     onClick={() => autoFill('heroHeadline')}
                     className="mt-1.5 text-xs text-accent hover:text-primary transition-colors focus-ring"
                   >
-                    {t('admin.autoTranslate')} EN ↔ FR
+                    {t('admin.autoTranslate')} EN â†” FR
                   </button>
                 </div>
                 <div>
@@ -798,7 +798,7 @@ export default function Admin() {
                     onClick={() => autoFill('heroSubtitle')}
                     className="mt-1.5 text-xs text-accent hover:text-primary transition-colors focus-ring"
                   >
-                    {t('admin.autoTranslate')} EN ↔ FR
+                    {t('admin.autoTranslate')} EN â†” FR
                   </button>
                 </div>
                 <div>
@@ -829,7 +829,7 @@ export default function Admin() {
                     onClick={() => autoFill('heroDescription')}
                     className="mt-1.5 text-xs text-accent hover:text-primary transition-colors focus-ring"
                   >
-                    {t('admin.autoTranslate')} EN ↔ FR
+                    {t('admin.autoTranslate')} EN â†” FR
                   </button>
                 </div>
               </div>

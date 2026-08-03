@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+﻿import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { FaSignOutAlt, FaUser, FaTachometerAlt, FaGlobe, FaBars, FaTimes, FaHeadset, FaPaintRoller, FaDownload } from 'react-icons/fa';
@@ -34,10 +34,10 @@ export default function Navbar() {
     window.location.reload();
   };
 
-  const linkClass = 'text-white/80 hover:text-white transition-colors text-sm focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]';
+  const linkClass = 'text-white/80 hover:text-white transition-colors text-sm focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D4AF37]';
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B0B0D]/90 backdrop-blur-md border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link to="/" className="transition-opacity hover:opacity-80">
           <img src="/logo.png" alt="Magic Touch" className="h-9 w-auto" />
@@ -48,10 +48,10 @@ export default function Navbar() {
           <Link to="/painters" className={linkClass}>
             {t('nav.painters')}
           </Link>
-          <a href="/#try-paint" className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]">
+          <a href="/#try-paint" className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D4AF37]">
             <FaPaintRoller /> {t('nav.tryPaint')}
           </a>
-          <a href="https://wa.me/237691316704?text=Hi%2C%20I%20need%20help%20with%20Magic%20Touch%20Painting%20Services." target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-white/80 hover:text-[#25D366] transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]">
+          <a href="https://wa.me/237691316704?text=Hi%2C%20I%20need%20help%20with%20Magic%20Touch%20Painting%20Services." target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-white/80 hover:text-[#25D366] transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D4AF37]">
             <FaHeadset /> {t('nav.contact')}
           </a>
 
@@ -61,12 +61,12 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setLangOpen(!langOpen)}
-              className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]"
+              className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D4AF37]"
             >
               <FaGlobe /> {lang.toUpperCase()}
             </motion.button>
             {langOpen && (
-              <div className="absolute right-0 top-full mt-1 bg-black border border-white/15 p-1 rounded-xl min-w-[80px] shadow-xl">
+              <div className="absolute right-0 top-full mt-1 bg-[#0B0B0D] border border-white/15 p-1 rounded-xl min-w-[80px] shadow-xl">
                 <button
                   onClick={() => switchLang('en')}
                   className={`w-full text-left px-3 py-1.5 text-sm rounded-lg focus-ring ${lang === 'en' ? 'text-accent bg-white/10' : 'text-white/80 hover:text-white'}`}
@@ -87,14 +87,14 @@ export default function Navbar() {
             <>
               <Link
                 to="/dashboard"
-                  className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]"
+                  className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D4AF37]"
               >
                 <FaUser /> {t('nav.dashboard')}
               </Link>
               {isAdmin && (
                 <Link
                   to="/admin"
-                className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D9A441]"
+                className="flex items-center gap-1 text-sm text-white/80 hover:text-white transition-colors focus-ring hover:underline underline-offset-4 decoration-2 decoration-[#D4AF37]"
                 >
                   <FaTachometerAlt /> {t('nav.admin')}
                 </Link>
@@ -148,7 +148,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-black/95 border-t border-white/10"
+            className="md:hidden overflow-hidden bg-[#0B0B0D]/95 border-t border-white/10"
           >
             <div className="px-4 py-4 flex flex-col gap-2">
               <button

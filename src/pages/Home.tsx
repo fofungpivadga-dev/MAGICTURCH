@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { collection, query, getDocs, orderBy, doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
@@ -66,7 +66,7 @@ export default function Home() {
     photo: i.painterPhotoUrl || '',
     initial: (i.painterName || 'M').trim().charAt(0).toUpperCase(),
   }));
-  const avatarColors = ['bg-[#D9A441]', 'bg-[#0F6B5C]', 'bg-[#E4572E]', 'bg-[#7858A8]'];
+  const avatarColors = ['bg-[#D4AF37]', 'bg-[#2563EB]', 'bg-[#D4AF37]', 'bg-[#1E40AF]'];
 
   return (
     <div>
@@ -186,13 +186,13 @@ export default function Home() {
               className="relative flex items-center justify-center"
             >
               <div className="absolute w-[540px] h-[540px] -z-0 pointer-events-none">
-                <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,#D9A441,#E4572E,#7858A8,#0F6B5C,#D9A441)] blur-[70px] opacity-60 animate-[spin_18s_linear_infinite]" />
-                <div className="absolute inset-8 rounded-full bg-[conic-gradient(from_180deg,#D9A441,#E4572E,#7858A8,#0F6B5C,#D9A441)] blur-[40px] opacity-40 animate-[spin_28s_linear_infinite_reverse]" />
+                <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,#D4AF37,#2563EB,#1E40AF,#D4AF37,#D4AF37)] blur-[70px] opacity-60 animate-[spin_18s_linear_infinite]" />
+                <div className="absolute inset-8 rounded-full bg-[conic-gradient(from_180deg,#D4AF37,#2563EB,#1E40AF,#D4AF37,#D4AF37)] blur-[40px] opacity-40 animate-[spin_28s_linear_infinite_reverse]" />
               </div>
               <div className="relative grid grid-cols-2 gap-6 max-w-[420px] w-full">
                 {staticVideoUrls.map((src, i) => (
                   <div key={i} className="flex flex-col items-center gap-2">
-                    <div className="w-full rounded-3xl p-2.5 bg-white/[0.06] backdrop-blur-xl border border-white/15 shadow-[0_24px_60px_rgba(0,0,0,0.55)] hover:border-accent/50 hover:shadow-[0_24px_70px_rgba(217,164,65,0.15)] transition-all duration-300">
+                    <div className="w-full rounded-3xl p-2.5 bg-white/[0.06] backdrop-blur-xl border border-white/15 shadow-[0_24px_60px_rgba(0,0,0,0.55)] hover:border-accent/50 hover:shadow-[0_24px_70px_rgba(212,175,55,0.15)] transition-all duration-300">
                       <video
                         autoPlay
                         muted
@@ -279,7 +279,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Craft — Pinned Portfolio Images */}
+      {/* Featured Craft â€” Pinned Portfolio Images */}
       {pinnedItems.length > 0 && (
         <section className="py-16 px-4">
           <div className="max-w-7xl mx-auto">
@@ -315,7 +315,7 @@ export default function Home() {
                   <Link
                     to={`/painters/${item.painterId}`}
                     state={{ scrollTo: 'portfolio' }}
-                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+                    className="absolute inset-0 bg-gradient-to-t from-[#0B0B0D]/80 via-[#0B0B0D]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
                   >
                     <div className="flex items-center gap-3">
                       {item.painterPhotoUrl && (
