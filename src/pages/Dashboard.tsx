@@ -759,7 +759,7 @@ export default function Dashboard() {
                   {portfolio
                     .filter(item => selectedAlbumId === null || item.albumId === selectedAlbumId)
                     .map(item => (
-                    <div key={item.id} className="relative group rounded-xl overflow-hidden bg-surface-light aspect-square cursor-pointer" onClick={() => { setSelectedItem(item); setDeleteTargetId(null); }}>
+                    <div key={item.id} className={`relative group rounded-xl overflow-hidden bg-surface-light aspect-square cursor-pointer transition-shadow ${item.showOnHomepage ? 'ring-2 ring-accent shadow-[0_0_18px_rgba(212,175,55,0.35)]' : ''}`} onClick={() => { setSelectedItem(item); setDeleteTargetId(null); }}>
                       <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
                       {item.albumId && (() => {
                         const album = albums.find(a => a.id === item.albumId);
@@ -773,6 +773,12 @@ export default function Dashboard() {
                         <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-accent text-dark text-[10px] font-semibold flex items-center gap-1">
                           <FaThumbtack size={8} /> {t('featured.pinned') || 'Pinned'}
                         </span>
+                      )}
+                      {pinningId === item.id && (
+                        <div className="absolute inset-0 bg-[#0B0B0D]/70 backdrop-blur-[2px] flex flex-col items-center justify-center gap-2">
+                          <span className="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+                          <span className="text-[11px] font-semibold text-accent">{item.showOnHomepage ? 'Removing...' : 'Pinning...'}</span>
+                        </div>
                       )}
                     </div>
                   ))}
